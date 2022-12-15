@@ -23,7 +23,7 @@ public class User {
     private String password;
 
     @OneToOne(fetch = FetchType.LAZY)
-    @JoinColumn(name = "department_id", foreignKey = @ForeignKey(name = "Fk_department_id"))
+    @JoinColumn(name = "role_id", foreignKey = @ForeignKey(name = "Fk_role_id"))
     @JsonManagedReference
     @JsonIgnoreProperties({ "hibernateLazyInitializer", "handler" })
     private Role role;
