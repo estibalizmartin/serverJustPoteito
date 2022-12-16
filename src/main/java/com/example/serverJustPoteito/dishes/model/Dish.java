@@ -23,6 +23,13 @@ public class Dish {
     public Dish() {
     }
 
+    public Dish(String name, Integer prepTime, String subtype, String cuisineTypeId) {
+        this.name = name;
+        this.prepTime = prepTime;
+        this.subtype = subtype;
+        this.cuisineTypeId = cuisineTypeId;
+    }
+
     public Dish(Integer id, String name, Integer prepTime, String subtype, String cuisineTypeId) {
         Id = id;
         this.name = name;
