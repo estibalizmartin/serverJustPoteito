@@ -2,7 +2,8 @@ package com.example.serverJustPoteito.dishes;
 
 import com.example.serverJustPoteito.dishes.model.Dish;
 import com.example.serverJustPoteito.dishes.model.DishPostRequest;
-import com.example.serverJustPoteito.dishes.repository.DishRepository;
+import com.example.serverJustPoteito.dishes.model.DishUpdateResponse;
+import com.example.serverJustPoteito.dishes.service.DishService;
 import jakarta.validation.Valid;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.dao.EmptyResultDataAccessException;
@@ -16,63 +17,44 @@ import org.springframework.web.server.ResponseStatusException;
 public class DishController {
 
     @Autowired
-    private DishRepository dishRepository;
+    private DishService dishService;
 
     @GetMapping("/dishes")
     public ResponseEntity<Iterable<Dish>> getDishes() {
-        return new ResponseEntity<>(dishRepository.findAll(), HttpStatus.OK);
+        return new ResponseEntity<>(dishService.getDishes(), HttpStatus.OK);
     }
 
     @GetMapping("/dishes/{id}")
     public ResponseEntity<Dish> getDishById(@PathVariable("id") Integer id) {
-        Dish dish = dishRepository.findById(id)
-                .orElseThrow(
-                        () -> new ResponseStatusException(HttpStatus.NO_CONTENT, "Empleado no encontrado.")
-                );
-        return new ResponseEntity<>(dish, HttpStatus.OK);
+        return new ResponseEntity<>(dishService.getDishById(id), HttpStatus.OK);
     }
 
     @PostMapping("/dishes")
     public ResponseEntity<Dish> createDish(@Valid @RequestBody DishPostRequest dishPostRequest) {
-        Dish dish = new Dish(
-                dishPostRequest.getName(),
-                dishPostRequest.getPrepTime(),
-                dishPostRequest.getSubtype(),
-                dishPostRequest.getCuisineTypeId()
-        );
-        return new ResponseEntity<>(dishRepository.save(dish), HttpStatus.CREATED);
+        return new ResponseEntity<>(dishService.createDish(dishPostRequest), HttpStatus.CREATED);
     }
 
     @PutMapping("/dishes/{id}")
     public ResponseEntity<Dish> updateDish(
             @PathVariable("id") Integer id,
             @Valid @RequestBody DishPostRequest dishPostRequest) {
-        boolean dishAlreadyExists = dishRepository.existsById(id);
 
-        Dish dish = new Dish(
-                id,
-                dishPostRequest.getName(),
-                dishPostRequest.getPrepTime(),
-                dishPostRequest.getSubtype(),
-                dishPostRequest.getCuisineTypeId()
-        );
+        DishUpdateResponse dishUpdateResponse = dishService.updateDish(id, dishPostRequest);
 
-        dish = dishRepository.save(dish);
-
-        if (dishAlreadyExists) {
-            return new ResponseEntity<>(dishRepository.save(dish), HttpStatus.OK);
+        if (dishUpdateResponse.isDishAlreadyExists()) {
+            return new ResponseEntity<>(dishUpdateResponse.getDish(), HttpStatus.OK);
         } else {
-            return new ResponseEntity<>(dishRepository.save(dish), HttpStatus.CREATED);
+            return new ResponseEntity<>(dishUpdateResponse.getDish(), HttpStatus.CREATED);
         }
     }
 
     @DeleteMapping("/dishes/{id}")
     public ResponseEntity<Integer> deleteDishById(@PathVariable("id") Integer id) {
         try {
-            dishRepository.deleteById(id);
+            dishService.deleteDishById(id);
             return new ResponseEntity<>(HttpStatus.NO_CONTENT);
         } catch (EmptyResultDataAccessException e) {
-            throw new ResponseStatusException(HttpStatus.CONFLICT, "Empleado no encontrado.");
+            throw new ResponseStatusException(HttpStatus.CONFLICT, "Plato no encontrado.");
         }
     }
 }
