@@ -1,22 +1,13 @@
-package com.example.serverJustPoteito.cuisineType;
+package com.example.serverJustPoteito.cuisineType.Model;
 
-import jakarta.persistence.*;
-
-@Entity
-@Table(name = "CUISINETYPE")
-public class CuisineType {
-    @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
+public class CuisineTypePostRequest {
     private Integer id;
-    @Column(length = 70)
     private String name;
-    @Column(length = 120)
     private String subtype;
-
-    public CuisineType() {
+    public CuisineTypePostRequest() {
     }
 
-    public CuisineType(Integer id, String name, String subtype) {
+    public CuisineTypePostRequest(Integer id, String name, String subtype) {
         this.id = id;
         this.name = name;
         this.subtype = subtype;
