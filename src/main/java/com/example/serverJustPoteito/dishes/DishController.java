@@ -1,8 +1,9 @@
 package com.example.serverJustPoteito.dishes;
 
 import com.example.serverJustPoteito.dishes.model.Dish;
+import com.example.serverJustPoteito.dishes.model.DishPostRequest;
 import com.example.serverJustPoteito.dishes.repository.DishRepository;
-import jakarta.persistence.criteria.CriteriaBuilder;
+import jakarta.validation.Valid;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.dao.EmptyResultDataAccessException;
 import org.springframework.http.HttpStatus;
@@ -32,8 +33,37 @@ public class DishController {
     }
 
     @PostMapping("/dishes")
-    public ResponseEntity<Dish> createDish() {
-        return null;
+    public ResponseEntity<Dish> createDish(@Valid @RequestBody DishPostRequest dishPostRequest) {
+        Dish dish = new Dish(
+                dishPostRequest.getName(),
+                dishPostRequest.getPrepTime(),
+                dishPostRequest.getSubtype(),
+                dishPostRequest.getCuisineTypeId()
+        );
+        return new ResponseEntity<>(dishRepository.save(dish), HttpStatus.CREATED);
+    }
+
+    @PutMapping("/dishes/{id}")
+    public ResponseEntity<Dish> updateDish(
+            @PathVariable("id") Integer id,
+            @Valid @RequestBody DishPostRequest dishPostRequest) {
+        boolean dishAlreadyExists = dishRepository.existsById(id);
+
+        Dish dish = new Dish(
+                id,
+                dishPostRequest.getName(),
+                dishPostRequest.getPrepTime(),
+                dishPostRequest.getSubtype(),
+                dishPostRequest.getCuisineTypeId()
+        );
+
+        dish = dishRepository.save(dish);
+
+        if (dishAlreadyExists) {
+            return new ResponseEntity<>(dishRepository.save(dish), HttpStatus.OK);
+        } else {
+            return new ResponseEntity<>(dishRepository.save(dish), HttpStatus.CREATED);
+        }
     }
 
     @DeleteMapping("/dishes/{id}")
