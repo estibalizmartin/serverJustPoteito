@@ -1,41 +1,57 @@
 package ingredients.service;
 
+import ingredients.model.IngredientUpdateResponse;
 import ingredients.model.Ingredients;
-import ingredients.model.IngredientsGetResponse;
+import ingredients.model.IngredientsPostRequest;
 import ingredients.repository.IngredientsRepository;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.HttpStatus;
+import org.springframework.stereotype.Service;
+import org.springframework.web.server.ResponseStatusException;
 
-import java.util.List;
-
+@Service
 public class IngredientsServicelmp implements IngredientsService{
 
     @Autowired
-    IngredientsService ingredientsService;
-    @Autowired
-    IngredientsRepository ingredientsRepository;
+    private IngredientsRepository ingredientsRepository;
 
     @Override
-    public List<IngredientsGetResponse> getAllIngredients() {
-        return null;
+    public Iterable<Ingredients> getAllIngredients() {
+        return ingredientsRepository.findAll();
     }
 
     @Override
-    public IngredientsGetResponse getIngredientsById() {
-        return null;
+    public Ingredients getIngredientById(Integer id) {
+        return ingredientsRepository.findById(id)
+                .orElseThrow(() -> new ResponseStatusException
+                        (HttpStatus.NO_CONTENT, "This ingredient doesn't exists...")
+                );
     }
 
     @Override
-    public int createIngredients(Ingredients ingredients) {
-        return 0;
+    public Ingredients createIngredient(IngredientsPostRequest ingredientsPostRequest) {
+        Ingredients ingredients = new Ingredients(
+                ingredientsPostRequest.getName(),
+                ingredientsPostRequest.getType()
+        );
+        return ingredientsRepository.save(ingredients);
     }
 
     @Override
-    public int updateIngredients(Ingredients ingredients) {
-        return 0;
+    public IngredientUpdateResponse updateIngredient(Integer id, IngredientsPostRequest ingredientsPostRequest) {
+        boolean ingredientAlreadyExists = ingredientsRepository.existsById(id);
+
+        Ingredients ingredients = new Ingredients(
+                ingredientsPostRequest.getName(),
+                ingredientsPostRequest.getType()
+        );
+        ingredients = ingredientsRepository.save(ingredients);
+
+        return new IngredientUpdateResponse(ingredientAlreadyExists, ingredients);
     }
 
     @Override
-    public int deleteIngredientsById(long id) {
-        return 0;
+    public void deleteIngredientsById(Integer id) {
+        ingredientsRepository.deleteById(id);
     }
 }

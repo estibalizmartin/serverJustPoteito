@@ -7,19 +7,9 @@ public class Ingredients {
 
     public Ingredients() {}
 
-    public Ingredients(int id, String name, String type) {
-        super();
-        this.id = id;
+    public Ingredients(String name, String type) {
         this.name = name;
         this.type = type;
-    }
-
-    public int getId() {
-        return id;
-    }
-
-    public void setId(int id) {
-        this.id = id;
     }
 
     public String getName() {

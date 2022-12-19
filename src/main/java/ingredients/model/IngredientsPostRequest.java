@@ -1,25 +1,22 @@
 package ingredients.model;
-import javax.validation.constraints.NotBlank;
-import javax.validation.constraints.NotEmpty;
-import javax.validation.constraints.NotNull;
+import jakarta.validation.constraints.NotBlank;
+import jakarta.validation.constraints.NotEmpty;
+import jakarta.validation.constraints.NotNull;
 public class IngredientsPostRequest {
 
-    @NotNull(message= "No puede ser nulo")
-    @NotEmpty(message= "No puede estar vacio")
-    @NotBlank(message= "No puede estar en blanco")
+    @NotNull
+    @NotEmpty
+    @NotBlank
     private String name;
 
-    @NotNull(message= "No puede ser nulo")
-    @NotEmpty(message= "No puede estar vacio")
-    @NotBlank(message= "No puede estar en blanco")
+    @NotNull
+    @NotEmpty
+    @NotBlank
     private String type;
 
     public IngredientsPostRequest() {}
 
-    public IngredientsPostRequest(
-            @NotNull(message = "No puede ser nulo") @NotEmpty(message = "No puede estar vacio") @NotBlank(message = "No puede estar en blanco") String name,
-            @NotNull @NotEmpty @NotBlank String type) {
-        super();
+    public IngredientsPostRequest(String name, String type) {
         this.name = name;
         this.type = type;
     }

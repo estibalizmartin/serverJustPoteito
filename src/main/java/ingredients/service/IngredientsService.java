@@ -1,16 +1,21 @@
 package ingredients.service;
 
+import ingredients.model.IngredientUpdateResponse;
 import ingredients.model.Ingredients;
-import ingredients.model.IngredientsGetResponse;
-
-import java.util.List;
+import ingredients.model.IngredientsPostRequest;
 
 public interface IngredientsService {
-    List<IngredientsGetResponse> getAllIngredients();
-    IngredientsGetResponse getIngredientsById();
-    int createIngredients(Ingredients ingredients);
-    int updateIngredients(Ingredients ingredients);
-    int deleteIngredientsById(long id);
+    Iterable<Ingredients> getAllIngredients();
+    Ingredients getIngredientById(Integer id);
+    Ingredients createIngredient(IngredientsPostRequest ingredientsPostRequest);
+    IngredientUpdateResponse updateIngredient(Integer id, IngredientsPostRequest ingredientsPostRequest);
+    void deleteIngredientsById(Integer id);
 
     //TODO BUSCAR POR ID DE PLATO
+    /*Ingredientes por id de plato =
+        tabla PlatoIngredientes
+        Integer idPlato
+        Integer idIngredientes
+        Float? cantidad
+     */
 }
