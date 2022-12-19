@@ -1,5 +1,8 @@
 package com.example.serverJustPoteito.dish.model;
 
+import com.example.serverJustPoteito.cuisineType.CuisineType;
+import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
+import com.fasterxml.jackson.annotation.JsonManagedReference;
 import jakarta.persistence.*;
 
 @Entity
@@ -17,25 +20,31 @@ public class Dish {
 //    private String allergen;
     @Column(length = 70)
     private String subtype;
-    @Column(length = 70)
-    private String cuisineTypeId;
+    @ManyToOne(fetch = FetchType.LAZY)
+    @JoinColumn(name = "cuisine_type_id", foreignKey = @ForeignKey(name = "fk_cuisine_type_id"))
+    @JsonManagedReference
+    @JsonIgnoreProperties({"hibernateLazyInitializer", "handler"})
+    private CuisineType cuisineType;
+
+    @Column(name = "cuisine_type_id", updatable = false, insertable = false)
+    private Integer cuisineTypeId;
 
     public Dish() {
     }
 
-    public Dish(String name, Integer prepTime, String subtype, String cuisineTypeId) {
+    public Dish(String name, Integer prepTime, String subtype, CuisineType cuisineType) {
         this.name = name;
         this.prepTime = prepTime;
         this.subtype = subtype;
-        this.cuisineTypeId = cuisineTypeId;
+        this.cuisineType = cuisineType;
     }
 
-    public Dish(Integer id, String name, Integer prepTime, String subtype, String cuisineTypeId) {
+    public Dish(Integer id, String name, Integer prepTime, String subtype, CuisineType cuisineType) {
         Id = id;
         this.name = name;
         this.prepTime = prepTime;
         this.subtype = subtype;
-        this.cuisineTypeId = cuisineTypeId;
+        this.cuisineType = cuisineType;
     }
 
     public Integer getId() {
@@ -70,22 +79,11 @@ public class Dish {
         this.subtype = subtype;
     }
 
-    public String getCuisineTypeId() {
-        return cuisineTypeId;
+    public CuisineType getCuisineType() {
+        return cuisineType;
     }
 
-    public void setCuisineTypeId(String cuisineTypeId) {
-        this.cuisineTypeId = cuisineTypeId;
-    }
-
-    @Override
-    public String toString() {
-        return "Dish{" +
-                "Id=" + Id +
-                ", name='" + name + '\'' +
-                ", prepTime=" + prepTime +
-                ", subtype='" + subtype + '\'' +
-                ", cuisineTypeId='" + cuisineTypeId + '\'' +
-                '}';
+    public void setCuisineType(CuisineType cuisineType) {
+        this.cuisineType = cuisineType;
     }
 }

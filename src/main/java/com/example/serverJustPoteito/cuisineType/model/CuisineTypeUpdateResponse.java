@@ -1,6 +1,4 @@
-package com.example.serverJustPoteito.cuisineType.Model;
-
-import com.example.serverJustPoteito.cuisineType.Model.CuisineType;
+package com.example.serverJustPoteito.cuisineType.model;
 
 public class CuisineTypeUpdateResponse {
 

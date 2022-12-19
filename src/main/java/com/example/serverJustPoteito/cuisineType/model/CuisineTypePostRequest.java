@@ -1,4 +1,4 @@
-package com.example.serverJustPoteito.cuisineType.Model;
+package com.example.serverJustPoteito.cuisineType.model;
 
 public class CuisineTypePostRequest {
     private String name;

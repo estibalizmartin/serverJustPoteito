@@ -1,8 +1,8 @@
-package com.example.serverJustPoteito.cuisineType.Service;
+package com.example.serverJustPoteito.cuisineType.service;
 
-import com.example.serverJustPoteito.cuisineType.Model.CuisineType;
-import com.example.serverJustPoteito.cuisineType.Model.CuisineTypePostRequest;
-import com.example.serverJustPoteito.cuisineType.Model.CuisineTypeUpdateResponse;
+import com.example.serverJustPoteito.cuisineType.model.CuisineType;
+import com.example.serverJustPoteito.cuisineType.model.CuisineTypePostRequest;
+import com.example.serverJustPoteito.cuisineType.model.CuisineTypeUpdateResponse;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestBody;
 

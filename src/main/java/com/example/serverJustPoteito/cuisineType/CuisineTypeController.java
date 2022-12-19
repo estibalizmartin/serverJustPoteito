@@ -1,9 +1,9 @@
 package com.example.serverJustPoteito.cuisineType;
 
-import com.example.serverJustPoteito.cuisineType.Service.CuisineTypeServiceImp;
-import com.example.serverJustPoteito.cuisineType.Model.CuisineType;
-import com.example.serverJustPoteito.cuisineType.Model.CuisineTypePostRequest;
-import com.example.serverJustPoteito.cuisineType.Model.CuisineTypeUpdateResponse;
+import com.example.serverJustPoteito.cuisineType.service.CuisineTypeServiceImp;
+import com.example.serverJustPoteito.cuisineType.model.CuisineType;
+import com.example.serverJustPoteito.cuisineType.model.CuisineTypePostRequest;
+import com.example.serverJustPoteito.cuisineType.model.CuisineTypeUpdateResponse;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.dao.EmptyResultDataAccessException;
 import org.springframework.http.HttpStatus;
