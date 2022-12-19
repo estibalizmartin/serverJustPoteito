@@ -1,4 +1,4 @@
-package com.example.serverJustPoteito.dishes.model;
+package com.example.serverJustPoteito.dish.model;
 
 import com.example.serverJustPoteito.cuisineType.CuisineType;
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;

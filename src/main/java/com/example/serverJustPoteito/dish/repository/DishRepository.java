@@ -1,6 +1,6 @@
-package com.example.serverJustPoteito.dishes.repository;
+package com.example.serverJustPoteito.dish.repository;
 
-import com.example.serverJustPoteito.dishes.model.Dish;
+import com.example.serverJustPoteito.dish.model.Dish;
 import org.springframework.data.repository.CrudRepository;
 
 public interface DishRepository extends CrudRepository<Dish, Integer> {

@@ -1,4 +1,4 @@
-package com.example.serverJustPoteito.cuisineType;
+package com.example.serverJustPoteito.cuisineType.Model;
 
 import jakarta.persistence.*;
 
@@ -14,6 +14,10 @@ public class CuisineType {
     private String subtype;
 
     public CuisineType() {
+    }
+    public CuisineType(String name, String subtype) {
+        this.name = name;
+        this.subtype = subtype;
     }
 
     public CuisineType(Integer id, String name, String subtype) {

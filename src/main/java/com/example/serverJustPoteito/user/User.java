@@ -1,4 +1,4 @@
-package com.example.serverJustPoteito.users;
+package com.example.serverJustPoteito.user;
 
 import com.example.serverJustPoteito.role.Role;
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;

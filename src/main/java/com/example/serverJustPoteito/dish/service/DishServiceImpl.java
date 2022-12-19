@@ -1,9 +1,9 @@
-package com.example.serverJustPoteito.dishes.service;
+package com.example.serverJustPoteito.dish.service;
 
-import com.example.serverJustPoteito.dishes.model.Dish;
-import com.example.serverJustPoteito.dishes.model.DishPostRequest;
-import com.example.serverJustPoteito.dishes.model.DishUpdateResponse;
-import com.example.serverJustPoteito.dishes.repository.DishRepository;
+import com.example.serverJustPoteito.dish.model.Dish;
+import com.example.serverJustPoteito.dish.model.DishPostRequest;
+import com.example.serverJustPoteito.dish.model.DishUpdateResponse;
+import com.example.serverJustPoteito.dish.repository.DishRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.stereotype.Service;

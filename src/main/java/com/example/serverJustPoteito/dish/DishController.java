@@ -1,9 +1,9 @@
-package com.example.serverJustPoteito.dishes;
+package com.example.serverJustPoteito.dish;
 
-import com.example.serverJustPoteito.dishes.model.Dish;
-import com.example.serverJustPoteito.dishes.model.DishPostRequest;
-import com.example.serverJustPoteito.dishes.model.DishUpdateResponse;
-import com.example.serverJustPoteito.dishes.service.DishService;
+import com.example.serverJustPoteito.dish.model.Dish;
+import com.example.serverJustPoteito.dish.model.DishPostRequest;
+import com.example.serverJustPoteito.dish.model.DishUpdateResponse;
+import com.example.serverJustPoteito.dish.service.DishService;
 import jakarta.validation.Valid;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.dao.EmptyResultDataAccessException;
