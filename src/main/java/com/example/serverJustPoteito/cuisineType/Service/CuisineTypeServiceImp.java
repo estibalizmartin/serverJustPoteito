@@ -17,7 +17,7 @@ public class CuisineTypeServiceImp implements CuisineTypeService{
         return cuisineTypeRepository.findAll();
     }
     public CuisineType getCuisineType(Integer id){
-        return cuisineTypeRepository.findById(id).orElseThrow(
+        return cuisineTypeRepository.findById(id).orElseThrow (
                 () -> new ResponseStatusException(HttpStatus.NO_CONTENT, "No existe el tipo de cocina")
         );
     }

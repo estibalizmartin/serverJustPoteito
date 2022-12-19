@@ -1,10 +1,14 @@
-package com.example.serverJustPoteito.dishes.model;
+package com.example.serverJustPoteito.dish.model;
 
+import jakarta.validation.constraints.NotBlank;
+import jakarta.validation.constraints.NotEmpty;
 import jakarta.validation.constraints.NotNull;
 
 public class DishPostRequest {
 
     @NotNull
+    @NotBlank
+    @NotEmpty
     private String name;
     private Integer prepTime;
     //    private String allergen;

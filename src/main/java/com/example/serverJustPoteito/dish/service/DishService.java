@@ -1,8 +1,8 @@
-package com.example.serverJustPoteito.dishes.service;
+package com.example.serverJustPoteito.dish.service;
 
-import com.example.serverJustPoteito.dishes.model.Dish;
-import com.example.serverJustPoteito.dishes.model.DishPostRequest;
-import com.example.serverJustPoteito.dishes.model.DishUpdateResponse;
+import com.example.serverJustPoteito.dish.model.Dish;
+import com.example.serverJustPoteito.dish.model.DishPostRequest;
+import com.example.serverJustPoteito.dish.model.DishUpdateResponse;
 
 public interface DishService {
     Iterable<Dish> getDishes();

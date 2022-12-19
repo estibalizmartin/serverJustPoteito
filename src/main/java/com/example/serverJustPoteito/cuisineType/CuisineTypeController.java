@@ -1,4 +1,4 @@
-package com.example.serverJustPoteito.cuisineType.Controller;
+package com.example.serverJustPoteito.cuisineType;
 
 import com.example.serverJustPoteito.cuisineType.Service.CuisineTypeServiceImp;
 import com.example.serverJustPoteito.cuisineType.Model.CuisineType;
@@ -47,7 +47,7 @@ public class CuisineTypeController {
     }
 
     @DeleteMapping("/cuisineTypes/{id}")
-    public ResponseEntity<?> deleteCuisineTypeById(@PathVariable("id") Integer id){
+    public ResponseEntity<?> deleteCuisineTypeById(@PathVariable("id") Integer id) {
         try {
             cuisineTypeService.deleteCuisineType(id);
             return new ResponseEntity<>(HttpStatus.NO_CONTENT);

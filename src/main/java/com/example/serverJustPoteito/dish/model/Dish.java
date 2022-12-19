@@ -1,4 +1,4 @@
-package com.example.serverJustPoteito.dishes.model;
+package com.example.serverJustPoteito.dish.model;
 
 import jakarta.persistence.*;
 
