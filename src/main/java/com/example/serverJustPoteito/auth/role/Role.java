@@ -1,9 +1,9 @@
-package com.example.serverJustPoteito.role;
+package com.example.serverJustPoteito.auth.role;
 
 import jakarta.persistence.*;
 
 @Entity
-@Table(name = "ROLE")
+@Table(name = "roles")
 public class Role {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
