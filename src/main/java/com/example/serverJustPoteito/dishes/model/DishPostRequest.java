@@ -1,5 +1,6 @@
 package com.example.serverJustPoteito.dishes.model;
 
+import com.example.serverJustPoteito.cuisineType.CuisineType;
 import jakarta.validation.constraints.NotNull;
 
 public class DishPostRequest {
@@ -9,16 +10,16 @@ public class DishPostRequest {
     private Integer prepTime;
     //    private String allergen;
     private String subtype;
-    private String cuisineTypeId;
+    private CuisineType cuisineType;
 
     public DishPostRequest() {
     }
 
-    public DishPostRequest(String name, Integer prepTime, String subtype, String cuisineTypeId) {
+    public DishPostRequest(String name, Integer prepTime, String subtype, CuisineType cuisineType) {
         this.name = name;
         this.prepTime = prepTime;
         this.subtype = subtype;
-        this.cuisineTypeId = cuisineTypeId;
+        this.cuisineType = cuisineType;
     }
 
     public String getName() {
@@ -45,21 +46,11 @@ public class DishPostRequest {
         this.subtype = subtype;
     }
 
-    public String getCuisineTypeId() {
-        return cuisineTypeId;
+    public CuisineType getCuisineType() {
+        return cuisineType;
     }
 
-    public void setCuisineTypeId(String cuisineTypeId) {
-        this.cuisineTypeId = cuisineTypeId;
-    }
-
-    @Override
-    public String toString() {
-        return "DishPostRequest{" +
-                "name='" + name + '\'' +
-                ", prepTime=" + prepTime +
-                ", subtype='" + subtype + '\'' +
-                ", cuisineTypeId='" + cuisineTypeId + '\'' +
-                '}';
+    public void setCuisineType(CuisineType cuisineType) {
+        this.cuisineType = cuisineType;
     }
 }
