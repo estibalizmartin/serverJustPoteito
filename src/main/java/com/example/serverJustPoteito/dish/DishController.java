@@ -3,6 +3,7 @@ package com.example.serverJustPoteito.dish;
 import com.example.serverJustPoteito.dish.model.Dish;
 import com.example.serverJustPoteito.dish.model.DishPostRequest;
 import com.example.serverJustPoteito.dish.model.DishUpdateResponse;
+import com.example.serverJustPoteito.dish.model.DishServiceModel;
 import com.example.serverJustPoteito.dish.service.DishService;
 import jakarta.validation.Valid;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -12,6 +13,9 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.server.ResponseStatusException;
 
+import java.util.ArrayList;
+import java.util.List;
+
 @RestController
 @RequestMapping("api")
 public class DishController {
@@ -20,13 +24,38 @@ public class DishController {
     private DishService dishService;
 
     @GetMapping("/dishes")
-    public ResponseEntity<Iterable<Dish>> getDishes() {
-        return new ResponseEntity<>(dishService.getDishes(), HttpStatus.OK);
+    public ResponseEntity<List<DishServiceModel>> getDishes() {
+        Iterable<Dish> dishes = dishService.getDishes();
+
+        List<DishServiceModel> response = new ArrayList<>();
+        for (Dish dish : dishes) {
+            response.add(new DishServiceModel(
+                    dish.getId(),
+                    dish.getName(),
+                    dish.getPrepTime(),
+                    dish.getSubtype(),
+                    null,
+                    dish.getCuisineTypeId()
+            ));
+        }
+
+        return new ResponseEntity<>(response, HttpStatus.OK);
     }
 
     @GetMapping("/dishes/{id}")
-    public ResponseEntity<Dish> getDishById(@PathVariable("id") Integer id) {
-        return new ResponseEntity<>(dishService.getDishById(id), HttpStatus.OK);
+    public ResponseEntity<DishServiceModel> getDishById(@PathVariable("id") Integer id) {
+        Dish dish = dishService.getDishById(id);
+
+        DishServiceModel response = new DishServiceModel(
+                dish.getId(),
+                dish.getName(),
+                dish.getPrepTime(),
+                dish.getSubtype(),
+                null,
+                dish.getCuisineTypeId()
+        );
+
+        return new ResponseEntity<>(response, HttpStatus.OK);
     }
 
     @PostMapping("/dishes")

@@ -1,6 +1,10 @@
 package com.example.serverJustPoteito.cuisineType.model;
 
+import com.example.serverJustPoteito.dish.model.Dish;
+import com.fasterxml.jackson.annotation.JsonBackReference;
 import jakarta.persistence.*;
+
+import java.util.List;
 
 @Entity
 @Table(name = "CUISINETYPE")
@@ -13,6 +17,10 @@ public class CuisineType {
     @Column(length = 120)
     private String subtype;
 
+    @OneToMany(mappedBy = "cuisineType", cascade = CascadeType.ALL, orphanRemoval = true, fetch = FetchType.LAZY)
+    @JsonBackReference
+    private List<Dish> dishes;
+
     public CuisineType() {
     }
     public CuisineType(String name, String subtype) {
@@ -24,6 +32,13 @@ public class CuisineType {
         this.id = id;
         this.name = name;
         this.subtype = subtype;
+    }
+
+    public CuisineType(Integer id, String name, String subtype, List<Dish> dishes) {
+        this.id = id;
+        this.name = name;
+        this.subtype = subtype;
+        this.dishes = dishes;
     }
 
     public Integer getId() {
@@ -50,12 +65,21 @@ public class CuisineType {
         this.subtype = subtype;
     }
 
+    public List<Dish> getDishes() {
+        return dishes;
+    }
+
+    public void setDishes(List<Dish> dishes) {
+        this.dishes = dishes;
+    }
+
     @Override
     public String toString() {
         return "CuisineType{" +
                 "id=" + id +
                 ", name='" + name + '\'' +
                 ", subtype='" + subtype + '\'' +
+                ", dishes=" + dishes +
                 '}';
     }
 }

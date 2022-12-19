@@ -33,8 +33,7 @@ public class DishServiceImpl implements DishService {
         Dish dish = new Dish(
                 dishPostRequest.getName(),
                 dishPostRequest.getPrepTime(),
-                dishPostRequest.getSubtype(),
-                dishPostRequest.getCuisineType()
+                dishPostRequest.getSubtype()
         );
         return dishRepository.save(dish);
     }
@@ -48,8 +47,7 @@ public class DishServiceImpl implements DishService {
                 id,
                 dishPostRequest.getName(),
                 dishPostRequest.getPrepTime(),
-                dishPostRequest.getSubtype(),
-                dishPostRequest.getCuisineType()
+                dishPostRequest.getSubtype()
         );
 
         dish = dishRepository.save(dish);
