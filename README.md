@@ -1,5 +1,5 @@
 # serverJustPoteito
-El proyecto se compone de dos aplicaciones cliente y un servidor. Las aplicaciones clientes son una app móvil Android y una aplicación web desarrollada con Blazor. El servidor, ubicado en este repositorio, es una API REST que se comunica a través de solicitudes HTTP para ejecutar funciones CRUD estándar.
+El proyecto se compone de dos aplicaciones clientes y un servidor. Las primeras son una app móvil Android y una aplicación web desarrollada con Blazor. El servidor, ubicado en este repositorio, es una API REST que se comunica a través de solicitudes HTTP para ejecutar funciones CRUD estándar.
 
 Por medio de estos enlaces es posible acceder a los repositorios de las respectivas aplicaciones cliente:
 - Aplicación móvil: [repo Android](https://github.com/estibalizmartin/androidJustPoteito.git) 
