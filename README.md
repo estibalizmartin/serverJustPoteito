@@ -1,6 +1,7 @@
 # serverJustPoteito
 
 ## Project description
+![erdiagram](https://user-images.githubusercontent.com/78641797/208735750-88cc9392-cf6b-4a94-a865-d2c774dbe96e.png)
 
 ## Built with 
 - Spring Boot 3.0.0
