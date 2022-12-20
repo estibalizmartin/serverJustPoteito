@@ -38,17 +38,21 @@ Para obtener una copia local en funcionamiento, siga estos sencillos pasos.
 
 ### Installation
 1. Clonar el repositorio.
-  git clone https://github.com/estibalizmartin/serverJustPoteito.git
-2. Modificar en application.properties las siguiente propiedades:
-  - spring.datasource.url: cambiar el puerto de la base de datos en caso de que esté ocupado
-  - spring.datasource.username: introducir el usuario correspondiente de la base de datos
-  - spring.datasource.password: introducir la contraseña correspondiente de dicho usuario
+
+
+        git clone https://github.com/estibalizmartin/serverJustPoteito.git
+2. Modificar en application.properties las siguientes propiedades:
+    - spring.datasource.url: cambiar el puerto de la base de datos en caso de que esté ocupado
+    - spring.datasource.username: introducir el usuario correspondiente de la base de datos
+    - spring.datasource.password: introducir la contraseña correspondiente de dicho usuario
 
 ### Usage
 Para arrancar el proyecto ejecutar (Run) la clase ServerJustPoteitoApplication ubicada en src/main/java/com/example/serverJustPoteito.
 
 Un ejemplo de petición es el siguiente:
-  GET http://localhost:8080/api/dishes
+
+
+        GET http://localhost:8080/api/dishes
 
 Asimismo, el proyecto cuenta con una colección Postman en formato .json que incluye todas las peticiones necesarias para acceder a cada endpoint del servidor. Para acceder a este archivo será necesario seguir la ruta src/main/resources/json.
 
