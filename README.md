@@ -38,7 +38,7 @@ Para obtener una copia local en funcionamiento, siga estos sencillos pasos.
 
 ### Installation
 1. Clonar el repositorio.
-  git clone https://github.com/tu_username/serverJustPoteito.git
+  git clone https://github.com/estibalizmartin/serverJustPoteito.git
 2. Modificar en application.properties las siguiente propiedades:
   - spring.datasource.url: cambiar el puerto de la base de datos en caso de que esté ocupado
   - spring.datasource.username: introducir el usuario correspondiente de la base de datos
