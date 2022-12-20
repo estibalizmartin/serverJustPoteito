@@ -1,5 +1,6 @@
 package com.example.serverJustPoteito.security;
 
+import com.example.serverJustPoteito.auth.model.Rol;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
@@ -39,12 +40,12 @@ public class WebSecurityConfig {
 		
 		http.csrf().disable();
 		http.sessionManagement().sessionCreationPolicy(SessionCreationPolicy.STATELESS);
-		
+
 		http.authorizeHttpRequests(
 				(authz) ->
 						authz
 								.requestMatchers("/api/auth/**").permitAll()
-								.requestMatchers("/api/cuisineType/**").hasAuthority("ADMIN")
+								.requestMatchers("/api/cuisineTypes/**").hasAuthority(Rol.USER.name())
 								.requestMatchers("/api/dish/**").permitAll()
 								.anyRequest().authenticated()
 		);

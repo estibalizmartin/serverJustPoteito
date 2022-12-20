@@ -48,12 +48,16 @@ public class AuthController {
 
 
     @PostMapping("/auth/signup")
-    public ResponseEntity<?> signIn(@RequestBody AuthRequest request) throws UserCantCreateException {
+    public ResponseEntity<?> signIn(@RequestBody AuthRequest request) {
         // TODO solo esta creado en el caso de que funcione. Si no es posible que de 500
         //User user = new User(request.getEmail(), request.getPassword());
         //return new ResponseEntity<Integer>(userService.create(user), HttpStatus.CREATED);
         User user = new User(request.getName(), request.getSurnames(), request.getUserName(), request.getEmail(), request.getPassword());
-        userService.signUp(user);
+        try {
+            userService.signUp(user);
+        } catch (UserCantCreateException e) {
+            return new ResponseEntity<>(HttpStatus.CONFLICT);
+        }
         return new ResponseEntity<>(HttpStatus.CREATED);
     }
 

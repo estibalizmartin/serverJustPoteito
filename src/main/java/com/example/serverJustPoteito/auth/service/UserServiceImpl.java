@@ -28,7 +28,7 @@ public class UserServiceImpl implements UserService, UserDetailsService {
 
     //registro del propio usuario
     @Override
-    public User signUp(User user) {
+    public User signUp(User user) throws UserCantCreateException {
     BCryptPasswordEncoder passwordEncoder = new BCryptPasswordEncoder();
     String password = passwordEncoder.encode(user.getPassword());
     user.setPassword(password);
@@ -43,9 +43,9 @@ public class UserServiceImpl implements UserService, UserDetailsService {
     try{
         return userRepository.save(user);
     }catch (DataAccessException e){
-    throw new UserCantCreateException(e.getMessage());
+        throw new UserCantCreateException(e.getMessage());
     }
-
+// return null;
 
     }
 
