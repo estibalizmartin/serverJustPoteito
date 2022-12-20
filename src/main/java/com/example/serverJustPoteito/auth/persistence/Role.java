@@ -1,4 +1,4 @@
-package com.example.serverJustPoteito.auth.role;
+package com.example.serverJustPoteito.auth.persistence;
 
 import jakarta.persistence.*;
 
