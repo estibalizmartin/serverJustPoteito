@@ -12,7 +12,9 @@ public interface IngredientsService {
     void deleteIngredientsById(Integer id);
 
     //TODO BUSCAR POR ID DE PLATO
-    /*Ingredientes por id de plato =
+    /*
+    Ver video de Mikel para las relaciones N:M
+        Ingredientes por id de plato =
         tabla PlatoIngredientes
         Integer idPlato
         Integer idIngredientes

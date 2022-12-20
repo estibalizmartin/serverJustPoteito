@@ -1,9 +1,34 @@
 package ingredients.model;
 
+import jakarta.persistence.*;
+
+
+import java.util.List;
+
+@Entity
+@Table(name = "INGREDIENTS")
 public class Ingredients {
+    @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     private int id;
+
+    @Column(length = 100)
     private String name;
+
+    @Column(length = 150)
     private String type;
+
+   /* @ManyToMany(fetch = FetchType.LAZY)
+    @JoinTable(
+            name = "ingredients_dish",
+            joinColumns = @JoinColumn(
+                    name = "ingredientId", referencedColumnName = "id",  foreignKey = @ForeignKey(name = "fk_ingredientId")
+            ),
+            inverseJoinColumns = @JoinColumn(
+                    name = "dishId", referencedColumnName = "id", foreignKey = @ForeignKey(name = "fk_dishId")
+            )
+    )
+    private List<Dish> dishes;*/
 
     public Ingredients() {}
 
