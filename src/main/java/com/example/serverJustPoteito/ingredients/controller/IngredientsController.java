@@ -1,9 +1,9 @@
-package ingredients.controller;
+package com.example.serverJustPoteito.ingredients.controller;
 
-import ingredients.model.IngredientUpdateResponse;
-import ingredients.model.Ingredients;
-import ingredients.model.IngredientsPostRequest;
-import ingredients.service.IngredientsServicelmp;
+import com.example.serverJustPoteito.ingredients.model.IngredientUpdateResponse;
+import com.example.serverJustPoteito.ingredients.service.IngredientsServicelmp;
+import com.example.serverJustPoteito.ingredients.model.Ingredients;
+import com.example.serverJustPoteito.ingredients.model.IngredientsPostRequest;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.dao.EmptyResultDataAccessException;
 import org.springframework.http.HttpStatus;
@@ -17,23 +17,23 @@ public class IngredientsController {
     @Autowired
     IngredientsServicelmp ingredientsServicelmp;
 
-    @GetMapping("/ingredients")
+    @GetMapping("/com/example/serverJustPoteito/ingredients")
     public ResponseEntity<Iterable<Ingredients>> getAllIngredients() {
         return new ResponseEntity<Iterable<Ingredients>>(ingredientsServicelmp.getAllIngredients(), HttpStatus.OK);
     }
 
-    @GetMapping("/ingredients/{id}")
+    @GetMapping("/com/example/serverJustPoteito/ingredients/{id}")
     public ResponseEntity<Ingredients> getIngredientById(@PathVariable ("id") int id){
         return new ResponseEntity<>(ingredientsServicelmp.getIngredientById(id), HttpStatus.OK);
     }
 
-    @PostMapping("/ingredients")
+    @PostMapping("/com/example/serverJustPoteito/ingredients")
     public ResponseEntity<Ingredients> createIngredient(@RequestBody IngredientsPostRequest ingredientsPostRequest){
         return new ResponseEntity<>(
                 ingredientsServicelmp.createIngredient(ingredientsPostRequest), HttpStatus.OK);
     }
 
-    @PutMapping("/ingredients/{id}")
+    @PutMapping("/com/example/serverJustPoteito/ingredients/{id}")
     public ResponseEntity<Ingredients> updateIngredient(@PathVariable ("id") int id, @RequestBody IngredientsPostRequest ingredientsPostRequest){
         IngredientUpdateResponse ingredientUpdateResponse = ingredientsServicelmp
                 .updateIngredient(id, ingredientsPostRequest);
@@ -45,7 +45,7 @@ public class IngredientsController {
         }
     }
 
-    @DeleteMapping("/ingredients/{id}")
+    @DeleteMapping("/com/example/serverJustPoteito/ingredients/{id}")
     public ResponseEntity<Integer> deleteIngredientById(@PathVariable ("id") Integer id){
         try {
             ingredientsServicelmp.deleteIngredientsById(id);

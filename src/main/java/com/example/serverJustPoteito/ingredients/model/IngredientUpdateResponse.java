@@ -1,4 +1,4 @@
-package ingredients.model;
+package com.example.serverJustPoteito.ingredients.model;
 
 public class IngredientUpdateResponse {
 
