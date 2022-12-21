@@ -1,5 +1,7 @@
 # serverJustPoteito
-El proyecto se compone de dos aplicaciones clientes y un servidor. Las primeras son una app móvil Android y una aplicación web desarrollada con Blazor. El servidor, ubicado en este repositorio, es una API REST que se comunica a través de solicitudes HTTP para ejecutar funciones CRUD estándar.
+El proyecto se compone de dos aplicaciones clientes y un servidor. Las primeras son una aplicación móvil Android y una aplicación web desarrollada con Blazor. El servidor, ubicado en este repositorio, es una API REST que se comunica a través de solicitudes HTTP para ejecutar funciones CRUD estándar.
+
+JustPoteito permite a cada usuario registrado consutar recetas de cocina filtrando por tipos de cocina, ingredientes o nombre del plato. Consta también de una sección con las recetas más representativas de una serie de cocineros famosos. Los usuarios también podrán dar su opinión o consejos en el apartado de comentarios que se encuentra en la parte inferior de cada receta. Los administradores tendrán más permisos que se detallan a continuación.
 
 Por medio de estos enlaces es posible acceder a los repositorios de las respectivas aplicaciones cliente:
 - Aplicación móvil: [repo Android](https://github.com/estibalizmartin/androidJustPoteito.git) 
