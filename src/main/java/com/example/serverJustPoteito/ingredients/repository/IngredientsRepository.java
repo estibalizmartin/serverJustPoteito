@@ -1,9 +1,7 @@
-package ingredients.repository;
+package com.example.serverJustPoteito.ingredients.repository;
 
-import ingredients.model.Ingredients;
+import com.example.serverJustPoteito.ingredients.model.Ingredients;
 import org.springframework.data.repository.CrudRepository;
-
-import java.util.List;
 
 public interface IngredientsRepository extends CrudRepository<Ingredients, Integer> {
 
