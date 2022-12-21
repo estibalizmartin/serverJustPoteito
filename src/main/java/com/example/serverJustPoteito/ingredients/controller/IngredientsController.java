@@ -1,9 +1,9 @@
-package ingredients.controller;
+package com.example.serverJustPoteito.ingredients.controller;
 
-import ingredients.model.IngredientUpdateResponse;
-import ingredients.model.Ingredients;
-import ingredients.model.IngredientsPostRequest;
-import ingredients.service.IngredientsServicelmp;
+import com.example.serverJustPoteito.ingredients.model.IngredientUpdateResponse;
+import com.example.serverJustPoteito.ingredients.model.Ingredients;
+import com.example.serverJustPoteito.ingredients.model.IngredientsPostRequest;
+import com.example.serverJustPoteito.ingredients.service.IngredientsServicelmp;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.dao.EmptyResultDataAccessException;
 import org.springframework.http.HttpStatus;
