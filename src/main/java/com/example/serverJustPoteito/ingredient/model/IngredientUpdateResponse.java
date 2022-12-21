@@ -1,16 +1,16 @@
-package com.example.serverJustPoteito.ingredients.model;
+package com.example.serverJustPoteito.ingredient.model;
 
 public class IngredientUpdateResponse {
 
     private  boolean ingredientAlreadyExists;
-    private Ingredients ingredients;
+    private Ingredient ingredient;
 
     public IngredientUpdateResponse() {
     }
 
-    public IngredientUpdateResponse(boolean ingredientAlreadyExists, Ingredients ingredients) {
+    public IngredientUpdateResponse(boolean ingredientAlreadyExists, Ingredient ingredient) {
         this.ingredientAlreadyExists = ingredientAlreadyExists;
-        this.ingredients = ingredients;
+        this.ingredient = ingredient;
     }
 
     public boolean isIngredientAlreadyExists() {
@@ -21,19 +21,19 @@ public class IngredientUpdateResponse {
         this.ingredientAlreadyExists = ingredientAlreadyExists;
     }
 
-    public Ingredients getIngredients() {
-        return ingredients;
+    public Ingredient getIngredients() {
+        return ingredient;
     }
 
-    public void setIngredients(Ingredients ingredients) {
-        this.ingredients = ingredients;
+    public void setIngredients(Ingredient ingredient) {
+        this.ingredient = ingredient;
     }
 
     @Override
     public String toString() {
         return "IngredientUpdateResponse{" +
                 "ingredientAlreadyExists=" + ingredientAlreadyExists +
-                ", ingredients=" + ingredients +
+                ", ingredients=" + ingredient +
                 '}';
     }
 }
