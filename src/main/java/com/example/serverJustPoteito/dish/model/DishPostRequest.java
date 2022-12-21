@@ -11,8 +11,12 @@ public class DishPostRequest {
     @NotEmpty
     private String name;
     private Integer prepTime;
-    //    private String allergen;
+
+//    private Allergens allergen;
+
     private String subtype;
+
+    private Integer cuisineTypeId;
 
     public DishPostRequest() {
     }
@@ -21,6 +25,7 @@ public class DishPostRequest {
         this.name = name;
         this.prepTime = prepTime;
         this.subtype = subtype;
+        this.cuisineTypeId = cuisineTypeId;
     }
 
     public String getName() {
@@ -47,12 +52,21 @@ public class DishPostRequest {
         this.subtype = subtype;
     }
 
+    public Integer getCuisineTypeId() {
+        return cuisineTypeId;
+    }
+
+    public void setCuisineTypeId(Integer cuisineTypeId) {
+        this.cuisineTypeId = cuisineTypeId;
+    }
+
     @Override
     public String toString() {
         return "DishPostRequest{" +
                 "name='" + name + '\'' +
                 ", prepTime=" + prepTime +
                 ", subtype='" + subtype + '\'' +
+                ", cuisineTypeId=" + cuisineTypeId +
                 '}';
     }
 }

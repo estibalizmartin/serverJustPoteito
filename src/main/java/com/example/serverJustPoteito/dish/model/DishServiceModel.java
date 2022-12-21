@@ -1,13 +1,15 @@
 package com.example.serverJustPoteito.dish.model;
 
 import com.example.serverJustPoteito.cuisineType.model.CuisineTypeServiceModel;
+import com.fasterxml.jackson.annotation.JsonInclude;
 
+@JsonInclude(JsonInclude.Include.NON_NULL)
 public class DishServiceModel {
 
     private Integer Id;
     private String name;
     private Integer prepTime;
-    //    private String allergen;
+//    private Allergens allergen;
     private String subtype;
     private CuisineTypeServiceModel cuisineTypeServiceModel;
     private Integer cuisineTypeId;
@@ -15,7 +17,13 @@ public class DishServiceModel {
     public DishServiceModel() {
     }
 
-    public DishServiceModel(Integer id, String name, Integer prepTime, String subtype, CuisineTypeServiceModel cuisineTypeServiceModel, Integer cuisineTypeId) {
+    public DishServiceModel(Integer id,
+                            String name,
+                            Integer prepTime,
+                            String subtype,
+                            CuisineTypeServiceModel cuisineTypeServiceModel,
+                            Integer cuisineTypeId
+    ) {
         Id = id;
         this.name = name;
         this.prepTime = prepTime;
@@ -79,7 +87,7 @@ public class DishServiceModel {
                 ", name='" + name + '\'' +
                 ", prepTime=" + prepTime +
                 ", subtype='" + subtype + '\'' +
-                ", cuisineType=" + cuisineTypeServiceModel +
+                ", cuisineTypeServiceModel=" + cuisineTypeServiceModel +
                 ", cuisineTypeId=" + cuisineTypeId +
                 '}';
     }

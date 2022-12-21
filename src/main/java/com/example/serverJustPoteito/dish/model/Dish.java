@@ -1,7 +1,6 @@
 package com.example.serverJustPoteito.dish.model;
 
 import com.example.serverJustPoteito.cuisineType.model.CuisineType;
-import com.example.serverJustPoteito.cuisineType.model.CuisineTypeServiceModel;
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import com.fasterxml.jackson.annotation.JsonManagedReference;
 import jakarta.persistence.*;
@@ -18,7 +17,9 @@ public class Dish {
     private String name;
     @Column
     private Integer prepTime;
-//    private String allergen;
+    /*@Column
+    @Enumerated(EnumType.STRING)
+    private Allergens allergen;*/
     @Column(length = 70)
     private String subtype;
     @ManyToOne(fetch = FetchType.LAZY)
@@ -44,6 +45,14 @@ public class Dish {
         this.name = name;
         this.prepTime = prepTime;
         this.subtype = subtype;
+    }
+
+    public Dish(Integer id, String name, Integer prepTime, String subtype, CuisineType cuisineType) {
+        Id = id;
+        this.name = name;
+        this.prepTime = prepTime;
+        this.subtype = subtype;
+        this.cuisineType = cuisineType;
     }
 
     public Dish(Integer id, String name, Integer prepTime, String subtype, CuisineType cuisineType, Integer cuisineTypeId) {
