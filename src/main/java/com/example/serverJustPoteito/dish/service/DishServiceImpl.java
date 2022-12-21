@@ -33,8 +33,7 @@ public class DishServiceImpl implements DishService {
         Dish dish = new Dish(
                 dishPostRequest.getName(),
                 dishPostRequest.getPrepTime(),
-                dishPostRequest.getSubtype(),
-                dishPostRequest.getCuisineType()
+                dishPostRequest.getSubtype()
         );
         return dishRepository.save(dish);
     }
@@ -45,12 +44,12 @@ public class DishServiceImpl implements DishService {
         boolean dishAlreadyExists = dishRepository.existsById(id);
 
         Dish dish = new Dish(
-                id,
                 dishPostRequest.getName(),
                 dishPostRequest.getPrepTime(),
-                dishPostRequest.getSubtype(),
-                dishPostRequest.getCuisineType()
+                dishPostRequest.getSubtype()
         );
+
+        dish.setId(id);
 
         dish = dishRepository.save(dish);
 

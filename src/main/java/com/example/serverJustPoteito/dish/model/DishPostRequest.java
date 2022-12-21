@@ -1,8 +1,8 @@
-package com.example.serverJustPoteito.dishes.model;
+package com.example.serverJustPoteito.dish.model;
 
 import jakarta.validation.constraints.NotBlank;
 import jakarta.validation.constraints.NotEmpty;
-import com.example.serverJustPoteito.cuisineType.CuisineType;
+import com.example.serverJustPoteito.cuisineType.model.CuisineType;
 import jakarta.validation.constraints.NotNull;
 
 public class DishPostRequest {

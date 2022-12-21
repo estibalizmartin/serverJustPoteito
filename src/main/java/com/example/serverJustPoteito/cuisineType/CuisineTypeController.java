@@ -42,7 +42,7 @@ public class CuisineTypeController {
         if (response.isAlreadyExists()) {
             return new ResponseEntity<>(response.getUpdatedCuisine(), HttpStatus.OK);
         } else {
-            return new ResponseEntity<>(response.getUpdatedCuisine(), HttpStatus.CREATED);
+            return new ResponseEntity<>(HttpStatus.BAD_REQUEST);
         }
     }
 

@@ -1,6 +1,6 @@
 package com.example.serverJustPoteito.dish.model;
 
-import com.example.serverJustPoteito.cuisineType.CuisineType;
+import com.example.serverJustPoteito.cuisineType.model.CuisineType;
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import com.fasterxml.jackson.annotation.JsonManagedReference;
 import jakarta.persistence.*;
@@ -21,7 +21,7 @@ public class Dish {
     @Column(length = 70)
     private String subtype;
     @ManyToOne(fetch = FetchType.LAZY)
-    @JoinColumn(name = "cuisine_type_id", foreignKey = @ForeignKey(name = "fk_cuisine_type_id"))
+    @JoinColumn(name = "cuisine_type_id", foreignKey = @ForeignKey(name = "fk_cuisine_type_id"), nullable = false)
     @JsonManagedReference
     @JsonIgnoreProperties({"hibernateLazyInitializer", "handler"})
     private CuisineType cuisineType;
@@ -30,6 +30,12 @@ public class Dish {
     private Integer cuisineTypeId;
 
     public Dish() {
+    }
+
+    public Dish(String name, Integer prepTime, String subtype) {
+        this.name = name;
+        this.prepTime = prepTime;
+        this.subtype = subtype;
     }
 
     public Dish(String name, Integer prepTime, String subtype, CuisineType cuisineType) {
@@ -85,5 +91,25 @@ public class Dish {
 
     public void setCuisineType(CuisineType cuisineType) {
         this.cuisineType = cuisineType;
+    }
+
+    public Integer getCuisineTypeId() {
+        return cuisineTypeId;
+    }
+
+    public void setCuisineTypeId(Integer cuisineTypeId) {
+        this.cuisineTypeId = cuisineTypeId;
+    }
+
+    @Override
+    public String toString() {
+        return "Dish{" +
+                "Id=" + Id +
+                ", name='" + name + '\'' +
+                ", prepTime=" + prepTime +
+                ", subtype='" + subtype + '\'' +
+                ", cuisineType=" + cuisineType +
+                ", cuisineTypeId=" + cuisineTypeId +
+                '}';
     }
 }
