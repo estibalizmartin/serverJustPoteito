@@ -1,8 +1,8 @@
-package ingredients.service;
+package com.example.serverJustPoteito.ingredients.service;
 
-import ingredients.model.IngredientUpdateResponse;
-import ingredients.model.Ingredients;
-import ingredients.model.IngredientsPostRequest;
+import com.example.serverJustPoteito.ingredients.model.IngredientUpdateResponse;
+import com.example.serverJustPoteito.ingredients.model.Ingredients;
+import com.example.serverJustPoteito.ingredients.model.IngredientsPostRequest;
 
 public interface IngredientsService {
     Iterable<Ingredients> getAllIngredients();
