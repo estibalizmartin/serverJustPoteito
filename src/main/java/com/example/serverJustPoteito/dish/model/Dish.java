@@ -1,6 +1,6 @@
 package com.example.serverJustPoteito.dish.model;
 
-import com.example.serverJustPoteito.cuisineType.CuisineType;
+import com.example.serverJustPoteito.cuisineType.model.CuisineType;
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import com.fasterxml.jackson.annotation.JsonManagedReference;
 import jakarta.persistence.*;
@@ -17,7 +17,9 @@ public class Dish {
     private String name;
     @Column
     private Integer prepTime;
-//    private String allergen;
+    /*@Column
+    @Enumerated(EnumType.STRING)
+    private Allergens allergen;*/
     @Column(length = 70)
     private String subtype;
     @ManyToOne(fetch = FetchType.LAZY)
@@ -32,11 +34,17 @@ public class Dish {
     public Dish() {
     }
 
-    public Dish(String name, Integer prepTime, String subtype, CuisineType cuisineType) {
+    public Dish(String name, Integer prepTime, String subtype) {
         this.name = name;
         this.prepTime = prepTime;
         this.subtype = subtype;
-        this.cuisineType = cuisineType;
+    }
+
+    public Dish(Integer id, String name, Integer prepTime, String subtype) {
+        Id = id;
+        this.name = name;
+        this.prepTime = prepTime;
+        this.subtype = subtype;
     }
 
     public Dish(Integer id, String name, Integer prepTime, String subtype, CuisineType cuisineType) {
@@ -45,6 +53,15 @@ public class Dish {
         this.prepTime = prepTime;
         this.subtype = subtype;
         this.cuisineType = cuisineType;
+    }
+
+    public Dish(Integer id, String name, Integer prepTime, String subtype, CuisineType cuisineType, Integer cuisineTypeId) {
+        Id = id;
+        this.name = name;
+        this.prepTime = prepTime;
+        this.subtype = subtype;
+        this.cuisineType = cuisineType;
+        this.cuisineTypeId = cuisineTypeId;
     }
 
     public Integer getId() {
@@ -85,5 +102,25 @@ public class Dish {
 
     public void setCuisineType(CuisineType cuisineType) {
         this.cuisineType = cuisineType;
+    }
+
+    public Integer getCuisineTypeId() {
+        return cuisineTypeId;
+    }
+
+    public void setCuisineTypeId(Integer cuisineTypeId) {
+        this.cuisineTypeId = cuisineTypeId;
+    }
+
+    @Override
+    public String toString() {
+        return "Dish{" +
+                "Id=" + Id +
+                ", name='" + name + '\'' +
+                ", prepTime=" + prepTime +
+                ", subtype='" + subtype + '\'' +
+                ", cuisineType=" + cuisineType +
+                ", cuisineTypeId=" + cuisineTypeId +
+                '}';
     }
 }
