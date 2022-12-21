@@ -1,5 +1,6 @@
 package com.example.serverJustPoteito.ingredients.model;
 
+import com.example.serverJustPoteito.dish.model.Dish;
 import jakarta.persistence.*;
 
 
@@ -18,7 +19,7 @@ public class Ingredients {
     @Column(length = 150)
     private String type;
 
-   /* @ManyToMany(fetch = FetchType.LAZY)
+   /*@ManyToMany(fetch = FetchType.LAZY)
     @JoinTable(
             name = "ingredients_dish",
             joinColumns = @JoinColumn(

@@ -1,9 +1,9 @@
-package com.example.serverJustPoteito.ingredients.service;
+package ingredients.service;
 
-import com.example.serverJustPoteito.ingredients.model.Ingredients;
-import com.example.serverJustPoteito.ingredients.model.IngredientUpdateResponse;
-import com.example.serverJustPoteito.ingredients.model.IngredientsPostRequest;
-import com.example.serverJustPoteito.ingredients.repository.IngredientsRepository;
+import ingredients.model.IngredientUpdateResponse;
+import ingredients.model.Ingredients;
+import ingredients.model.IngredientsPostRequest;
+import ingredients.repository.IngredientsRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.stereotype.Service;
