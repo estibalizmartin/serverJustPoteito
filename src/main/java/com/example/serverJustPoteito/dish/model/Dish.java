@@ -1,6 +1,6 @@
 package com.example.serverJustPoteito.dish.model;
 
-import com.example.serverJustPoteito.cuisineType.CuisineType;
+import com.example.serverJustPoteito.cuisineType.model.CuisineType;
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import com.fasterxml.jackson.annotation.JsonManagedReference;
 import jakarta.persistence.*;
@@ -29,7 +29,7 @@ public class Dish {
     @Column(name = "cuisine_type_id", updatable = false, insertable = false)
     private Integer cuisineTypeId;
 
-    public Dish() {
+    public Dish(String name, Integer prepTime, String subtype, Integer cuisineTypeId) {
     }
 
     public Dish(String name, Integer prepTime, String subtype, CuisineType cuisineType) {
