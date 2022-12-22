@@ -14,4 +14,5 @@ public interface CookService {
     CookServiceModel getCookById(Integer id);
     CookServiceModel createCook(CookPostRequest cookPostRequest);
     CookUpdateResponse updateCook(Integer id, CookPostRequest cookPostRequest);
+    void deleteCook(Integer id);
 }

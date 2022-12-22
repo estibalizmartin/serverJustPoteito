@@ -1,6 +1,8 @@
 package com.example.serverJustPoteito.cook.model;
 
 import com.example.serverJustPoteito.dish.model.Dish;
+import jakarta.persistence.Temporal;
+import jakarta.persistence.TemporalType;
 
 import java.util.Date;
 import java.util.List;
@@ -9,6 +11,7 @@ public class CookServiceModel {
     private Integer id;
     private String name;
     private String last_names;
+    @Temporal(TemporalType.DATE)
     private Date born_date;
     private String nationality;
     private Integer michelin_stars;

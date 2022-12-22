@@ -16,7 +16,7 @@ public class Cook {
     @Column(length = 70)
     private String name;
     @Column(length = 140)
-    private String sur_names;
+    private String last_names;
     @Column
     private String nationality;
     @Temporal(TemporalType.DATE)
@@ -39,10 +39,10 @@ public class Cook {
     public Cook() {
     }
 
-    public Cook(Integer id, String name, String sur_names, String nationality, Date bornDate, Integer michelin_stars, List<Dish> dishes) {
+    public Cook(Integer id, String name, String last_names, String nationality, Date bornDate, Integer michelin_stars, List<Dish> dishes) {
         this.id = id;
         this.name = name;
-        this.sur_names = sur_names;
+        this.last_names = last_names;
         this.nationality = nationality;
         this.bornDate = bornDate;
         this.michelin_stars = michelin_stars;
@@ -66,12 +66,12 @@ public class Cook {
         this.name = name;
     }
 
-    public String getSur_names() {
-        return sur_names;
+    public String getLast_names() {
+        return last_names;
     }
 
-    public void setSur_names(String sur_names) {
-        this.sur_names = sur_names;
+    public void setLast_names(String last_names) {
+        this.last_names = last_names;
     }
 
     public String getNationality() {
@@ -111,7 +111,7 @@ public class Cook {
         return "Cook{" +
                 "id=" + id +
                 ", name='" + name + '\'' +
-                ", sur_names='" + sur_names + '\'' +
+                ", sur_names='" + last_names + '\'' +
                 ", nationality='" + nationality + '\'' +
                 ", born_date=" + bornDate +
                 ", michelin_stars=" + michelin_stars +

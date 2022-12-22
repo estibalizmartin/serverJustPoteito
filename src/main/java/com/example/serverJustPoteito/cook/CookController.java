@@ -34,7 +34,7 @@ public class CookController {
     }
 
     @PutMapping("/cooks/{id}")
-    public ResponseEntity<?> updateCook(@PathVariable("id") Integer id, @RequestBody CookPostRequest cookPostRequest) {
+    public ResponseEntity<CookServiceModel> updateCook(@PathVariable("id") Integer id, @RequestBody CookPostRequest cookPostRequest) {
             CookUpdateResponse response = cookService.updateCook(id, cookPostRequest);
 
         if (response.isExists()) {
@@ -42,6 +42,12 @@ public class CookController {
         } else {
             return new ResponseEntity<>(HttpStatus.BAD_REQUEST);
         }
+    }
+
+    @DeleteMapping("/cooks/{id}")
+    public ResponseEntity<?> deleteCook(@PathVariable("id") Integer id) {
+        cookService.deleteCook(id);
+        return new ResponseEntity<>(HttpStatus.NO_CONTENT);
     }
 
 }

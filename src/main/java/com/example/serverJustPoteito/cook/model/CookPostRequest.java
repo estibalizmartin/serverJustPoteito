@@ -1,11 +1,21 @@
 package com.example.serverJustPoteito.cook.model;
 
+import jakarta.persistence.Temporal;
+import jakarta.persistence.TemporalType;
+import jakarta.validation.constraints.NotBlank;
+import jakarta.validation.constraints.NotEmpty;
+import jakarta.validation.constraints.NotNull;
+
 import java.util.Date;
 
 public class CookPostRequest {
+    @NotEmpty
+    @NotNull
+    @NotBlank
     private String name;
     private String last_names;
     private String nationality;
+    @Temporal(TemporalType.DATE)
     private Date born_date;
     private Integer michelin_stars;
 

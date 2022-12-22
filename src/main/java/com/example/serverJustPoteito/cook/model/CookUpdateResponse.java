@@ -2,12 +2,12 @@ package com.example.serverJustPoteito.cook.model;
 
 public class CookUpdateResponse {
     private boolean exists;
-    private Cook updatedCook;
+    private CookServiceModel updatedCook;
 
     public CookUpdateResponse() {
     }
 
-    public CookUpdateResponse(boolean exists, Cook updatedCook) {
+    public CookUpdateResponse(boolean exists, CookServiceModel updatedCook) {
         this.exists = exists;
         this.updatedCook = updatedCook;
     }
@@ -20,11 +20,11 @@ public class CookUpdateResponse {
         this.exists = exists;
     }
 
-    public Cook getUpdatedCook() {
+    public CookServiceModel getUpdatedCook() {
         return updatedCook;
     }
 
-    public void setUpdatedCook(Cook updatedCook) {
+    public void setUpdatedCook(CookServiceModel updatedCook) {
         this.updatedCook = updatedCook;
     }
 

@@ -12,7 +12,6 @@ import org.springframework.web.server.ResponseStatusException;
 
 import java.util.ArrayList;
 import java.util.List;
-import java.util.Optional;
 
 @Service
 public class CookServiceImpl implements CookService {
@@ -30,11 +29,11 @@ public class CookServiceImpl implements CookService {
             responseCooks.add(new CookServiceModel(
                     cook.getId(),
                     cook.getName(),
-                    cook.getSur_names(),
+                    cook.getLast_names(),
                     cook.getBornDate(),
                     cook.getNationality(),
                     cook.getMichelin_stars(),
-                    null
+                    cook.getDishes()
             ));
         }
 
@@ -51,7 +50,7 @@ public class CookServiceImpl implements CookService {
         return new CookServiceModel(
                 cook.getId(),
                 cook.getName(),
-                cook.getSur_names(),
+                cook.getLast_names(),
                 cook.getBornDate(),
                 cook.getNationality(),
                 cook.getMichelin_stars(),
@@ -76,7 +75,7 @@ public class CookServiceImpl implements CookService {
         return new CookServiceModel(
                 responseCook.getId(),
                 responseCook.getName(),
-                responseCook.getSur_names(),
+                responseCook.getLast_names(),
                 responseCook.getBornDate(),
                 responseCook.getNationality(),
                 responseCook.getMichelin_stars(),
@@ -92,15 +91,31 @@ public class CookServiceImpl implements CookService {
                 cookPostRequest.getNationality(),
                 cookPostRequest.getBorn_date(),
                 cookPostRequest.getMichelin_stars(),
-                null
+                cookRepository.findById(id).get().getDishes()
         );
 
         boolean cookExists = cookRepository.existsById(id);
-        Cook responseCook = null;
+        Cook queryCook = null;
+        CookServiceModel responseCook = null;
+
         if (cookExists) {
-           responseCook = cookRepository.save(cook);
+           queryCook = cookRepository.save(cook);
+           responseCook = new CookServiceModel(
+                   queryCook.getId(),
+                   queryCook.getName(),
+                   queryCook.getLast_names(),
+                   queryCook.getBornDate(),
+                   queryCook.getNationality(),
+                   queryCook.getMichelin_stars(),
+                   queryCook.getDishes()
+           );
         }
 
         return new CookUpdateResponse(cookExists, responseCook);
+    }
+
+    @Override
+    public void deleteCook(Integer id) {
+        cookRepository.deleteById(id);
     }
 }
