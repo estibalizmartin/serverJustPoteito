@@ -23,7 +23,7 @@ public class Dish {
     @Column(length = 70)
     private String subtype;
     @ManyToOne(fetch = FetchType.LAZY)
-    @JoinColumn(name = "cuisine_type_id", foreignKey = @ForeignKey(name = "fk_cuisine_type_id"))
+    @JoinColumn(name = "cuisine_type_id", foreignKey = @ForeignKey(name = "fk_cuisine_type_id"), nullable = false)
     @JsonManagedReference
     @JsonIgnoreProperties({"hibernateLazyInitializer", "handler"})
     private CuisineType cuisineType;
