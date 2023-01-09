@@ -34,19 +34,6 @@ public class Dish {
     public Dish() {
     }
 
-    public Dish(String name, Integer prepTime, String subtype) {
-        this.name = name;
-        this.prepTime = prepTime;
-        this.subtype = subtype;
-    }
-
-    public Dish(Integer id, String name, Integer prepTime, String subtype) {
-        Id = id;
-        this.name = name;
-        this.prepTime = prepTime;
-        this.subtype = subtype;
-    }
-
     public Dish(Integer id, String name, Integer prepTime, String subtype, CuisineType cuisineType) {
         Id = id;
         this.name = name;
