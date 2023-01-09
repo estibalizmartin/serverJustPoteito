@@ -1,15 +1,15 @@
-package com.example.serverJustPoteito.ingredients.model;
+package com.example.serverJustPoteito.ingredient.model;
 
 import com.fasterxml.jackson.annotation.JsonInclude;
 
 @JsonInclude(JsonInclude.Include.NON_NULL)
-public class IngredientsServiceModel {
+public class IngredientServiceModel {
 
     private Integer id;
     private String name;
     private String type;
 
-    public IngredientsServiceModel(Integer id, String name, String type) {
+    public IngredientServiceModel(Integer id, String name, String type) {
         this.id = id;
         this.name = name;
         this.type = type;
