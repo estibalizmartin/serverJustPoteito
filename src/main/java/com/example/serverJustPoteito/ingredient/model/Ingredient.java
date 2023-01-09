@@ -1,14 +1,10 @@
-package com.example.serverJustPoteito.ingredients.model;
+package com.example.serverJustPoteito.ingredient.model;
 
-import com.example.serverJustPoteito.dish.model.Dish;
 import jakarta.persistence.*;
-
-
-import java.util.List;
 
 @Entity
 @Table(name = "INGREDIENTS")
-public class Ingredients {
+public class Ingredient {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private int id;
@@ -31,9 +27,9 @@ public class Ingredients {
     )
     private List<Dish> dishes;*/
 
-    public Ingredients() {}
+    public Ingredient() {}
 
-    public Ingredients(String name, String type) {
+    public Ingredient(String name, String type) {
         this.name = name;
         this.type = type;
     }

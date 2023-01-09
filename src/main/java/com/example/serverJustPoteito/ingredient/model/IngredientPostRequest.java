@@ -1,8 +1,8 @@
-package com.example.serverJustPoteito.ingredients.model;
+package com.example.serverJustPoteito.ingredient.model;
 import jakarta.validation.constraints.NotBlank;
 import jakarta.validation.constraints.NotEmpty;
 import jakarta.validation.constraints.NotNull;
-public class IngredientsPostRequest {
+public class IngredientPostRequest {
 
     @NotNull
     @NotEmpty
@@ -14,9 +14,9 @@ public class IngredientsPostRequest {
     @NotBlank
     private String type;
 
-    public IngredientsPostRequest() {}
+    public IngredientPostRequest() {}
 
-    public IngredientsPostRequest(String name, String type) {
+    public IngredientPostRequest(String name, String type) {
         this.name = name;
         this.type = type;
     }
