@@ -1,6 +1,6 @@
 package com.example.serverJustPoteito.cuisineType;
 
-import com.example.serverJustPoteito.cuisineType.service.CuisineTypeServiceImp;
+import com.example.serverJustPoteito.cuisineType.service.CuisineTypeServiceImpl;
 import com.example.serverJustPoteito.cuisineType.model.CuisineType;
 import com.example.serverJustPoteito.cuisineType.model.CuisineTypePostRequest;
 import com.example.serverJustPoteito.cuisineType.model.CuisineTypeUpdateResponse;
@@ -15,7 +15,7 @@ import org.springframework.web.server.ResponseStatusException;
 @RequestMapping("api")
 public class CuisineTypeController {
     @Autowired
-    private CuisineTypeServiceImp cuisineTypeService;
+    private CuisineTypeServiceImpl cuisineTypeService;
     @GetMapping("/cuisineTypes")
     public ResponseEntity<Iterable<CuisineType>> getCuisineTypes() {
         return new ResponseEntity<Iterable<CuisineType>>(cuisineTypeService.getCuisineTypes(), HttpStatus.OK);
@@ -42,7 +42,7 @@ public class CuisineTypeController {
         if (response.isAlreadyExists()) {
             return new ResponseEntity<>(response.getUpdatedCuisine(), HttpStatus.OK);
         } else {
-            return new ResponseEntity<>(response.getUpdatedCuisine(), HttpStatus.CREATED);
+            return new ResponseEntity<>(HttpStatus.BAD_REQUEST);
         }
     }
 

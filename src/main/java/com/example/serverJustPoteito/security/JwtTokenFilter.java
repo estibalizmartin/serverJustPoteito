@@ -23,7 +23,7 @@ import java.util.Set;
 
 @Component
 public class JwtTokenFilter extends OncePerRequestFilter {
-	
+
 	@Autowired
 	private JwtTokenUtil jwtUtil;
 
@@ -46,7 +46,7 @@ public class JwtTokenFilter extends OncePerRequestFilter {
 		setAuthenticationContext(token, request);
 		filterChain.doFilter(request, response);
 	}
-	
+
 	// comprueba si tiene el jwt en el header de la petición
 	private boolean hasAuthorizationBearer(HttpServletRequest request) {
 		String header = request.getHeader("Authorization");

@@ -15,18 +15,18 @@ import java.util.*;
 
 @Component
 public class JwtTokenUtil {
-	
+
 	private static final Logger LOGGER = LoggerFactory.getLogger(JwtTokenUtil.class);
 	// asignamos tiempo de validez del token. A partir de ahi no podra utilizarlo.
 	private static final long EXPIRE_DURATION = 24 * 60 * 60 * 1000; // 24
 	// mas adelante veremos como actualizar sin volver a hacer login
-	
+
 	// con la siguiente linea asigna a la SECRET_KEY nuestro app.jwt.secret del application.properties
 	@Value("${app.jwt.secret}")
 	private String SECRET_KEY;
 	private static final String USER_ID_CLAIM = "userId";
 	private static final String ROLES_CLAIM = "roles";
-	
+
 	public String generateAccessToken(User user) {
 		// cuando generamos el token podemos meter campos custom que nos puedan ser utiles mas adelante.
 		return Jwts.builder()
@@ -41,7 +41,7 @@ public class JwtTokenUtil {
 				.signWith(SignatureAlgorithm.HS512, SECRET_KEY)
 				.compact();
 	}
-	
+
 	public boolean validateAccessToken(String token) {
 		try {
 			Jwts.parser().setSigningKey(SECRET_KEY).parseClaimsJws(token);
@@ -57,10 +57,10 @@ public class JwtTokenUtil {
 		} catch (SignatureException ex) {
 			LOGGER.error("Signature validation failed");
 		}
-		
+
 		return false;
 	}
-	
+
 	public String getSubject(String token) {
 		return parseClaims(token).getSubject();
 	}

@@ -9,7 +9,7 @@ import org.springframework.stereotype.Service;
 import org.springframework.web.server.ResponseStatusException;
 
 @Service
-public class CuisineTypeServiceImp implements CuisineTypeService{
+public class CuisineTypeServiceImpl implements CuisineTypeService{
     @Autowired
     CuisineTypeRepository cuisineTypeRepository;
 

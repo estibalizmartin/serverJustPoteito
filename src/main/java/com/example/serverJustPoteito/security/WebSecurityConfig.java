@@ -17,27 +17,27 @@ import org.springframework.security.web.authentication.UsernamePasswordAuthentic
 @Configuration
 public class WebSecurityConfig {
 
-	@Autowired 
+	@Autowired
 	private JwtTokenFilter jwtTokenFilter;
 
-	
+
 	@Bean
 	public AuthenticationManager authenticationManager(AuthenticationConfiguration authConfig) throws Exception {
 		return authConfig.getAuthenticationManager();
 	}
-	
+
 	// utilizado para encriptar las contraseñas en la DB
 	@Bean
 	public PasswordEncoder passwordEncoder() {
 		return new BCryptPasswordEncoder();
 	}
 
-	
+
 	// aqui definimos principalmente cuales son las urls van a poder ser accesibles sin identificarse
 	// y cuales seran obligatorias
 	@Bean
 	public SecurityFilterChain filterChain(HttpSecurity http) throws Exception {
-		
+
 		http.csrf().disable();
 		http.sessionManagement().sessionCreationPolicy(SessionCreationPolicy.STATELESS);
 
@@ -53,7 +53,7 @@ public class WebSecurityConfig {
 		http.exceptionHandling().authenticationEntryPoint(new CustomAuthenticationEntryPoint());
 
 		http.addFilterBefore(jwtTokenFilter, UsernamePasswordAuthenticationFilter.class);
-		
+
 		return http.build();
 	}
 }
