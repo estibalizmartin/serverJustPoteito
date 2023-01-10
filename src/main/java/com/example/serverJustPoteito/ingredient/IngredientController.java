@@ -1,9 +1,9 @@
 package com.example.serverJustPoteito.ingredient;
 
-import com.example.serverJustPoteito.ingredient.model.IngredientUpdateResponse;
-import com.example.serverJustPoteito.ingredient.service.IngredientServicelmpl;
-import com.example.serverJustPoteito.ingredient.model.Ingredient;
 import com.example.serverJustPoteito.ingredient.model.IngredientPostRequest;
+import com.example.serverJustPoteito.ingredient.model.IngredientServiceModel;
+import com.example.serverJustPoteito.ingredient.service.IngredientServicelmpl;
+import jakarta.validation.Valid;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.dao.EmptyResultDataAccessException;
 import org.springframework.http.HttpStatus;
@@ -11,44 +11,46 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.server.ResponseStatusException;
 
+import java.util.List;
+
 @RestController
 @RequestMapping("api")
 public class IngredientController {
     @Autowired
-    IngredientServicelmpl ingredientsServicelmp;
+    IngredientServicelmpl ingredientService;
 
     @GetMapping("/ingredients")
-    public ResponseEntity<Iterable<Ingredient>> getAllIngredients() {
-        return new ResponseEntity<Iterable<Ingredient>>(ingredientsServicelmp.getAllIngredients(), HttpStatus.OK);
+    public ResponseEntity<List<IngredientServiceModel>> getAllIngredients() {
+        return new ResponseEntity<>(ingredientService.getAllIngredients(), HttpStatus.OK);
     }
 
     @GetMapping("/ingredients/{id}")
-    public ResponseEntity<Ingredient> getIngredientById(@PathVariable ("id") int id){
-        return new ResponseEntity<>(ingredientsServicelmp.getIngredientById(id), HttpStatus.OK);
+    public ResponseEntity<IngredientServiceModel> getIngredientById(@PathVariable("id") Integer id){
+        return new ResponseEntity<>(ingredientService.getIngredientById(id), HttpStatus.OK);
     }
 
     @PostMapping("/ingredients")
-    public ResponseEntity<Ingredient> createIngredient(@RequestBody IngredientPostRequest ingredientPostRequest){
+    public ResponseEntity<IngredientServiceModel> createIngredient(@Valid @RequestBody IngredientPostRequest ingredientPostRequest){
         return new ResponseEntity<>(
-                ingredientsServicelmp.createIngredient(ingredientPostRequest), HttpStatus.OK);
+                ingredientService.createIngredient(ingredientPostRequest), HttpStatus.CREATED);
     }
 
     @PutMapping("/ingredients/{id}")
-    public ResponseEntity<Ingredient> updateIngredient(@PathVariable ("id") int id, @RequestBody IngredientPostRequest ingredientPostRequest){
-        IngredientUpdateResponse ingredientUpdateResponse = ingredientsServicelmp
-                .updateIngredient(id, ingredientPostRequest);
+    public ResponseEntity<IngredientServiceModel> updateIngredient(@PathVariable("id") Integer id, @Valid @RequestBody IngredientPostRequest ingredientPostRequest){
+        /*IngredientUpdateResponse ingredientUpdateResponse = ingredientsServicelmp
+                .updateIngredient(id, ingredientsPostRequest);*/
 
-        if (ingredientUpdateResponse.isIngredientAlreadyExists()){
-            return new ResponseEntity<>(ingredientUpdateResponse.getIngredients(), HttpStatus.OK);
+        if (ingredientService.isAlreadyExists(id)){
+            return new ResponseEntity<>(ingredientService.updateIngredient(id, ingredientPostRequest), HttpStatus.OK);
         } else {
-            return new ResponseEntity<>(ingredientUpdateResponse.getIngredients(), HttpStatus.CREATED);
+            return new ResponseEntity<>(ingredientService.updateIngredient(id, ingredientPostRequest), HttpStatus.CREATED);
         }
     }
 
     @DeleteMapping("/ingredients/{id}")
-    public ResponseEntity<Integer> deleteIngredientById(@PathVariable ("id") Integer id){
+    public ResponseEntity<Integer> deleteIngredientById(@PathVariable("id") Integer id){
         try {
-            ingredientsServicelmp.deleteIngredientsById(id);
+            ingredientService.deleteIngredientsById(id);
             return new ResponseEntity<>(HttpStatus.NO_CONTENT);
         } catch (EmptyResultDataAccessException e) {
             throw new ResponseStatusException(HttpStatus.CONFLICT, "This ingredient doesn't exists...");
