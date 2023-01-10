@@ -1,57 +1,98 @@
 package com.example.serverJustPoteito.ingredient.service;
 
-import com.example.serverJustPoteito.ingredient.model.IngredientUpdateResponse;
-import com.example.serverJustPoteito.ingredient.repository.IngredientRepository;
 import com.example.serverJustPoteito.ingredient.model.Ingredient;
 import com.example.serverJustPoteito.ingredient.model.IngredientPostRequest;
+import com.example.serverJustPoteito.ingredient.model.IngredientServiceModel;
+import com.example.serverJustPoteito.ingredient.repository.IngredientRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.stereotype.Service;
 import org.springframework.web.server.ResponseStatusException;
 
-@Service
-public class IngredientServicelmpl implements IngredientService {
+import java.util.ArrayList;
+import java.util.List;
 
+@Service
+public class IngredientServicelmpl implements IngredientService{
     @Autowired
     private IngredientRepository ingredientRepository;
 
     @Override
-    public Iterable<Ingredient> getAllIngredients() {
-        return ingredientRepository.findAll();
+    public List<IngredientServiceModel> getAllIngredients() {
+
+        Iterable<Ingredient> ingredient = ingredientRepository.findAll();
+
+        List<IngredientServiceModel> response = new ArrayList<>();
+
+        for (Ingredient ingredients : ingredient) {
+            response.add(new IngredientServiceModel(
+                    ingredients.getId(),
+                    ingredients.getName(),
+                    ingredients.getType()
+            ));
+        }
+        return response;
     }
 
     @Override
-    public Ingredient getIngredientById(Integer id) {
-        return ingredientRepository.findById(id)
+    public IngredientServiceModel getIngredientById(Integer id) {
+        Ingredient ingredients = ingredientRepository.findById(id)
                 .orElseThrow(() -> new ResponseStatusException
                         (HttpStatus.NO_CONTENT, "This ingredient doesn't exists...")
                 );
+
+        IngredientServiceModel response = new IngredientServiceModel(
+                ingredients.getId(),
+                ingredients.getName(),
+                ingredients.getType()
+        );
+
+        return response;
     }
 
     @Override
-    public Ingredient createIngredient(IngredientPostRequest ingredientPostRequest) {
+    public IngredientServiceModel createIngredient(IngredientPostRequest ingredientsPostRequest) {
         Ingredient ingredient = new Ingredient(
-                ingredientPostRequest.getName(),
-                ingredientPostRequest.getType()
+                ingredientsPostRequest.getName(),
+                ingredientsPostRequest.getType()
         );
-        return ingredientRepository.save(ingredient);
-    }
 
-    @Override
-    public IngredientUpdateResponse updateIngredient(Integer id, IngredientPostRequest ingredientPostRequest) {
-        boolean ingredientAlreadyExists = ingredientRepository.existsById(id);
-
-        Ingredient ingredient = new Ingredient(
-                ingredientPostRequest.getName(),
-                ingredientPostRequest.getType()
-        );
         ingredient = ingredientRepository.save(ingredient);
 
-        return new IngredientUpdateResponse(ingredientAlreadyExists, ingredient);
+        IngredientServiceModel response = new IngredientServiceModel(
+                ingredient.getId(),
+                ingredient.getName(),
+                ingredient.getType()
+        );
+
+        return response;
+    }
+
+    @Override
+    public IngredientServiceModel updateIngredient(Integer id, IngredientPostRequest ingredientPostRequest) {
+
+        Ingredient ingredient = new Ingredient(
+                ingredientPostRequest.getName(),
+                ingredientPostRequest.getType()
+        );
+
+        ingredient = ingredientRepository.save(ingredient);
+
+        IngredientServiceModel response = new IngredientServiceModel(
+                ingredient.getId(),
+                ingredient.getName(),
+                ingredient.getType()
+        );
+
+        return response;
     }
 
     @Override
     public void deleteIngredientsById(Integer id) {
         ingredientRepository.deleteById(id);
+    }
+
+    public boolean isAlreadyExists(Integer id){
+        return ingredientRepository.existsById(id);
     }
 }
