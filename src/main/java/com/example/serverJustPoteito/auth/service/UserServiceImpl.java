@@ -4,6 +4,7 @@ import com.example.serverJustPoteito.auth.Exceptions.UserCantCreateException;
 import com.example.serverJustPoteito.auth.model.Rol;
 import com.example.serverJustPoteito.auth.persistence.Role;
 import com.example.serverJustPoteito.auth.persistence.User;
+import com.example.serverJustPoteito.auth.persistence.UserServiceModel;
 import com.example.serverJustPoteito.auth.repository.RoleRepository;
 import com.example.serverJustPoteito.auth.repository.UserRepository;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -47,6 +48,33 @@ public class UserServiceImpl implements UserService, UserDetailsService {
     }
 // return null;
 
+    }
+
+    @Override
+    public List<UserServiceModel> getUsers() {
+        Iterable<User> users = userRepository.findAll();
+
+        List<UserServiceModel> response = new ArrayList<>();
+
+        for (User user : users) {
+            response.add(new UserServiceModel(
+                    user.getId(),
+                    user.getName(),
+                    user.getSurnames(),
+                    user.getUserName(),
+                    user.getEmail(),
+                    user.getPassword(),
+                    user.isEnabled(),
+                    user.getRoles()
+            ));
+        }
+
+        return response;
+    }
+
+    @Override
+    public void deleteUserById(Integer id) {
+        userRepository.deleteById(id);
     }
 
     @Override
