@@ -4,9 +4,11 @@ import com.example.serverJustPoteito.auth.Exceptions.UserCantCreateException;
 import com.example.serverJustPoteito.auth.model.AuthRequest;
 import com.example.serverJustPoteito.auth.model.AuthResponse;
 import com.example.serverJustPoteito.auth.persistence.User;
+import com.example.serverJustPoteito.auth.persistence.UserServiceModel;
 import com.example.serverJustPoteito.auth.service.UserService;
 import com.example.serverJustPoteito.security.JwtTokenUtil;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.dao.EmptyResultDataAccessException;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.authentication.AuthenticationManager;
@@ -14,6 +16,9 @@ import org.springframework.security.authentication.BadCredentialsException;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
 import org.springframework.security.core.Authentication;
 import org.springframework.web.bind.annotation.*;
+import org.springframework.web.server.ResponseStatusException;
+
+import java.util.List;
 
 @RestController
 @RequestMapping("api")
@@ -68,5 +73,20 @@ public class AuthController {
         return ResponseEntity.ok().body(userDetails);
     }
 
+    @CrossOrigin
+    @GetMapping("/list")
+    public ResponseEntity<List<UserServiceModel>> getUsers() {
+        return new ResponseEntity<>(userService.getUsers(), HttpStatus.OK);
+    }
 
+    @CrossOrigin
+    @DeleteMapping("/delete")
+    public ResponseEntity<Integer> deleteUserById(@PathVariable("id") Integer id) {
+        try {
+            userService.deleteUserById(id);
+            return new ResponseEntity<>(HttpStatus.NO_CONTENT);
+        } catch (EmptyResultDataAccessException e) {
+            throw new ResponseStatusException(HttpStatus.CONFLICT, "Usuario no encontrado.");
+        }
+    }
 }
