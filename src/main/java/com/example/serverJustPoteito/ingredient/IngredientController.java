@@ -17,23 +17,23 @@ public class IngredientController {
     @Autowired
     IngredientServicelmpl ingredientsServicelmp;
 
-    @GetMapping("/com/example/serverJustPoteito/ingredient")
+    @GetMapping("/ingredients")
     public ResponseEntity<Iterable<Ingredient>> getAllIngredients() {
         return new ResponseEntity<Iterable<Ingredient>>(ingredientsServicelmp.getAllIngredients(), HttpStatus.OK);
     }
 
-    @GetMapping("/com/example/serverJustPoteito/ingredient/{id}")
+    @GetMapping("/ingredients/{id}")
     public ResponseEntity<Ingredient> getIngredientById(@PathVariable ("id") int id){
         return new ResponseEntity<>(ingredientsServicelmp.getIngredientById(id), HttpStatus.OK);
     }
 
-    @PostMapping("/com/example/serverJustPoteito/ingredient")
+    @PostMapping("/ingredients")
     public ResponseEntity<Ingredient> createIngredient(@RequestBody IngredientPostRequest ingredientPostRequest){
         return new ResponseEntity<>(
                 ingredientsServicelmp.createIngredient(ingredientPostRequest), HttpStatus.OK);
     }
 
-    @PutMapping("/com/example/serverJustPoteito/ingredient/{id}")
+    @PutMapping("/ingredients/{id}")
     public ResponseEntity<Ingredient> updateIngredient(@PathVariable ("id") int id, @RequestBody IngredientPostRequest ingredientPostRequest){
         IngredientUpdateResponse ingredientUpdateResponse = ingredientsServicelmp
                 .updateIngredient(id, ingredientPostRequest);
@@ -45,7 +45,7 @@ public class IngredientController {
         }
     }
 
-    @DeleteMapping("/com/example/serverJustPoteito/ingredient/{id}")
+    @DeleteMapping("/ingredients/{id}")
     public ResponseEntity<Integer> deleteIngredientById(@PathVariable ("id") Integer id){
         try {
             ingredientsServicelmp.deleteIngredientsById(id);

@@ -45,7 +45,7 @@ public class WebSecurityConfig {
 				(authz) ->
 						authz
 								.requestMatchers("/api/auth/**").permitAll()
-								.requestMatchers("/api/cuisineTypes/**").hasAuthority(Rol.USER.name())
+//								.requestMatchers("/api/cuisineTypes/**").hasAuthority(Rol.USER.name())
 								.requestMatchers("/api/dish/**").permitAll()
 								.anyRequest().authenticated()
 		);

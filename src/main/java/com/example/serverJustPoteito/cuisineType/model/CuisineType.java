@@ -17,7 +17,7 @@ public class CuisineType {
     @Column(length = 120)
     private String subtype;
 
-    @OneToMany(mappedBy = "cuisineType", cascade = CascadeType.ALL, orphanRemoval = true, fetch = FetchType.LAZY)
+    @OneToMany(mappedBy = "cuisineType", cascade = CascadeType.ALL, fetch = FetchType.LAZY)
     @JsonBackReference
     private List<Dish> dishes;
 

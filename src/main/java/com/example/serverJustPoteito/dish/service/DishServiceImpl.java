@@ -102,6 +102,7 @@ public class DishServiceImpl implements DishService {
     @Override
     public DishServiceModel updateDish(Integer id, DishPostRequest dishPostRequest) {
         Dish dish = new Dish(
+                id,
                 dishPostRequest.getName(),
                 dishPostRequest.getPrepTime(),
                 dishPostRequest.getSubtype(),
