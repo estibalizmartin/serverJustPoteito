@@ -1,6 +1,6 @@
 package com.example.serverJustPoteito.auth.model;
 
-public enum Rol {
+public enum Role {
     USER,
     ADMIN
 }

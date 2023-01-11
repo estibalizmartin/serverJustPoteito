@@ -1,6 +1,5 @@
 package com.example.serverJustPoteito.security;
 
-import com.example.serverJustPoteito.auth.model.Rol;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
@@ -46,7 +45,9 @@ public class WebSecurityConfig {
 						authz
 								.requestMatchers("/api/auth/**").permitAll()
 //								.requestMatchers("/api/cuisineTypes/**").hasAuthority(Rol.USER.name())
-								.requestMatchers("/api/dish/**").permitAll()
+								.requestMatchers("/api/dishes/**").permitAll()
+								.requestMatchers("/api/list").permitAll()
+								.requestMatchers("/api/delete").permitAll()
 								.anyRequest().authenticated()
 		);
 		http.exceptionHandling().accessDeniedHandler(new CustomAccesDeniedHandler());

@@ -2,8 +2,7 @@ package com.example.serverJustPoteito.auth.service;
 
 import com.example.serverJustPoteito.auth.Exceptions.UserCantCreateException;
 import com.example.serverJustPoteito.auth.model.AuthRequest;
-import com.example.serverJustPoteito.auth.model.Rol;
-import com.example.serverJustPoteito.auth.persistence.Role;
+import com.example.serverJustPoteito.auth.model.Role;
 import com.example.serverJustPoteito.auth.persistence.User;
 import com.example.serverJustPoteito.auth.model.UserServiceModel;
 import com.example.serverJustPoteito.auth.repository.RoleRepository;
@@ -35,8 +34,8 @@ public class UserServiceImpl implements UserService, UserDetailsService {
         String password = passwordEncoder.encode(user.getPassword());
         user.setPassword(password);
 
-        Role userRole = RoleRepository.findByName(Rol.USER.name()).get();
-        Set<Role> roles = new HashSet<Role>();
+        com.example.serverJustPoteito.auth.persistence.Role userRole = RoleRepository.findByName(Role.USER.name()).get();
+        Set<com.example.serverJustPoteito.auth.persistence.Role> roles = new HashSet<>();
         roles.add(userRole);
 
         user.setEnabled(true);
