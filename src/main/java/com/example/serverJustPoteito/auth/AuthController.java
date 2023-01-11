@@ -1,12 +1,13 @@
-package com.example.serverJustPoteito.auth.controller;
+package com.example.serverJustPoteito.auth;
 
 import com.example.serverJustPoteito.auth.Exceptions.UserCantCreateException;
 import com.example.serverJustPoteito.auth.model.AuthRequest;
 import com.example.serverJustPoteito.auth.model.AuthResponse;
 import com.example.serverJustPoteito.auth.persistence.User;
-import com.example.serverJustPoteito.auth.persistence.UserServiceModel;
+import com.example.serverJustPoteito.auth.model.UserServiceModel;
 import com.example.serverJustPoteito.auth.service.UserService;
 import com.example.serverJustPoteito.security.JwtTokenUtil;
+import jakarta.validation.Valid;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.dao.EmptyResultDataAccessException;
 import org.springframework.http.HttpStatus;
@@ -77,6 +78,24 @@ public class AuthController {
     @GetMapping("/list")
     public ResponseEntity<List<UserServiceModel>> getUsers() {
         return new ResponseEntity<>(userService.getUsers(), HttpStatus.OK);
+    }
+
+    @CrossOrigin
+    @PostMapping("/create")
+    public ResponseEntity<UserServiceModel> createUser(@Valid @RequestBody AuthRequest authRequest) {
+        return new ResponseEntity<>(userService.createUser(authRequest), HttpStatus.CREATED);
+    }
+
+    @CrossOrigin
+    @PutMapping("/edit")
+    public ResponseEntity<UserServiceModel> updateUser(
+            @PathVariable("id") Integer id,
+            @Valid @RequestBody AuthRequest authRequest) {
+        if (userService.isAlreadyExists(id)) {
+            return new ResponseEntity<>(userService.updateUser(id, authRequest), HttpStatus.OK);
+        } else {
+            return new ResponseEntity<>(userService.updateUser(id, authRequest), HttpStatus.CREATED);
+        }
     }
 
     @CrossOrigin

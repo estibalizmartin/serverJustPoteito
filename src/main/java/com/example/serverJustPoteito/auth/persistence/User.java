@@ -1,6 +1,5 @@
 package com.example.serverJustPoteito.auth.persistence;
 
-import com.example.serverJustPoteito.auth.persistence.Role;
 import jakarta.persistence.*;
 import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.authority.SimpleGrantedAuthority;

@@ -1,5 +1,6 @@
-package com.example.serverJustPoteito.auth.persistence;
+package com.example.serverJustPoteito.auth.model;
 
+import com.example.serverJustPoteito.auth.persistence.Role;
 import com.fasterxml.jackson.annotation.JsonInclude;
 import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.userdetails.UserDetails;
