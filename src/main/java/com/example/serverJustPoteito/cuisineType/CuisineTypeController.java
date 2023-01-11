@@ -1,7 +1,7 @@
 package com.example.serverJustPoteito.cuisineType;
 
 import com.example.serverJustPoteito.cuisineType.service.CuisineTypeServiceImpl;
-import com.example.serverJustPoteito.cuisineType.model.CuisineType;
+import com.example.serverJustPoteito.cuisineType.persistence.CuisineType;
 import com.example.serverJustPoteito.cuisineType.model.CuisineTypePostRequest;
 import com.example.serverJustPoteito.cuisineType.model.CuisineTypeUpdateResponse;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -18,13 +18,13 @@ public class CuisineTypeController {
     private CuisineTypeServiceImpl cuisineTypeService;
     @GetMapping("/cuisineTypes")
     public ResponseEntity<Iterable<CuisineType>> getCuisineTypes() {
-        return new ResponseEntity<Iterable<CuisineType>>(cuisineTypeService.getCuisineTypes(), HttpStatus.OK);
+        return new ResponseEntity<>(cuisineTypeService.getCuisineTypes(), HttpStatus.OK);
     }
 
     @GetMapping("/cuisineTypes/{id}")
     public ResponseEntity<CuisineType> getCuisineTypeId(@PathVariable("id") Integer id){
         CuisineType cuisineType = cuisineTypeService.getCuisineType(id);
-        return new ResponseEntity<CuisineType>(cuisineType, HttpStatus.OK);
+        return new ResponseEntity<>(cuisineType, HttpStatus.OK);
     }
 
     @PostMapping("/cuisineTypes")

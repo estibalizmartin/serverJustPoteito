@@ -1,5 +1,7 @@
 package com.example.serverJustPoteito.ingredient.model;
 
+import com.example.serverJustPoteito.ingredient.persistence.Ingredient;
+
 public class IngredientUpdateResponse {
 
     private  boolean ingredientAlreadyExists;
