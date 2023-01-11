@@ -1,5 +1,5 @@
 package com.example.serverJustPoteito.cuisineType.service;
-import com.example.serverJustPoteito.cuisineType.model.CuisineType;
+import com.example.serverJustPoteito.cuisineType.persistence.CuisineType;
 import com.example.serverJustPoteito.cuisineType.model.CuisineTypePostRequest;
 import com.example.serverJustPoteito.cuisineType.model.CuisineTypeUpdateResponse;
 import com.example.serverJustPoteito.cuisineType.repository.CuisineTypeRepository;

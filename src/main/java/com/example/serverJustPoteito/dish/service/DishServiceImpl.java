@@ -1,9 +1,10 @@
 package com.example.serverJustPoteito.dish.service;
 
-import com.example.serverJustPoteito.cuisineType.model.CuisineType;
+import com.example.serverJustPoteito.cuisineType.persistence.CuisineType;
 import com.example.serverJustPoteito.cuisineType.model.CuisineTypeServiceModel;
 import com.example.serverJustPoteito.cuisineType.repository.CuisineTypeRepository;
 import com.example.serverJustPoteito.dish.model.*;
+import com.example.serverJustPoteito.dish.persistence.Dish;
 import com.example.serverJustPoteito.dish.repository.DishRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;

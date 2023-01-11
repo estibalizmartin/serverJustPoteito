@@ -1,6 +1,6 @@
 package com.example.serverJustPoteito.ingredient.service;
 
-import com.example.serverJustPoteito.ingredient.model.Ingredient;
+import com.example.serverJustPoteito.ingredient.persistence.Ingredient;
 import com.example.serverJustPoteito.ingredient.model.IngredientPostRequest;
 import com.example.serverJustPoteito.ingredient.model.IngredientServiceModel;
 import com.example.serverJustPoteito.ingredient.repository.IngredientRepository;
