@@ -1,4 +1,4 @@
-package com.example.serverJustPoteito.ingredient.model;
+package com.example.serverJustPoteito.ingredient.persistence;
 
 import jakarta.persistence.*;
 import java.util.List;

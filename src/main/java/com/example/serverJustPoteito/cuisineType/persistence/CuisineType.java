@@ -1,6 +1,6 @@
-package com.example.serverJustPoteito.cuisineType.model;
+package com.example.serverJustPoteito.cuisineType.persistence;
 
-import com.example.serverJustPoteito.dish.model.Dish;
+import com.example.serverJustPoteito.dish.persistence.Dish;
 import com.fasterxml.jackson.annotation.JsonBackReference;
 import jakarta.persistence.*;
 

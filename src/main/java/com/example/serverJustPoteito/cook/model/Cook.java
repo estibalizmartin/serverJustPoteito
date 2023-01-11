@@ -1,6 +1,6 @@
 package com.example.serverJustPoteito.cook.model;
 
-import com.example.serverJustPoteito.dish.model.Dish;
+import com.example.serverJustPoteito.dish.persistence.Dish;
 import jakarta.persistence.*;
 
 import java.util.Date;
