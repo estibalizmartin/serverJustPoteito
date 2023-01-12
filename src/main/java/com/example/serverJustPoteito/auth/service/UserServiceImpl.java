@@ -3,6 +3,7 @@ package com.example.serverJustPoteito.auth.service;
 import com.example.serverJustPoteito.auth.Exceptions.UserCantCreateException;
 import com.example.serverJustPoteito.auth.model.AuthRequest;
 import com.example.serverJustPoteito.auth.model.Role;
+import com.example.serverJustPoteito.auth.model.UserPostRequest;
 import com.example.serverJustPoteito.auth.persistence.User;
 import com.example.serverJustPoteito.auth.model.UserServiceModel;
 import com.example.serverJustPoteito.auth.repository.RoleRepository;
@@ -71,14 +72,14 @@ public class UserServiceImpl implements UserService, UserDetailsService {
     }
 
     @Override
-    public UserServiceModel createUser(AuthRequest authRequest) {
+    public UserServiceModel createUser(UserPostRequest userPostRequest) {
         User user = new User(
                 null,
-                authRequest.getName(),
-                authRequest.getSurnames(),
-                authRequest.getUserName(),
-                authRequest.getEmail(),
-                authRequest.getPassword(),
+                userPostRequest.getName(),
+                userPostRequest.getSurnames(),
+                userPostRequest.getUserName(),
+                userPostRequest.getEmail(),
+                userPostRequest.getPassword(),
                 true,
                 null
         );
@@ -100,14 +101,14 @@ public class UserServiceImpl implements UserService, UserDetailsService {
     }
 
     @Override
-    public UserServiceModel updateUser(Integer id, AuthRequest authRequest) {
+    public UserServiceModel updateUser(Integer id, UserPostRequest userPostRequest) {
         User user = new User(
                 id,
-                authRequest.getName(),
-                authRequest.getSurnames(),
-                authRequest.getUserName(),
-                authRequest.getEmail(),
-                authRequest.getPassword(),
+                userPostRequest.getName(),
+                userPostRequest.getSurnames(),
+                userPostRequest.getUserName(),
+                userPostRequest.getEmail(),
+                userPostRequest.getPassword(),
                 true,
                 null
         );

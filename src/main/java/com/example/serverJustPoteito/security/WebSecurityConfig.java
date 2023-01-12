@@ -48,6 +48,8 @@ public class WebSecurityConfig {
 								.requestMatchers("/api/dishes/**").permitAll()
 								.requestMatchers("/api/list").permitAll()
 								.requestMatchers("/api/delete").permitAll()
+								.requestMatchers("/api/create").permitAll()
+								.requestMatchers("/api/edit").permitAll()
 								.anyRequest().authenticated()
 		);
 		http.exceptionHandling().accessDeniedHandler(new CustomAccesDeniedHandler());

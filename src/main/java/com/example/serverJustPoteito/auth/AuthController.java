@@ -3,6 +3,7 @@ package com.example.serverJustPoteito.auth;
 import com.example.serverJustPoteito.auth.Exceptions.UserCantCreateException;
 import com.example.serverJustPoteito.auth.model.AuthRequest;
 import com.example.serverJustPoteito.auth.model.AuthResponse;
+import com.example.serverJustPoteito.auth.model.UserPostRequest;
 import com.example.serverJustPoteito.auth.persistence.User;
 import com.example.serverJustPoteito.auth.model.UserServiceModel;
 import com.example.serverJustPoteito.auth.service.UserService;
@@ -23,6 +24,7 @@ import java.util.List;
 
 @RestController
 @RequestMapping("api")
+@CrossOrigin
 public class AuthController {
 
     @Autowired
@@ -74,31 +76,27 @@ public class AuthController {
         return ResponseEntity.ok().body(userDetails);
     }
 
-    @CrossOrigin
     @GetMapping("/list")
     public ResponseEntity<List<UserServiceModel>> getUsers() {
         return new ResponseEntity<>(userService.getUsers(), HttpStatus.OK);
     }
 
-    @CrossOrigin
     @PostMapping("/create")
-    public ResponseEntity<UserServiceModel> createUser(@Valid @RequestBody AuthRequest authRequest) {
-        return new ResponseEntity<>(userService.createUser(authRequest), HttpStatus.CREATED);
+    public ResponseEntity<UserServiceModel> createUser(@Valid @RequestBody UserPostRequest userPostRequest) {
+        return new ResponseEntity<>(userService.createUser(userPostRequest), HttpStatus.CREATED);
     }
 
-    @CrossOrigin
     @PutMapping("/edit")
     public ResponseEntity<UserServiceModel> updateUser(
             @PathVariable("id") Integer id,
-            @Valid @RequestBody AuthRequest authRequest) {
+            @Valid @RequestBody UserPostRequest userPostRequest) {
         if (userService.isAlreadyExists(id)) {
-            return new ResponseEntity<>(userService.updateUser(id, authRequest), HttpStatus.OK);
+            return new ResponseEntity<>(userService.updateUser(id, userPostRequest), HttpStatus.OK);
         } else {
-            return new ResponseEntity<>(userService.updateUser(id, authRequest), HttpStatus.CREATED);
+            return new ResponseEntity<>(userService.updateUser(id, userPostRequest), HttpStatus.CREATED);
         }
     }
 
-    @CrossOrigin
     @DeleteMapping("/delete")
     public ResponseEntity<Integer> deleteUserById(@PathVariable("id") Integer id) {
         try {
