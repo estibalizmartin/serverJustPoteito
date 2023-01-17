@@ -1,7 +1,6 @@
 package com.example.serverJustPoteito.auth.service;
 
 import com.example.serverJustPoteito.auth.Exceptions.UserCantCreateException;
-import com.example.serverJustPoteito.auth.model.AuthRequest;
 import com.example.serverJustPoteito.auth.model.Role;
 import com.example.serverJustPoteito.auth.model.UserPostRequest;
 import com.example.serverJustPoteito.auth.persistence.User;
@@ -10,11 +9,13 @@ import com.example.serverJustPoteito.auth.repository.RoleRepository;
 import com.example.serverJustPoteito.auth.repository.UserRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.dao.DataAccessException;
+import org.springframework.http.HttpStatus;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.security.core.userdetails.UsernameNotFoundException;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Service;
+import org.springframework.web.server.ResponseStatusException;
 
 import java.util.ArrayList;
 import java.util.HashSet;
@@ -50,8 +51,15 @@ public class UserServiceImpl implements UserService, UserDetailsService {
     }
 
     @Override
-    public List<UserServiceModel> getUsers() {
-        Iterable<User> users = userRepository.findAll();
+    public UserDetails loadUserByUsername(String username) throws UsernameNotFoundException {
+        return userRepository.findByEmail(username)
+                .orElseThrow(
+                        () -> new UsernameNotFoundException("User " + username + " not found"));
+    }
+
+    @Override
+    public List<UserServiceModel> getUsers(int limit, int offset) {
+        List<User> users = userRepository.findAllFiltered(limit, offset);
 
         List<UserServiceModel> response = new ArrayList<>();
 
@@ -67,6 +75,26 @@ public class UserServiceImpl implements UserService, UserDetailsService {
                     user.getRoles()
             ));
         }
+
+        return response;
+    }
+
+    @Override
+    public UserServiceModel getUserById(Integer id) {
+        User user = userRepository.findById(id).orElseThrow(
+                () -> new ResponseStatusException(HttpStatus.NO_CONTENT, "Usuario no encontrado.")
+        );
+
+        UserServiceModel response = new UserServiceModel(
+                user.getId(),
+                user.getName(),
+                user.getSurnames(),
+                user.getUserName(),
+                user.getEmail(),
+                user.getPassword(),
+                true,
+                null
+        );
 
         return response;
     }
@@ -132,13 +160,6 @@ public class UserServiceImpl implements UserService, UserDetailsService {
     @Override
     public void deleteUserById(Integer id) {
         userRepository.deleteById(id);
-    }
-
-    @Override
-    public UserDetails loadUserByUsername(String username) throws UsernameNotFoundException {
-        return userRepository.findByEmail(username)
-                .orElseThrow(
-                        () -> new UsernameNotFoundException("User " + username + " not found"));
     }
 
     @Override

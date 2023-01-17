@@ -76,17 +76,23 @@ public class AuthController {
         return ResponseEntity.ok().body(userDetails);
     }
 
-    @GetMapping("/list")
-    public ResponseEntity<List<UserServiceModel>> getUsers() {
-        return new ResponseEntity<>(userService.getUsers(), HttpStatus.OK);
+    @GetMapping("/get")
+    public ResponseEntity<List<UserServiceModel>> getUsers(@RequestParam int limit,
+                                                           @RequestParam int offset) {
+        return new ResponseEntity<>(userService.getUsers(limit, offset), HttpStatus.OK);
     }
 
-    @PostMapping("/create")
+    @PostMapping("/get/{id}")
+    public ResponseEntity<UserServiceModel> getUserById(@PathVariable("id") Integer id) {
+        return new ResponseEntity<>(userService.getUserById(id), HttpStatus.OK);
+    }
+
+    @PostMapping("/post")
     public ResponseEntity<UserServiceModel> createUser(@Valid @RequestBody UserPostRequest userPostRequest) {
         return new ResponseEntity<>(userService.createUser(userPostRequest), HttpStatus.CREATED);
     }
 
-    @PutMapping("/edit")
+    @PutMapping("/put")
     public ResponseEntity<UserServiceModel> updateUser(
             @PathVariable("id") Integer id,
             @Valid @RequestBody UserPostRequest userPostRequest) {

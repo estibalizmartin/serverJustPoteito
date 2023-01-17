@@ -1,10 +1,5 @@
 package com.example.serverJustPoteito.auth.model;
 
-import com.example.serverJustPoteito.auth.persistence.Role;
-import com.fasterxml.jackson.annotation.JsonProperty;
-
-import java.util.Set;
-
 public class UserPostRequest {
 
     private Integer id;
@@ -14,7 +9,7 @@ public class UserPostRequest {
     private String email;
     private String password;
     private boolean isEnabled;
-    private Set<Role> roles;
+    //private Set<Role> roles;
 
     public UserPostRequest() {
     }
@@ -26,8 +21,8 @@ public class UserPostRequest {
             String userName,
             String email,
             String password,
-            boolean isEnabled,
-            Set<Role> roles
+            boolean isEnabled
+            //Set<Role> roles
     ) {
         this.id = id;
         this.name = name;
@@ -36,7 +31,7 @@ public class UserPostRequest {
         this.email = email;
         this.password = password;
         this.isEnabled = isEnabled;
-        this.roles = roles;
+        //this.roles = roles;
     }
 
     public Integer getId() {
@@ -95,13 +90,13 @@ public class UserPostRequest {
         isEnabled = enabled;
     }
 
-    public Set<Role> getRoles() {
+    /*public Set<Role> getRoles() {
         return roles;
     }
 
     public void setRoles(Set<Role> roles) {
         this.roles = roles;
-    }
+    }*/
 
     @Override
     public String toString() {
@@ -113,7 +108,6 @@ public class UserPostRequest {
                 ", email='" + email + '\'' +
                 ", password='" + password + '\'' +
                 ", isEnabled=" + isEnabled +
-                ", roles=" + roles +
                 '}';
     }
 }
