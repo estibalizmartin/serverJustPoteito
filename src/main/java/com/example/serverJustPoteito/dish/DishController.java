@@ -62,4 +62,8 @@ public class DishController {
             throw new ResponseStatusException(HttpStatus.CONFLICT, "Plato no encontrado.");
         }
     }
+    @GetMapping("/dishesByCuisineTypeNoToken/{cuisineTypeId}")
+    public ResponseEntity<List<DishServiceModel>> getDishesByCuisineType(@PathVariable("cuisineTypeId") Integer cuisineTypeId) {
+        return new ResponseEntity<>(dishService.getDishesByCuisineType(cuisineTypeId), HttpStatus.OK);
+    }
 }

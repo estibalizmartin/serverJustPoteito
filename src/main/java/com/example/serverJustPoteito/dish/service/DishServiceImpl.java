@@ -135,4 +135,23 @@ public class DishServiceImpl implements DishService {
     public boolean isAlreadyExists(Integer id) {
         return dishRepository.existsById(id);
     }
+
+    @Override
+    public List<DishServiceModel> getDishesByCuisineType(Integer cuisineTypeId) {
+        Iterable<Dish> dishes = dishRepository.findByCuisineTypeId(cuisineTypeId);
+
+        List<DishServiceModel> response = new ArrayList<>();
+
+        for (Dish dish : dishes) {
+            response.add(new DishServiceModel(
+                    dish.getId(),
+                    dish.getName(),
+                    dish.getPrepTime(),
+                    dish.getSubtype(),
+                    null,
+                    dish.getCuisineTypeId()
+            ));
+        }
+        return response;
+    }
 }
