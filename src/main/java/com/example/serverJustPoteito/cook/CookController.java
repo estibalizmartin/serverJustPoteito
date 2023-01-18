@@ -1,11 +1,9 @@
 package com.example.serverJustPoteito.cook;
 
-import com.example.serverJustPoteito.cook.model.Cook;
 import com.example.serverJustPoteito.cook.model.CookPostRequest;
 import com.example.serverJustPoteito.cook.model.CookServiceModel;
 import com.example.serverJustPoteito.cook.model.CookUpdateResponse;
 import com.example.serverJustPoteito.cook.service.CookService;
-import com.example.serverJustPoteito.cook.service.CookServiceImpl;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -19,7 +17,11 @@ public class CookController {
     CookService cookService;
 
     @GetMapping("/cooks")
-    public ResponseEntity<Iterable<CookServiceModel>> getDishes() {
+    public ResponseEntity<Iterable<CookServiceModel>> getCooks() {
+        return new ResponseEntity<>(cookService.getCooks(), HttpStatus.OK);
+    }
+    @GetMapping("/cooksNoToken")
+    public ResponseEntity<Iterable<CookServiceModel>> getCooksNoToken() {
         return new ResponseEntity<>(cookService.getCooks(), HttpStatus.OK);
     }
 

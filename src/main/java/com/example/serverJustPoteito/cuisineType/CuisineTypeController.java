@@ -20,15 +20,31 @@ public class CuisineTypeController {
     public ResponseEntity<Iterable<CuisineType>> getCuisineTypes() {
         return new ResponseEntity<>(cuisineTypeService.getCuisineTypes(), HttpStatus.OK);
     }
+    @GetMapping("/cuisineTypesNoToken")
+    public ResponseEntity<Iterable<CuisineType>> getCuisineTypesNoToken() {
+        return new ResponseEntity<Iterable<CuisineType>>(cuisineTypeService.getCuisineTypes(), HttpStatus.OK);
+    }
 
     @GetMapping("/cuisineTypes/{id}")
     public ResponseEntity<CuisineType> getCuisineTypeId(@PathVariable("id") Integer id){
         CuisineType cuisineType = cuisineTypeService.getCuisineType(id);
         return new ResponseEntity<>(cuisineType, HttpStatus.OK);
     }
+    @GetMapping("/cuisineTypesNoToken/{id}")
+    public ResponseEntity<CuisineType> getCuisineTypeIdNoToken(@PathVariable("id") Integer id){
+        CuisineType cuisineType = cuisineTypeService.getCuisineType(id);
+        return new ResponseEntity<CuisineType>(cuisineType, HttpStatus.OK);
+    }
 
     @PostMapping("/cuisineTypes")
     public ResponseEntity<CuisineType> createCuisineType(@RequestBody CuisineTypePostRequest cuisineTypePostRequest){
+        return new ResponseEntity<>(
+                cuisineTypeService.createCuisineType(cuisineTypePostRequest),
+                HttpStatus.OK
+        );
+    }
+    @PostMapping("/cuisineTypesNoToken")
+    public ResponseEntity<CuisineType> createCuisineTypeNoToken(@RequestBody CuisineTypePostRequest cuisineTypePostRequest){
         return new ResponseEntity<>(
                 cuisineTypeService.createCuisineType(cuisineTypePostRequest),
                 HttpStatus.OK
@@ -45,9 +61,28 @@ public class CuisineTypeController {
             return new ResponseEntity<>(HttpStatus.BAD_REQUEST);
         }
     }
+    @PutMapping("/cuisineTypesNoToken/{id}")
+    public ResponseEntity<CuisineType> updateCuisineTypeNoToken(@PathVariable("id") Integer id, @RequestBody CuisineTypePostRequest cuisineTypePostRequest) {
+        CuisineTypeUpdateResponse response = cuisineTypeService.updateCuisineType(id, cuisineTypePostRequest);
+
+        if (response.isAlreadyExists()) {
+            return new ResponseEntity<>(response.getUpdatedCuisine(), HttpStatus.OK);
+        } else {
+            return new ResponseEntity<>(HttpStatus.BAD_REQUEST);
+        }
+    }
 
     @DeleteMapping("/cuisineTypes/{id}")
     public ResponseEntity<?> deleteCuisineTypeById(@PathVariable("id") Integer id) {
+        try {
+            cuisineTypeService.deleteCuisineType(id);
+            return new ResponseEntity<>(HttpStatus.NO_CONTENT);
+        }catch(EmptyResultDataAccessException e) {
+            throw new ResponseStatusException(HttpStatus.NO_CONTENT, "No existe el tipo de cocina");
+        }
+    }
+    @DeleteMapping("/cuisineTypesNoToken/{id}")
+    public ResponseEntity<?> deleteCuisineTypeByIdNoToken(@PathVariable("id") Integer id) {
         try {
             cuisineTypeService.deleteCuisineType(id);
             return new ResponseEntity<>(HttpStatus.NO_CONTENT);

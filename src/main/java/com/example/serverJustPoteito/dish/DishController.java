@@ -26,6 +26,10 @@ public class DishController {
     public ResponseEntity<List<DishServiceModel>> getDishes() {
         return new ResponseEntity<>(dishService.getDishes(), HttpStatus.OK);
     }
+    @GetMapping("/dishesNoToken")
+    public ResponseEntity<List<DishServiceModel>> getDishesNoToken() {
+        return new ResponseEntity<>(dishService.getDishes(), HttpStatus.OK);
+    }
 
     @GetMapping("/dishes/{id}")
     public ResponseEntity<DishServiceModel> getDishById(@PathVariable("id") Integer id,

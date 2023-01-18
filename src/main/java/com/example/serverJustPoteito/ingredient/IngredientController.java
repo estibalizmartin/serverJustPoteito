@@ -2,7 +2,7 @@ package com.example.serverJustPoteito.ingredient;
 
 import com.example.serverJustPoteito.ingredient.model.IngredientPostRequest;
 import com.example.serverJustPoteito.ingredient.model.IngredientServiceModel;
-import com.example.serverJustPoteito.ingredient.service.IngredientServicelmpl;
+import com.example.serverJustPoteito.ingredient.service.IngredientService;
 import jakarta.validation.Valid;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.dao.EmptyResultDataAccessException;
@@ -17,10 +17,14 @@ import java.util.List;
 @RequestMapping("api")
 public class IngredientController {
     @Autowired
-    IngredientServicelmpl ingredientService;
+    IngredientService ingredientService;
 
     @GetMapping("/ingredients")
     public ResponseEntity<List<IngredientServiceModel>> getAllIngredients() {
+        return new ResponseEntity<>(ingredientService.getAllIngredients(), HttpStatus.OK);
+    }
+    @GetMapping("/ingredientsNoToken")
+    public ResponseEntity<List<IngredientServiceModel>> getAllIngredientsNoToken() {
         return new ResponseEntity<>(ingredientService.getAllIngredients(), HttpStatus.OK);
     }
 
