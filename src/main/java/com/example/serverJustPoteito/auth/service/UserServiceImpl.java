@@ -1,19 +1,20 @@
 package com.example.serverJustPoteito.auth.service;
 
 import com.example.serverJustPoteito.auth.Exceptions.UserCantCreateException;
-import com.example.serverJustPoteito.auth.model.Role;
+import com.example.serverJustPoteito.auth.model.RoleTypeEnum;
 import com.example.serverJustPoteito.auth.model.UserPostRequest;
+import com.example.serverJustPoteito.auth.persistence.Role;
 import com.example.serverJustPoteito.auth.persistence.User;
 import com.example.serverJustPoteito.auth.model.UserServiceModel;
 import com.example.serverJustPoteito.auth.repository.RoleRepository;
 import com.example.serverJustPoteito.auth.repository.UserRepository;
+import com.example.serverJustPoteito.security.CustomPasswordEncoder;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.dao.DataAccessException;
 import org.springframework.http.HttpStatus;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.security.core.userdetails.UsernameNotFoundException;
-import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Service;
 import org.springframework.web.server.ResponseStatusException;
 
@@ -27,17 +28,17 @@ public class UserServiceImpl implements UserService, UserDetailsService {
     @Autowired
     private UserRepository userRepository;
     @Autowired
-    private RoleRepository RoleRepository;
+    private RoleRepository roleRepository;
 
     //registro del propio usuario
     @Override
     public User signUp(User user) throws UserCantCreateException {
-        BCryptPasswordEncoder passwordEncoder = new BCryptPasswordEncoder();
+        CustomPasswordEncoder passwordEncoder = new CustomPasswordEncoder();
         String password = passwordEncoder.encode(user.getPassword());
         user.setPassword(password);
 
-        com.example.serverJustPoteito.auth.persistence.Role userRole = RoleRepository.findByName(Role.USER.name()).get();
-        Set<com.example.serverJustPoteito.auth.persistence.Role> roles = new HashSet<>();
+        Role userRole = roleRepository.findByName(RoleTypeEnum.USER.name()).get();
+        Set<Role> roles = new HashSet<>();
         roles.add(userRole);
 
         user.setEnabled(true);
