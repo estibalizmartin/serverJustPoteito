@@ -5,7 +5,6 @@ public class AuthRequest {
     private String name;
     private String userName;
     private String surnames;
-
     private String email;
     private String password;
 

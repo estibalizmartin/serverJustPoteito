@@ -7,7 +7,6 @@ import org.springframework.security.authentication.AuthenticationManager;
 import org.springframework.security.config.annotation.authentication.configuration.AuthenticationConfiguration;
 import org.springframework.security.config.annotation.web.builders.HttpSecurity;
 import org.springframework.security.config.http.SessionCreationPolicy;
-import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.security.web.SecurityFilterChain;
 import org.springframework.security.web.authentication.UsernamePasswordAuthenticationFilter;
@@ -19,21 +18,16 @@ public class WebSecurityConfig {
 	@Autowired 
 	private JwtTokenFilter jwtTokenFilter;
 
-	
 	@Bean
 	public AuthenticationManager authenticationManager(AuthenticationConfiguration authConfig) throws Exception {
 		return authConfig.getAuthenticationManager();
 	}
 	
-	// utilizado para encriptar las contraseñas en la DB
 	@Bean
 	public PasswordEncoder passwordEncoder() {
-		return new BCryptPasswordEncoder();
+		return new CustomPasswordEncoder();
 	}
 
-	
-	// aqui definimos principalmente cuales son las urls van a poder ser accesibles sin identificarse
-	// y cuales seran obligatorias
 	@Bean
 	public SecurityFilterChain filterChain(HttpSecurity http) throws Exception {
 		
@@ -46,8 +40,10 @@ public class WebSecurityConfig {
 								.requestMatchers("/api/auth/**").permitAll()
 //								.requestMatchers("/api/cuisineTypes/**").hasAuthority(Rol.USER.name())
 								.requestMatchers("/api/dishes/**").permitAll()
-								.requestMatchers("/api/list").permitAll()
-								.requestMatchers("/api/delete").permitAll()
+								.requestMatchers("/api/get/**").permitAll()
+								.requestMatchers("/api/post").permitAll()
+								.requestMatchers("/api/put/**").permitAll()
+								.requestMatchers("/api/delete/**").permitAll()
 								.anyRequest().authenticated()
 		);
 		http.exceptionHandling().accessDeniedHandler(new CustomAccesDeniedHandler());
