@@ -12,4 +12,5 @@ public interface DishService {
     void deleteDishById(Integer id);
     boolean isAlreadyExists(Integer id);
     List<DishServiceModel> getDishesByCuisineType(Integer cuisineTypeId);
+    List<DishServiceModel> findByDishListIds(List<Integer> dishesIds);
 }

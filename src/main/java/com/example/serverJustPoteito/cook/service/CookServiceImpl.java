@@ -5,6 +5,9 @@ import com.example.serverJustPoteito.cook.model.CookPostRequest;
 import com.example.serverJustPoteito.cook.model.CookServiceModel;
 import com.example.serverJustPoteito.cook.model.CookUpdateResponse;
 import com.example.serverJustPoteito.cook.repository.CookRepository;
+import com.example.serverJustPoteito.dish.model.DishServiceModel;
+import com.example.serverJustPoteito.dish.persistence.Dish;
+import com.example.serverJustPoteito.dish.service.DishServiceImpl;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.stereotype.Service;
@@ -18,6 +21,8 @@ public class CookServiceImpl implements CookService {
 
     @Autowired
     CookRepository cookRepository;
+    @Autowired
+    DishServiceImpl DishServiceImpl;
 
     @Override
     public Iterable<CookServiceModel> getCooks() {
@@ -117,5 +122,21 @@ public class CookServiceImpl implements CookService {
     @Override
     public void deleteCook(Integer id) {
         cookRepository.deleteById(id);
+    }
+
+    @Override
+    public List<DishServiceModel> getDishesByCookId(Integer cookId) {
+        List<Dish> dishesByCook = new ArrayList<>();
+        List dishIds = new ArrayList();
+        Cook cook = cookRepository.findById(cookId)
+                .orElseThrow(
+                        () -> new ResponseStatusException(HttpStatus.NO_CONTENT, "Cocinero no encontrado.")
+                );
+
+        dishesByCook = cook.getDishes();
+        for (Dish dish : dishesByCook) {
+            dishIds.add(dish.getId());
+        }
+        return DishServiceImpl.findByDishListIds(dishIds);
     }
 }
