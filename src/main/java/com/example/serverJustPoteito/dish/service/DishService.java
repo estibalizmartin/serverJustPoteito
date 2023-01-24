@@ -11,4 +11,7 @@ public interface DishService {
     DishServiceModel updateDish(Integer id, DishPostRequest dishPostRequest);
     void deleteDishById(Integer id);
     boolean isAlreadyExists(Integer id);
+    List<DishServiceModel> getDishesByCuisineType(Integer cuisineTypeId);
+    List<DishServiceModel> findByDishListIds(List<Integer> dishesIds);
+    List<DishServiceModel> getAlldishesByIngredient(List<Integer> ingredientIds);
 }

@@ -6,6 +6,7 @@ import com.example.serverJustPoteito.cuisineType.repository.CuisineTypeRepositor
 import com.example.serverJustPoteito.dish.model.*;
 import com.example.serverJustPoteito.dish.persistence.Dish;
 import com.example.serverJustPoteito.dish.repository.DishRepository;
+import com.example.serverJustPoteito.ingredient_dish.persistence.Ingredient_dish;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.stereotype.Service;
@@ -13,6 +14,8 @@ import org.springframework.web.server.ResponseStatusException;
 
 import java.util.ArrayList;
 import java.util.List;
+
+import static com.fasterxml.jackson.databind.type.LogicalType.Collection;
 
 @Service
 public class DishServiceImpl implements DishService {
@@ -135,4 +138,77 @@ public class DishServiceImpl implements DishService {
     public boolean isAlreadyExists(Integer id) {
         return dishRepository.existsById(id);
     }
+
+    @Override
+    public List<DishServiceModel> getDishesByCuisineType(Integer cuisineTypeId) {
+        Iterable<Dish> dishes = dishRepository.findByCuisineTypeId(cuisineTypeId);
+
+        List<DishServiceModel> response = new ArrayList<>();
+
+        for (Dish dish : dishes) {
+            response.add(new DishServiceModel(
+                    dish.getId(),
+                    dish.getName(),
+                    dish.getPrepTime(),
+                    dish.getSubtype(),
+                    null,
+                    dish.getCuisineTypeId()
+            ));
+        }
+        return response;
+    }
+
+    @Override
+    public List<DishServiceModel> findByDishListIds(List<Integer> dishesIds) {
+        Iterable<Dish> dishes = dishRepository.findAllById(dishesIds);
+        List<DishServiceModel> response = new ArrayList<>();
+        for (Dish dish : dishes) {
+            response.add(new DishServiceModel(
+                    dish.getId(),
+                    dish.getName(),
+                    dish.getPrepTime(),
+                    dish.getSubtype(),
+                    null,
+                    dish.getCuisineTypeId()
+            ));
+        }
+        return response;
+    }
+
+    @Override
+    public List<DishServiceModel> getAlldishesByIngredient(List<Integer> dishId) {
+        Iterable<Dish> dishes = dishRepository.findAllById(dishId);
+
+        List<DishServiceModel> response = new ArrayList<>();
+
+        for (Dish dish : dishes) {
+            response.add(new DishServiceModel(
+                    dish.getId(),
+                    dish.getName(),
+                    dish.getPrepTime(),
+                    dish.getSubtype(),
+                    null,
+                    dish.getCuisineTypeId()
+            ));
+        }
+
+        return response;
+    }
+/*
+    @Override
+    public List<DishServiceModel> getDishesByCook(List<Integer> dishesIds) {
+        Iterable<Dish> dishes = dishRepository.findByDishListIds(dishesIds);
+        List<DishServiceModel> response = new ArrayList<>();
+        for (Dish dish : dishes) {
+            response.add(new DishServiceModel(
+                    dish.getId(),
+                    dish.getName(),
+                    dish.getPrepTime(),
+                    dish.getSubtype(),
+                    null,
+                    dish.getCuisineTypeId()
+            ));
+        }
+        return response;
+    }*/
 }
