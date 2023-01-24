@@ -1,5 +1,7 @@
 package com.example.serverJustPoteito.ingredient.persistence;
 
+import com.example.serverJustPoteito.ingredient_dish.persistence.Ingredient_dish;
+import com.fasterxml.jackson.annotation.JsonBackReference;
 import jakarta.persistence.*;
 import java.util.List;
 
@@ -8,7 +10,7 @@ import java.util.List;
 public class Ingredient {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private int id;
+    private Integer id;
 
     @Column(length = 100)
     private String name;
@@ -16,24 +18,11 @@ public class Ingredient {
     @Column(length = 150)
     private String type;
 
-    @ManyToMany(fetch = FetchType.LAZY)
-    @JoinTable(
-            name = "ingredients_dish",
-            joinColumns =
-                    //{
-                            @JoinColumn(
-                                    name = "dishId", referencedColumnName = "id", foreignKey = @ForeignKey(name = "fk_dishId")
-                            )
-                    //}
-                    /*, @JoinColumn(
-                    name = "quantity"
-            )}*/
-            ,
-            inverseJoinColumns = @JoinColumn(
-                    name = "ingredientId", referencedColumnName = "id", foreignKey = @ForeignKey(name = "fk_ingredientId")
-            )
-    )
-    private List<Ingredient> ingredients;
+
+
+    @OneToMany(mappedBy = "ingredient", cascade = CascadeType.ALL, fetch = FetchType.LAZY)
+    @JsonBackReference
+    private List<Ingredient_dish> ingredient_dishes;
 
     public Ingredient() {}
 
@@ -48,18 +37,11 @@ public class Ingredient {
         this.type = type;
     }
 
-    public Ingredient(int id, String name, String type, List<Ingredient> ingredients) {
-        this.id = id;
-        this.name = name;
-        this.type = type;
-        this.ingredients = ingredients;
-    }
-
-    public int getId() {
+    public Integer getId() {
         return id;
     }
 
-    public void setId(int id) {
+    public void setId(Integer id) {
         this.id = id;
     }
 
@@ -79,21 +61,12 @@ public class Ingredient {
         this.type = type;
     }
 
-    public List<Ingredient> getIngredients() {
-        return ingredients;
-    }
-
-    public void setIngredients(List<Ingredient> ingredients) {
-        this.ingredients = ingredients;
-    }
-
     @Override
     public String toString() {
         return "Ingredients{" +
                 "id=" + id +
                 ", name='" + name + '\'' +
                 ", type='" + type + '\'' +
-                ", ingredients=" + ingredients +
                 '}';
     }
 }

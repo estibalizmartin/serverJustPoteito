@@ -1,9 +1,13 @@
 package com.example.serverJustPoteito.dish.persistence;
 
 import com.example.serverJustPoteito.cuisineType.persistence.CuisineType;
+import com.example.serverJustPoteito.ingredient_dish.persistence.Ingredient_dish;
+import com.fasterxml.jackson.annotation.JsonBackReference;
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import com.fasterxml.jackson.annotation.JsonManagedReference;
 import jakarta.persistence.*;
+
+import java.util.List;
 
 @Entity
 @Table(name = "dishes")
@@ -30,6 +34,10 @@ public class Dish {
 
     @Column(name = "cuisine_type_id", updatable = false, insertable = false)
     private Integer cuisineTypeId;
+
+    @OneToMany(mappedBy = "dish", cascade = CascadeType.ALL, fetch = FetchType.LAZY)
+    @JsonBackReference
+    private List<Ingredient_dish> ingredient_dishes;
 
     public Dish() {
     }
