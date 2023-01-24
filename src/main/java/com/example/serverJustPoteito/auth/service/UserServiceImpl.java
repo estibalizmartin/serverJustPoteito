@@ -52,6 +52,29 @@ public class UserServiceImpl implements UserService, UserDetailsService {
     }
 
     @Override
+    public List<String> logUser(String email, String password) {
+        CustomPasswordEncoder passwordEncoder = new CustomPasswordEncoder();
+        List<String> response = new ArrayList<>();
+        User user;
+
+        user = userRepository.findByEmail(email)
+                .orElseThrow(
+                        () -> new UsernameNotFoundException(email + " not found"));
+
+        if (user == null) {
+            response.add("-1");
+            return response;
+        } else if (passwordEncoder.matches(password, user.getPassword())) {
+            response.add("" + user.getId());
+            response.add(user.getUsername());
+            return response;
+        } else {
+            response.add("-2");
+            return response;
+        }
+    }
+
+    @Override
     public UserDetails loadUserByUsername(String username) throws UsernameNotFoundException {
         return userRepository.findByEmail(username)
                 .orElseThrow(
