@@ -59,6 +59,8 @@ public class WebSecurityConfig {
 								.requestMatchers("/api/dishesByCuisineTypeNoToken/{cuisineTypeId}").permitAll()
 								.requestMatchers("/api/dishesByCookNoToken/{cookId}").permitAll()
 								.requestMatchers("/api/cooksNoToken/{id}").permitAll()
+								.requestMatchers("/api/ingredients_dishesNoToken").permitAll()
+								.requestMatchers("/api/getAllDishesByIngredientNoToken").permitAll()
 								.anyRequest().authenticated()
 		);
 		http.exceptionHandling().accessDeniedHandler(new CustomAccesDeniedHandler());

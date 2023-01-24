@@ -13,4 +13,5 @@ public interface DishService {
     boolean isAlreadyExists(Integer id);
     List<DishServiceModel> getDishesByCuisineType(Integer cuisineTypeId);
     List<DishServiceModel> findByDishListIds(List<Integer> dishesIds);
+    List<DishServiceModel> getAlldishesByIngredient(List<Integer> ingredientIds);
 }
