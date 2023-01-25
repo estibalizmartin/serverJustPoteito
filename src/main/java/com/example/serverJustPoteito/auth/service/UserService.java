@@ -9,7 +9,7 @@ import java.util.List;
 
 public interface UserService {
     User signUp(User user) throws UserCantCreateException;
-    List<UserServiceModel> getUsers(int limit, int offset);
+    List<UserServiceModel> getUsers();
     UserServiceModel getUserById(Integer id);
     UserServiceModel createUser(UserPostRequest userPostRequest);
     UserServiceModel updateUser(Integer id, UserPostRequest userPostRequest);

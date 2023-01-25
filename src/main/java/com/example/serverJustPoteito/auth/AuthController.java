@@ -1,11 +1,8 @@
 package com.example.serverJustPoteito.auth;
 
 import com.example.serverJustPoteito.auth.Exceptions.UserCantCreateException;
-import com.example.serverJustPoteito.auth.model.AuthRequest;
-import com.example.serverJustPoteito.auth.model.AuthResponse;
-import com.example.serverJustPoteito.auth.model.UserPostRequest;
+import com.example.serverJustPoteito.auth.model.*;
 import com.example.serverJustPoteito.auth.persistence.User;
-import com.example.serverJustPoteito.auth.model.UserServiceModel;
 import com.example.serverJustPoteito.auth.service.UserService;
 import com.example.serverJustPoteito.security.JwtTokenUtil;
 import jakarta.validation.Valid;
@@ -76,10 +73,9 @@ public class AuthController {
         return ResponseEntity.ok().body(userDetails);
     }
 
-    @GetMapping("/get")
-    public ResponseEntity<List<UserServiceModel>> getUsers(@RequestParam int limit,
-                                                           @RequestParam int offset) {
-        return new ResponseEntity<>(userService.getUsers(limit, offset), HttpStatus.OK);
+    @GetMapping("/users")
+    public ResponseEntity<List<UserServiceModel>> getUsers() {
+        return new ResponseEntity<>(userService.getUsers(), HttpStatus.OK);
     }
 
     @PostMapping("/get/{id}")
@@ -92,7 +88,7 @@ public class AuthController {
         return new ResponseEntity<>(userService.createUser(userPostRequest), HttpStatus.CREATED);
     }
 
-    @PutMapping("/put")
+    @PutMapping("/users/{id}")
     public ResponseEntity<UserServiceModel> updateUser(
             @PathVariable("id") Integer id,
             @Valid @RequestBody UserPostRequest userPostRequest) {
@@ -104,7 +100,7 @@ public class AuthController {
     }
 
     @PostMapping("/delete/{id}")
-    public ResponseEntity<Integer> deleteUserById(@RequestBody Integer id) {
+    public ResponseEntity<Integer> deleteUserById(@PathVariable("id") Integer id) {
         try {
             userService.deleteUserById(id);
             return new ResponseEntity<>(HttpStatus.NO_CONTENT);

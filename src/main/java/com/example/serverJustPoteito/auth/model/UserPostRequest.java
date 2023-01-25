@@ -1,5 +1,10 @@
 package com.example.serverJustPoteito.auth.model;
 
+import com.example.serverJustPoteito.auth.persistence.Role;
+
+import java.util.List;
+import java.util.Set;
+
 public class UserPostRequest {
 
     private Integer id;
@@ -9,7 +14,7 @@ public class UserPostRequest {
     private String email;
     private String password;
     private boolean isEnabled;
-    //private Set<Role> roles;
+    private List<Role> roles;
 
     public UserPostRequest() {
     }
@@ -21,8 +26,8 @@ public class UserPostRequest {
             String userName,
             String email,
             String password,
-            boolean isEnabled
-            //Set<Role> roles
+            boolean isEnabled,
+            List<Role> roles
     ) {
         this.id = id;
         this.name = name;
@@ -31,7 +36,7 @@ public class UserPostRequest {
         this.email = email;
         this.password = password;
         this.isEnabled = isEnabled;
-        //this.roles = roles;
+        this.roles = roles;
     }
 
     public Integer getId() {
@@ -90,13 +95,13 @@ public class UserPostRequest {
         isEnabled = enabled;
     }
 
-    /*public Set<Role> getRoles() {
+    public List<Role> getRoles() {
         return roles;
     }
 
-    public void setRoles(Set<Role> roles) {
+    public void setRoles(List<Role> roles) {
         this.roles = roles;
-    }*/
+    }
 
     @Override
     public String toString() {
