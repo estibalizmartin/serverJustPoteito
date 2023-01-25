@@ -1,6 +1,5 @@
 package com.example.serverJustPoteito.security;
 
-//import com.example.serverJustPoteito.auth.model.Rol;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
@@ -11,7 +10,6 @@ import org.springframework.security.config.http.SessionCreationPolicy;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.security.web.SecurityFilterChain;
 import org.springframework.security.web.authentication.UsernamePasswordAuthenticationFilter;
-
 
 @Configuration
 public class WebSecurityConfig {
@@ -31,7 +29,19 @@ public class WebSecurityConfig {
 		return new CustomPasswordEncoder();
 	}
 
-	
+	/*@Bean
+	public CorsConfigurationSource corsConfigurationSource() {
+		final CorsConfiguration configuration = new CorsConfiguration();
+		configuration.setAllowedOrigins(Arrays.asList("https://localhost:7013", "http://localhost:5013"));
+		configuration.setAllowedMethods(Arrays.asList("HEAD", "GET", "POST", "PUT", "DELETE", "PATCH"));
+		configuration.setAllowCredentials(true);
+		configuration.setAllowedHeaders(Arrays.asList("Authorization", "Cache-Control", "Content-Type"));
+		final UrlBasedCorsConfigurationSource source = new UrlBasedCorsConfigurationSource();
+		source.registerCorsConfiguration("/**", configuration);
+		return source;
+	}*/
+
+
 	// aqui definimos principalmente cuales son las urls van a poder ser accesibles sin identificarse
 	// y cuales seran obligatorias
 	@Bean
@@ -62,13 +72,15 @@ public class WebSecurityConfig {
 								.requestMatchers("/api/cooksNoToken/{id}").permitAll()
 								.requestMatchers("/api/ingredients_dishesNoToken").permitAll()
 								.requestMatchers("/api/getAllDishesByIngredientNoToken").permitAll()
+								.requestMatchers("/api/forgotpassword").permitAll()
 								.anyRequest().authenticated()
 		);
 		http.exceptionHandling().accessDeniedHandler(new CustomAccesDeniedHandler());
 		http.exceptionHandling().authenticationEntryPoint(new CustomAuthenticationEntryPoint());
 
 		http.addFilterBefore(jwtTokenFilter, UsernamePasswordAuthenticationFilter.class);
-		
+
+		//http.cors();
 		return http.build();
 	}
 }

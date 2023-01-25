@@ -12,25 +12,30 @@ import com.example.serverJustPoteito.security.CustomPasswordEncoder;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.dao.DataAccessException;
 import org.springframework.http.HttpStatus;
+import org.springframework.mail.SimpleMailMessage;
+import org.springframework.mail.javamail.JavaMailSender;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.security.core.userdetails.UsernameNotFoundException;
 import org.springframework.stereotype.Service;
 import org.springframework.web.server.ResponseStatusException;
 
-import java.util.ArrayList;
-import java.util.HashSet;
-import java.util.List;
-import java.util.Set;
+import java.util.*;
 
 @Service("userDetailsService")
 public class UserServiceImpl implements UserService, UserDetailsService {
+
     @Autowired
     private UserRepository userRepository;
     @Autowired
     private RoleRepository roleRepository;
 
-    //registro del propio usuario
+    private JavaMailSender mailSender;
+
+        public UserServiceImpl(JavaMailSender mailSender) {
+        this.mailSender = mailSender;
+    }
+
     @Override
     public User signUp(User user) throws UserCantCreateException {
         CustomPasswordEncoder passwordEncoder = new CustomPasswordEncoder();
@@ -72,6 +77,18 @@ public class UserServiceImpl implements UserService, UserDetailsService {
             response.add("-2");
             return response;
         }
+    }
+
+    @Override
+    public String sendEmail(String email) {
+        SimpleMailMessage message = new SimpleMailMessage();
+        message.setFrom("estibaliz.martines@elorrieta-errekamari.com");
+        message.setTo(email);
+        message.setSubject("Correo de recuperación de contraseña");
+        message.setText("Otro correito de prueba ༼ つ ◕_◕ ༽つ");
+        mailSender.send(message);
+
+        return "Correo enviado";
     }
 
     @Override

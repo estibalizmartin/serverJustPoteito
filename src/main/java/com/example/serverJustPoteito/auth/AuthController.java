@@ -1,11 +1,8 @@
 package com.example.serverJustPoteito.auth;
 
 import com.example.serverJustPoteito.auth.Exceptions.UserCantCreateException;
-import com.example.serverJustPoteito.auth.model.AuthRequest;
-import com.example.serverJustPoteito.auth.model.AuthResponse;
-import com.example.serverJustPoteito.auth.model.UserPostRequest;
+import com.example.serverJustPoteito.auth.model.*;
 import com.example.serverJustPoteito.auth.persistence.User;
-import com.example.serverJustPoteito.auth.model.UserServiceModel;
 import com.example.serverJustPoteito.auth.service.UserService;
 import com.example.serverJustPoteito.security.JwtTokenUtil;
 import jakarta.validation.Valid;
@@ -74,10 +71,10 @@ public class AuthController {
         User user = new User(request.getName(), request.getSurnames(), request.getUserName(), request.getEmail(), request.getPassword());
         try {
             userService.signUp(user);
+            return new ResponseEntity<>(HttpStatus.CREATED);
         } catch (UserCantCreateException e) {
             return new ResponseEntity<>(HttpStatus.CONFLICT);
         }
-        return new ResponseEntity<>(HttpStatus.CREATED);
     }
 
     @GetMapping("/auth/me")
@@ -85,6 +82,11 @@ public class AuthController {
         User userDetails = (User) authentication.getPrincipal();
         int idUser = userDetails.getId();  //Sacamos el ID del usuario logueado de aquí en vez de hacerlo de la URL
         return ResponseEntity.ok().body(userDetails);
+    }
+
+    @PostMapping("/forgotpassword")
+    public ResponseEntity<String> sendEmail(@RequestBody String email) {
+        return new ResponseEntity<>(userService.sendEmail(email), HttpStatus.OK);
     }
 
     @GetMapping("/get")
