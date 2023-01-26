@@ -9,13 +9,15 @@ import com.example.serverJustPoteito.auth.model.UserServiceModel;
 import com.example.serverJustPoteito.auth.repository.RoleRepository;
 import com.example.serverJustPoteito.auth.repository.UserRepository;
 import com.example.serverJustPoteito.security.CustomPasswordEncoder;
+import org.passay.CharacterData;
+import org.passay.CharacterRule;
+import org.passay.EnglishCharacterData;
+import org.passay.PasswordGenerator;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.dao.DataAccessException;
 import org.springframework.http.HttpStatus;
 import org.springframework.mail.SimpleMailMessage;
 import org.springframework.mail.javamail.JavaMailSender;
-import org.springframework.security.core.userdetails.UserDetails;
-import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.security.core.userdetails.UsernameNotFoundException;
 import org.springframework.stereotype.Service;
 import org.springframework.web.server.ResponseStatusException;
@@ -23,7 +25,7 @@ import org.springframework.web.server.ResponseStatusException;
 import java.util.*;
 
 @Service("userDetailsService")
-public class UserServiceImpl implements UserService, UserDetailsService {
+public class UserServiceImpl implements UserService {
 
     @Autowired
     private UserRepository userRepository;
@@ -60,11 +62,8 @@ public class UserServiceImpl implements UserService, UserDetailsService {
     public List<String> logUser(String email, String password) {
         CustomPasswordEncoder passwordEncoder = new CustomPasswordEncoder();
         List<String> response = new ArrayList<>();
-        User user;
 
-        user = userRepository.findByEmail(email)
-                .orElseThrow(
-                        () -> new UsernameNotFoundException(email + " not found"));
+        User user = loadUserByEmail(email);
 
         if (user == null) {
             response.add("-1");
@@ -80,22 +79,31 @@ public class UserServiceImpl implements UserService, UserDetailsService {
     }
 
     @Override
-    public String sendEmail(String email) {
-        SimpleMailMessage message = new SimpleMailMessage();
-        message.setFrom("estibaliz.martines@elorrieta-errekamari.com");
-        message.setTo(email);
-        message.setSubject("Correo de recuperación de contraseña");
-        message.setText("Otro correito de prueba ༼ つ ◕_◕ ༽つ");
-        mailSender.send(message);
+    public boolean sendEmail(String email) {
+        String newPassword = generatePassayPassword();
 
-        return "Correo enviado";
-    }
+        CustomPasswordEncoder passwordEncoder = new CustomPasswordEncoder();
+        String encodedNewPassword = passwordEncoder.encode(newPassword);
 
-    @Override
-    public UserDetails loadUserByUsername(String username) throws UsernameNotFoundException {
-        return userRepository.findByEmail(username)
-                .orElseThrow(
-                        () -> new UsernameNotFoundException("User " + username + " not found"));
+        User user = loadUserByEmail(email);
+
+        int queryResult = 0;
+        if (user != null) {
+            queryResult = userRepository.resetPassword(encodedNewPassword, email);
+        }
+
+        if (queryResult == 1) {
+            SimpleMailMessage message = new SimpleMailMessage();
+            message.setFrom("estibaliz.martines@elorrieta-errekamari.com");
+            message.setTo(email);
+            message.setSubject("Correo de recuperación de contraseña");
+            message.setText("Tu nueva contraseña es: " + newPassword);
+            mailSender.send(message);
+
+            return true;
+        } else {
+            return false;
+        }
     }
 
     @Override
@@ -206,5 +214,30 @@ public class UserServiceImpl implements UserService, UserDetailsService {
     @Override
     public boolean isAlreadyExists(Integer id) {
         return userRepository.existsById(id);
+    }
+
+    private User loadUserByEmail(String email) {
+        return userRepository.findByEmail(email)
+                .orElseThrow(
+                        () -> new UsernameNotFoundException("Email " + email + " not found"));
+    }
+
+    private String generatePassayPassword() {
+        PasswordGenerator gen = new PasswordGenerator();
+        CharacterData lowerCaseChars = EnglishCharacterData.LowerCase;
+        CharacterRule lowerCaseRule = new CharacterRule(lowerCaseChars);
+        lowerCaseRule.setNumberOfCharacters(2);
+
+        CharacterData upperCaseChars = EnglishCharacterData.UpperCase;
+        CharacterRule upperCaseRule = new CharacterRule(upperCaseChars);
+        upperCaseRule.setNumberOfCharacters(2);
+
+        CharacterData digitChars = EnglishCharacterData.Digit;
+        CharacterRule digitRule = new CharacterRule(digitChars);
+        digitRule.setNumberOfCharacters(2);
+
+        String password = gen.generatePassword(10, lowerCaseRule,
+                upperCaseRule, digitRule);
+        return password;
     }
 }

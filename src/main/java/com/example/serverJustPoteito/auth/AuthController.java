@@ -85,7 +85,7 @@ public class AuthController {
     }
 
     @PostMapping("/forgotpassword")
-    public ResponseEntity<String> sendEmail(@RequestBody String email) {
+    public ResponseEntity<Boolean> sendEmail(@RequestBody String email) {
         return new ResponseEntity<>(userService.sendEmail(email), HttpStatus.OK);
     }
 
