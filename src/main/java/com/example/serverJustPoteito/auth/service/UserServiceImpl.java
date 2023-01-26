@@ -94,8 +94,8 @@ public class UserServiceImpl implements UserService, UserDetailsService {
                 user.getUserName(),
                 user.getEmail(),
                 user.getPassword(),
-                true,
-                null
+                user.isEnabled(),
+                user.getRoles()
         );
 
         return response;
@@ -143,22 +143,12 @@ public class UserServiceImpl implements UserService, UserDetailsService {
                 userPostRequest.isEnabled(),
                 null
         );
-        System.out.println("AAAAAA: " + userPostRequest.getPassword());
 
-        if (userPostRequest.getPassword() != null) {
-
-            User userPassword = userRepository.findById(id)
-                    .orElse(null);
-
-            if (userPostRequest.getPassword().equals(userPassword.getPassword())) {
-                user.setPassword(userPostRequest.getPassword());
-                System.out.println("HOLAAAA");
-            } else {
-                CustomPasswordEncoder passwordEncoder = new CustomPasswordEncoder();
-                String password = passwordEncoder.encode(userPostRequest.getPassword());
-                user.setPassword(password);
-            }
-        }
+        User userPassword = userRepository.findById(id)
+                .orElse(null);
+            CustomPasswordEncoder passwordEncoder = new CustomPasswordEncoder();
+            String password = passwordEncoder.encode(userPassword.getPassword());
+            user.setPassword(password);
 
         Set<Role> roles = new HashSet<>();
 

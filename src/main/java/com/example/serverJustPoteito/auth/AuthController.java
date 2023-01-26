@@ -78,7 +78,7 @@ public class AuthController {
         return new ResponseEntity<>(userService.getUsers(), HttpStatus.OK);
     }
 
-    @PostMapping("/get/{id}")
+    @GetMapping("/users/{id}")
     public ResponseEntity<UserServiceModel> getUserById(@PathVariable("id") Integer id) {
         return new ResponseEntity<>(userService.getUserById(id), HttpStatus.OK);
     }
