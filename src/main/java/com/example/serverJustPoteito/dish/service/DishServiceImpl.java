@@ -159,6 +159,25 @@ public class DishServiceImpl implements DishService {
     }
 
     @Override
+    public List<DishServiceModel> getDishesByCook(Integer cookId) {
+        Iterable<Dish> dishes = dishRepository.findByCookId(cookId);
+
+        List<DishServiceModel> response = new ArrayList<>();
+
+        for (Dish dish : dishes) {
+            response.add(new DishServiceModel(
+                    dish.getId(),
+                    dish.getName(),
+                    dish.getPrepTime(),
+                    dish.getSubtype(),
+                    null,
+                    dish.getCookId()
+            ));
+        }
+        return response;
+    }
+
+    @Override
     public List<DishServiceModel> findByDishListIds(List<Integer> dishesIds) {
         Iterable<Dish> dishes = dishRepository.findAllById(dishesIds);
         List<DishServiceModel> response = new ArrayList<>();

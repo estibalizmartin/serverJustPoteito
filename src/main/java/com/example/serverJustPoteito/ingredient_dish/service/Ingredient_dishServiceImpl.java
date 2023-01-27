@@ -6,6 +6,7 @@ import com.example.serverJustPoteito.dish.service.DishService;
 import com.example.serverJustPoteito.ingredient.model.IngredientServiceModel;
 import com.example.serverJustPoteito.ingredient.persistence.Ingredient;
 import com.example.serverJustPoteito.ingredient.repository.IngredientRepository;
+import com.example.serverJustPoteito.ingredient.service.IngredientService;
 import com.example.serverJustPoteito.ingredient_dish.model.Ingredient_dishPostRequest;
 import com.example.serverJustPoteito.ingredient_dish.model.Ingredient_dishServiceModel;
 import com.example.serverJustPoteito.ingredient_dish.persistence.Ingredient_dish;
@@ -22,6 +23,9 @@ public class Ingredient_dishServiceImpl implements Ingredient_dishService{
     private Ingredient_dishRepository ingredient_dishRepository;
     @Autowired
     private DishService dishService;
+
+    @Autowired
+    private IngredientService ingredientService;
     @Override
     public List<Ingredient_dishServiceModel> getAllIngredients_dish() {
         Iterable<Ingredient_dish> ingredient_dish = ingredient_dishRepository.findAll();

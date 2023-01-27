@@ -23,6 +23,11 @@ public class IngredientController {
     public ResponseEntity<List<IngredientServiceModel>> getAllIngredients() {
         return new ResponseEntity<>(ingredientService.getAllIngredients(), HttpStatus.OK);
     }
+
+    @GetMapping("/ingredientsByDishIdNoToken/{dishId}")
+    public ResponseEntity<Iterable<IngredientServiceModel>> getAllIngredientsByDishId(@PathVariable("dishId") Integer dishId) {
+        return new ResponseEntity<>(ingredientService.getAllByDishId(dishId), HttpStatus.OK);
+    }
     @GetMapping("/ingredientsNoToken")
     public ResponseEntity<List<IngredientServiceModel>> getAllIngredientsNoToken() {
         return new ResponseEntity<>(ingredientService.getAllIngredients(), HttpStatus.OK);

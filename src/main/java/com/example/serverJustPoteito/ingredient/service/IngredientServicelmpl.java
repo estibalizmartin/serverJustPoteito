@@ -51,6 +51,28 @@ public class IngredientServicelmpl implements IngredientService{
     }
 
     @Override
+    public Iterable<IngredientServiceModel> getAllByDishId(Integer dishId) {
+        Iterable<Ingredient> ingredient = ingredientRepository.findAllByDishId(dishId);
+
+        List<IngredientServiceModel> response = new ArrayList<>();
+
+        for (Ingredient ingredients : ingredient) {
+            response.add(new IngredientServiceModel(
+                    ingredients.getId(),
+                    ingredients.getName(),
+                    ingredients.getType()
+            ));
+        }
+        return response;
+    }
+
+    @Override
+    public List<Ingredient> getAllIngredientById(List<Integer> listId) {
+        List<Ingredient> ingredientList = ingredientRepository.findAllByIdIn(listId);
+        return ingredientList;
+    }
+
+    @Override
     public IngredientServiceModel createIngredient(IngredientPostRequest ingredientsPostRequest) {
         Ingredient ingredient = new Ingredient(
                 ingredientsPostRequest.getName(),
