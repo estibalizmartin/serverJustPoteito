@@ -1,6 +1,7 @@
 package com.example.serverJustPoteito.auth.service;
 
 import com.example.serverJustPoteito.auth.Exceptions.UserCantCreateException;
+import com.example.serverJustPoteito.auth.model.PasswordPostRequest;
 import com.example.serverJustPoteito.auth.model.RoleTypeEnum;
 import com.example.serverJustPoteito.auth.model.UserPostRequest;
 import com.example.serverJustPoteito.auth.persistence.Role;
@@ -31,12 +32,8 @@ public class UserServiceImpl implements UserService {
     private UserRepository userRepository;
     @Autowired
     private RoleRepository roleRepository;
-
+    @Autowired
     private JavaMailSender mailSender;
-
-        public UserServiceImpl(JavaMailSender mailSender) {
-        this.mailSender = mailSender;
-    }
 
     @Override
     public User signUp(User user) throws UserCantCreateException {
@@ -97,7 +94,7 @@ public class UserServiceImpl implements UserService {
             message.setFrom("estibaliz.martines@elorrieta-errekamari.com");
             message.setTo(email);
             message.setSubject("Correo de recuperación de contraseña");
-            message.setText("Tu nueva contraseña es: " + newPassword);
+            message.setText("Txaber cómeme los cojones con esta contraseña: " + newPassword);
             mailSender.send(message);
 
             return true;
@@ -212,8 +209,26 @@ public class UserServiceImpl implements UserService {
     }
 
     @Override
-    public boolean isAlreadyExists(Integer id) {
-        return userRepository.existsById(id);
+    public int changeUserPasswordNoToken(PasswordPostRequest passwordPostRequest) {
+        CustomPasswordEncoder passwordEncoder = new CustomPasswordEncoder();
+        String encodedNewPassword = passwordEncoder.encode(passwordPostRequest.getNewPassword());
+
+        User user = loadUserByEmail(passwordPostRequest.getEmail());
+        if (user == null) return -1;
+
+        int queryResult = 0;
+        if (user != null && passwordEncoder.matches(passwordPostRequest.getOldPassword(), user.getPassword())) {
+            passwordPostRequest.setOldPassword(user.getPassword());
+            passwordPostRequest.setNewPassword(encodedNewPassword);
+            queryResult = userRepository.updatePassword(
+                    passwordPostRequest.getNewPassword(),
+                    passwordPostRequest.getEmail(),
+                    passwordPostRequest.getOldPassword()
+            );
+            return queryResult;
+        }
+        else
+            return -2;
     }
 
     private User loadUserByEmail(String email) {
@@ -239,5 +254,10 @@ public class UserServiceImpl implements UserService {
         String password = gen.generatePassword(10, lowerCaseRule,
                 upperCaseRule, digitRule);
         return password;
+    }
+
+    @Override
+    public boolean isAlreadyExists(Integer id) {
+        return userRepository.existsById(id);
     }
 }

@@ -125,4 +125,19 @@ public class AuthController {
             throw new ResponseStatusException(HttpStatus.CONFLICT, "Usuario no encontrado.");
         }
     }
+
+    @PostMapping("/changepasswordnotoken")
+    public ResponseEntity<Integer> changeUserPasswordNoToken(
+            @RequestBody PasswordPostRequest passwordPostRequest
+    ) {
+        int passwordChanged = userService.changeUserPasswordNoToken(passwordPostRequest);
+
+        if (passwordChanged == -1) {
+            return ResponseEntity.status(432).build();
+        } else if (passwordChanged == -2) {
+            return ResponseEntity.status(433).build();
+        } else {
+            return ResponseEntity.status(HttpStatus.ACCEPTED).body(passwordChanged);
+        }
+    }
 }
