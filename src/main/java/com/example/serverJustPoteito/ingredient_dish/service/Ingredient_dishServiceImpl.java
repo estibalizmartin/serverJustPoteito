@@ -44,27 +44,6 @@ public class Ingredient_dishServiceImpl implements Ingredient_dishService{
          */
         return null;
     }
-//
-//    @Override
-//    public List<Ingredient_dishServiceModel> getAllIngredientsByDishId(Integer id) {
-//        Iterable<Ingredient_dish> ingredients_dish = ingredient_dishRepository.findAllByDishId(id);
-//
-//        List<Ingredient_dishServiceModel> response = new ArrayList<>();
-//
-//        for (Ingredient_dish ingredient_dish : ingredients_dish) {
-//
-//            Ingredient_dishServiceModel item = new Ingredient_dishServiceModel(
-//                    ingredient_dish.getId().getIngredientId(),
-//                    ingredient_dish.getId().getDishId(),
-//                    ingredient_dish.getAmount()
-//            );
-//            Ingredient ingredient = ingredient_dish.getIngredient();
-//            IngredientServiceModel ingSModel = new IngredientServiceModel(ingredient.getId(), ingredient.getName(), ingredient.getType());
-//            item.setIngredient(ingSModel);
-//            response.add(item);
-//        }
-//        return response;
-//    }
 
     @Override
     public List<IngredientServiceModel> getAllIngredientsByDishId(Integer id) {
@@ -74,15 +53,8 @@ public class Ingredient_dishServiceImpl implements Ingredient_dishService{
 
         for (Ingredient_dish ingredient_dish : ingredients_dish) {
 
-//            Ingredient_dishServiceModel item = new Ingredient_dishServiceModel(
-//                    ingredient_dish.getId().getIngredientId(),
-//                    ingredient_dish.getId().getDishId(),
-//                    ingredient_dish.getAmount()
-//            );
             Ingredient ingredient = ingredient_dish.getIngredient();
             IngredientServiceModel item = new IngredientServiceModel(ingredient.getId(), ingredient.getName(), ingredient.getType(), ingredient_dish.getAmount());
-            // IngredientServiceModel ingSModel = new IngredientServiceModel(ingredient.getId(), ingredient.getName(), ingredient.getType());
-            // item.setIngredient(ingSModel);
             response.add(item);
         }
         return response;
@@ -129,12 +101,6 @@ public class Ingredient_dishServiceImpl implements Ingredient_dishService{
         }
 
         return dishService.getAlldishesByIngredient(dishIds);
-    }
-
-    @Override
-    public String getAmount(Integer dishId, Integer ingredientId) {
-        //return ingredient_dishRepository.findAmount(dishId, ingredientId);
-        return null;
     }
 
     @Override

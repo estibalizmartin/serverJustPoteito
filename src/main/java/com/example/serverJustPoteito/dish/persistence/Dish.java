@@ -49,6 +49,8 @@ public class Dish {
     @JsonBackReference
     private List<Ingredient_dish> ingredient_dishes;
 
+    private String recipe;
+
     public Dish() {
     }
 
@@ -79,6 +81,28 @@ public class Dish {
         this.cook = cook;
         this.cookId = cookId;
         this.ingredient_dishes = ingredient_dishes;
+    }
+
+    public Dish(Integer id,
+                String name,
+                Integer prepTime,
+                String subtype,
+                CuisineType cuisineType,
+                Integer cuisineTypeId,
+                Cook cook,
+                Integer cookId,
+                List<Ingredient_dish> ingredient_dishes,
+                String recipe) {
+        Id = id;
+        this.name = name;
+        this.prepTime = prepTime;
+        this.subtype = subtype;
+        this.cuisineType = cuisineType;
+        this.cuisineTypeId = cuisineTypeId;
+        this.cook = cook;
+        this.cookId = cookId;
+        this.ingredient_dishes = ingredient_dishes;
+        this.recipe = recipe;
     }
 
     public Integer getId() {
@@ -153,6 +177,14 @@ public class Dish {
         this.ingredient_dishes = ingredient_dishes;
     }
 
+    public String getRecipe() {
+        return recipe;
+    }
+
+    public void setRecipe(String recipe) {
+        this.recipe = recipe;
+    }
+
     @Override
     public String toString() {
         return "Dish{" +
@@ -165,6 +197,7 @@ public class Dish {
                 ", cook=" + cook +
                 ", cookId=" + cookId +
                 ", ingredient_dishes=" + ingredient_dishes +
+                ", recipe=" + recipe +
                 '}';
     }
 }

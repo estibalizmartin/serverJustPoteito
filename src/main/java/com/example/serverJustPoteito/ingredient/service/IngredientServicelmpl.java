@@ -59,8 +59,7 @@ public class IngredientServicelmpl implements IngredientService{
 
         List<IngredientServiceModel> ingDish = ingredient_dishService.getAllIngredientsByDishId(dishId);
         return ingDish;
-        // System.out.println(ingDish);
-        /*
+        /* Otra manera de hacerlo
         Iterable<Ingredient> ingredients = ingredientRepository.findAllByDishId(dishId);
         List<IngredientServiceModel> response = new ArrayList<>();
         String amount;
@@ -75,7 +74,6 @@ public class IngredientServicelmpl implements IngredientService{
             ));
         }
         return response;
-
          */
     }
 

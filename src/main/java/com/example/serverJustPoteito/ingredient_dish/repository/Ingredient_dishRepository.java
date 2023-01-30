@@ -12,9 +12,5 @@ import java.util.List;
 
 public interface Ingredient_dishRepository extends CrudRepository<Ingredient_dish, Integer> {
     List<Ingredient_dish> findAllByIngredientIdIn(List<Integer> ingredientIds);
-    /*
-    @Transactional
-    @Query(value = "select amount from ingredient_dish where dish_id = ?1 and ingredient_id = ?2 ", nativeQuery = true)
-    String findAmount(Integer dishId, Integer ingredientId);*/
     List<Ingredient_dish> findAllByDishId(Integer dishIds);
 }
