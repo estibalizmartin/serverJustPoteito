@@ -1,6 +1,7 @@
 package com.example.serverJustPoteito.auth.service;
 
 import com.example.serverJustPoteito.auth.Exceptions.UserCantCreateException;
+import com.example.serverJustPoteito.auth.model.PasswordPostRequest;
 import com.example.serverJustPoteito.auth.model.RoleTypeEnum;
 import com.example.serverJustPoteito.auth.model.UserPostRequest;
 import com.example.serverJustPoteito.auth.persistence.Role;
@@ -9,28 +10,31 @@ import com.example.serverJustPoteito.auth.model.UserServiceModel;
 import com.example.serverJustPoteito.auth.repository.RoleRepository;
 import com.example.serverJustPoteito.auth.repository.UserRepository;
 import com.example.serverJustPoteito.security.CustomPasswordEncoder;
+import org.passay.CharacterData;
+import org.passay.CharacterRule;
+import org.passay.EnglishCharacterData;
+import org.passay.PasswordGenerator;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.dao.DataAccessException;
 import org.springframework.http.HttpStatus;
-import org.springframework.security.core.userdetails.UserDetails;
-import org.springframework.security.core.userdetails.UserDetailsService;
+import org.springframework.mail.SimpleMailMessage;
+import org.springframework.mail.javamail.JavaMailSender;
 import org.springframework.security.core.userdetails.UsernameNotFoundException;
 import org.springframework.stereotype.Service;
 import org.springframework.web.server.ResponseStatusException;
 
-import java.util.ArrayList;
-import java.util.HashSet;
-import java.util.List;
-import java.util.Set;
+import java.util.*;
 
 @Service("userDetailsService")
-public class UserServiceImpl implements UserService, UserDetailsService {
+public class UserServiceImpl implements UserService {
+
     @Autowired
     private UserRepository userRepository;
     @Autowired
     private RoleRepository roleRepository;
+    @Autowired
+    private JavaMailSender mailSender;
 
-    //registro del propio usuario
     @Override
     public User signUp(User user) throws UserCantCreateException {
         CustomPasswordEncoder passwordEncoder = new CustomPasswordEncoder();
@@ -52,10 +56,51 @@ public class UserServiceImpl implements UserService, UserDetailsService {
     }
 
     @Override
-    public UserDetails loadUserByUsername(String username) throws UsernameNotFoundException {
-        return userRepository.findByEmail(username)
-                .orElseThrow(
-                        () -> new UsernameNotFoundException("User " + username + " not found"));
+    public List<String> logUser(String email, String password) {
+        CustomPasswordEncoder passwordEncoder = new CustomPasswordEncoder();
+        List<String> response = new ArrayList<>();
+
+        User user = loadUserByEmail(email);
+
+        if (user == null) {
+            response.add("-1");
+            return response;
+        } else if (passwordEncoder.matches(password, user.getPassword())) {
+            response.add("" + user.getId());
+            response.add(user.getUsername());
+            return response;
+        } else {
+            response.add("-2");
+            return response;
+        }
+    }
+
+    @Override
+    public boolean sendEmail(String email) {
+        String newPassword = generatePassayPassword();
+
+        CustomPasswordEncoder passwordEncoder = new CustomPasswordEncoder();
+        String encodedNewPassword = passwordEncoder.encode(newPassword);
+
+        User user = loadUserByEmail(email);
+
+        int queryResult = 0;
+        if (user != null) {
+            queryResult = userRepository.resetPassword(encodedNewPassword, email);
+        }
+
+        if (queryResult == 1) {
+            SimpleMailMessage message = new SimpleMailMessage();
+            message.setFrom("estibaliz.martines@elorrieta-errekamari.com");
+            message.setTo(email);
+            message.setSubject("Correo de recuperación de contraseña");
+            message.setText("Txaber cómeme los cojones con esta contraseña: " + newPassword);
+            mailSender.send(message);
+
+            return true;
+        } else {
+            return false;
+        }
     }
 
     @Override
@@ -182,6 +227,54 @@ public class UserServiceImpl implements UserService, UserDetailsService {
     @Override
     public void deleteUserById(Integer id) {
         userRepository.deleteById(id);
+    }
+
+    @Override
+    public int changeUserPasswordNoToken(PasswordPostRequest passwordPostRequest) {
+        CustomPasswordEncoder passwordEncoder = new CustomPasswordEncoder();
+        String encodedNewPassword = passwordEncoder.encode(passwordPostRequest.getNewPassword());
+
+        User user = loadUserByEmail(passwordPostRequest.getEmail());
+        if (user == null) return -1;
+
+        int queryResult = 0;
+        if (user != null && passwordEncoder.matches(passwordPostRequest.getOldPassword(), user.getPassword())) {
+            passwordPostRequest.setOldPassword(user.getPassword());
+            passwordPostRequest.setNewPassword(encodedNewPassword);
+            queryResult = userRepository.updatePassword(
+                    passwordPostRequest.getNewPassword(),
+                    passwordPostRequest.getEmail(),
+                    passwordPostRequest.getOldPassword()
+            );
+            return queryResult;
+        }
+        else
+            return -2;
+    }
+
+    private User loadUserByEmail(String email) {
+        return userRepository.findByEmail(email)
+                .orElseThrow(
+                        () -> new UsernameNotFoundException("Email " + email + " not found"));
+    }
+
+    private String generatePassayPassword() {
+        PasswordGenerator gen = new PasswordGenerator();
+        CharacterData lowerCaseChars = EnglishCharacterData.LowerCase;
+        CharacterRule lowerCaseRule = new CharacterRule(lowerCaseChars);
+        lowerCaseRule.setNumberOfCharacters(2);
+
+        CharacterData upperCaseChars = EnglishCharacterData.UpperCase;
+        CharacterRule upperCaseRule = new CharacterRule(upperCaseChars);
+        upperCaseRule.setNumberOfCharacters(2);
+
+        CharacterData digitChars = EnglishCharacterData.Digit;
+        CharacterRule digitRule = new CharacterRule(digitChars);
+        digitRule.setNumberOfCharacters(2);
+
+        String password = gen.generatePassword(10, lowerCaseRule,
+                upperCaseRule, digitRule);
+        return password;
     }
 
     @Override

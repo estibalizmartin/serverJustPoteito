@@ -51,19 +51,30 @@ public class AuthController {
         }
     }
 
+    @PostMapping("/loginnotoken")
+    public ResponseEntity<List<String>> loginNoToken(@RequestBody AuthRequest request){
+        List<String> response = userService.logUser(request.getEmail(), request.getPassword());
+        if (response.get(0).equals("-1")) {
+            return ResponseEntity.status(432).build();
+        } else if (response.get(0).equals("-2")) {
+            return ResponseEntity.status(433).build();
+        } else {
+            return ResponseEntity.status(HttpStatus.ACCEPTED).body(response);
+        }
+    }
 
     @PostMapping("/auth/signup")
-    public ResponseEntity<?> signIn(@RequestBody AuthRequest request) {
+    public ResponseEntity<?> signUp(@RequestBody AuthRequest request) {
         // TODO solo esta creado en el caso de que funcione. Si no es posible que de 500
         //User user = new User(request.getEmail(), request.getPassword());
         //return new ResponseEntity<Integer>(userService.create(user), HttpStatus.CREATED);
         User user = new User(request.getName(), request.getSurnames(), request.getUserName(), request.getEmail(), request.getPassword());
         try {
             userService.signUp(user);
+            return new ResponseEntity<>(HttpStatus.CREATED);
         } catch (UserCantCreateException e) {
             return new ResponseEntity<>(HttpStatus.CONFLICT);
         }
-        return new ResponseEntity<>(HttpStatus.CREATED);
     }
 
     @GetMapping("/auth/me")
@@ -76,6 +87,17 @@ public class AuthController {
     @GetMapping("/auth/users")
     public ResponseEntity<List<UserServiceModel>> getUsers() {
         return new ResponseEntity<>(userService.getUsers(), HttpStatus.OK);
+
+    @PostMapping("/forgotpassword")
+    public ResponseEntity<Boolean> sendEmail(@RequestBody String email) {
+        return new ResponseEntity<>(userService.sendEmail(email), HttpStatus.OK);
+    }
+
+    @GetMapping("/get")
+    public ResponseEntity<List<UserServiceModel>> getUsers(@RequestParam int limit,
+                                                           @RequestParam int offset) {
+        return new ResponseEntity<>(userService.getUsers(limit, offset), HttpStatus.OK);
+
     }
 
     @GetMapping("/auth/users/{id}")
@@ -106,6 +128,21 @@ public class AuthController {
             return new ResponseEntity<>(HttpStatus.NO_CONTENT);
         } catch (EmptyResultDataAccessException e) {
             throw new ResponseStatusException(HttpStatus.CONFLICT, "Usuario no encontrado.");
+        }
+    }
+
+    @PostMapping("/changepasswordnotoken")
+    public ResponseEntity<Integer> changeUserPasswordNoToken(
+            @RequestBody PasswordPostRequest passwordPostRequest
+    ) {
+        int passwordChanged = userService.changeUserPasswordNoToken(passwordPostRequest);
+
+        if (passwordChanged == -1) {
+            return ResponseEntity.status(432).build();
+        } else if (passwordChanged == -2) {
+            return ResponseEntity.status(433).build();
+        } else {
+            return ResponseEntity.status(HttpStatus.ACCEPTED).body(passwordChanged);
         }
     }
 }
