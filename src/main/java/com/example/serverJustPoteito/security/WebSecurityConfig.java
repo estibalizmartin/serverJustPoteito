@@ -73,8 +73,11 @@ public class WebSecurityConfig {
 								.requestMatchers("/api/cooksNoToken/{id}").permitAll()
 								.requestMatchers("/api/ingredients_dishesNoToken").permitAll()
 								.requestMatchers("/api/getAllDishesByIngredientNoToken").permitAll()
+								.requestMatchers("/api/dishesNoToken/{id}").permitAll()
+								.requestMatchers("/api/ingredientsByDishIdNoToken/{dishId}").permitAll()
 								.requestMatchers("/api/forgotpassword").permitAll()
 								.requestMatchers("/api/changepasswordnotoken").permitAll()
+
 								.anyRequest().authenticated()
 		);
 		http.exceptionHandling().accessDeniedHandler(new CustomAccesDeniedHandler());

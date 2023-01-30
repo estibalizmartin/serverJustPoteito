@@ -2,6 +2,7 @@ package com.example.serverJustPoteito.ingredient_dish;
 
 import com.example.serverJustPoteito.dish.model.DishServiceModel;
 import com.example.serverJustPoteito.dish.model.DishesExpands;
+import com.example.serverJustPoteito.ingredient.persistence.Ingredient;
 import com.example.serverJustPoteito.ingredient_dish.model.Ingredient_dishPostRequest;
 import com.example.serverJustPoteito.ingredient_dish.model.Ingredient_dishServiceModel;
 import com.example.serverJustPoteito.ingredient_dish.service.Ingredient_dishService;

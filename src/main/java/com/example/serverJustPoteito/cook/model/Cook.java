@@ -1,6 +1,7 @@
 package com.example.serverJustPoteito.cook.model;
 
 import com.example.serverJustPoteito.dish.persistence.Dish;
+import com.fasterxml.jackson.annotation.JsonBackReference;
 import jakarta.persistence.*;
 
 import java.util.Date;
@@ -25,15 +26,8 @@ public class Cook {
     @Column
     private Integer michelin_stars;
 
-    @ManyToMany(fetch = FetchType.LAZY)
-    @JoinTable(name = "cooks_dishes",
-            joinColumns = @JoinColumn(
-                    name = "cook_id", referencedColumnName = "id", foreignKey = @ForeignKey(name = "Fk_cook_id")
-            ),
-            inverseJoinColumns = @JoinColumn(
-                    name = "dish_id", referencedColumnName = "id", foreignKey = @ForeignKey(name = "Fk_dish_id")
-            )
-    )
+    @OneToMany(mappedBy = "cook", cascade = CascadeType.ALL, fetch = FetchType.LAZY)
+    @JsonBackReference
     private List<Dish> dishes;
 
     public Cook() {

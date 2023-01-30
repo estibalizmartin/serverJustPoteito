@@ -124,19 +124,5 @@ public class CookServiceImpl implements CookService {
         cookRepository.deleteById(id);
     }
 
-    @Override
-    public List<DishServiceModel> getDishesByCookId(Integer cookId) {
-        List<Dish> dishesByCook = new ArrayList<>();
-        List dishIds = new ArrayList();
-        Cook cook = cookRepository.findById(cookId)
-                .orElseThrow(
-                        () -> new ResponseStatusException(HttpStatus.NO_CONTENT, "Cocinero no encontrado.")
-                );
 
-        dishesByCook = cook.getDishes();
-        for (Dish dish : dishesByCook) {
-            dishIds.add(dish.getId());
-        }
-        return DishServiceImpl.findByDishListIds(dishIds);
-    }
 }

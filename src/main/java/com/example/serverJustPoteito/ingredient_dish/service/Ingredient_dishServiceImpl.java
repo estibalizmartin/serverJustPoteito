@@ -6,6 +6,7 @@ import com.example.serverJustPoteito.dish.service.DishService;
 import com.example.serverJustPoteito.ingredient.model.IngredientServiceModel;
 import com.example.serverJustPoteito.ingredient.persistence.Ingredient;
 import com.example.serverJustPoteito.ingredient.repository.IngredientRepository;
+import com.example.serverJustPoteito.ingredient.service.IngredientService;
 import com.example.serverJustPoteito.ingredient_dish.model.Ingredient_dishPostRequest;
 import com.example.serverJustPoteito.ingredient_dish.model.Ingredient_dishServiceModel;
 import com.example.serverJustPoteito.ingredient_dish.persistence.Ingredient_dish;
@@ -22,8 +23,12 @@ public class Ingredient_dishServiceImpl implements Ingredient_dishService{
     private Ingredient_dishRepository ingredient_dishRepository;
     @Autowired
     private DishService dishService;
+
+//    @Autowired
+//    private IngredientService ingredientService;
     @Override
     public List<Ingredient_dishServiceModel> getAllIngredients_dish() {
+        /*
         Iterable<Ingredient_dish> ingredient_dish = ingredient_dishRepository.findAll();
 
         List<Ingredient_dishServiceModel> response = new ArrayList<>();
@@ -36,7 +41,25 @@ public class Ingredient_dishServiceImpl implements Ingredient_dishService{
             ));
         }
         return response;
+         */
+        return null;
     }
+
+    @Override
+    public List<IngredientServiceModel> getAllIngredientsByDishId(Integer id) {
+        Iterable<Ingredient_dish> ingredients_dish = ingredient_dishRepository.findAllByDishId(id);
+
+        List<IngredientServiceModel> response = new ArrayList<>();
+
+        for (Ingredient_dish ingredient_dish : ingredients_dish) {
+
+            Ingredient ingredient = ingredient_dish.getIngredient();
+            IngredientServiceModel item = new IngredientServiceModel(ingredient.getId(), ingredient.getName(), ingredient.getType(), ingredient_dish.getAmount());
+            response.add(item);
+        }
+        return response;
+    }
+
 
     @Override
     public Ingredient_dishServiceModel getIngredient_dishById(Integer id) {
@@ -66,8 +89,8 @@ public class Ingredient_dishServiceImpl implements Ingredient_dishService{
 
         for (Ingredient_dish ingredients_dish : ingredient_dish) {
             response.add(new Ingredient_dishServiceModel(
-                    ingredients_dish.getIngredient().getId(),
-                    ingredients_dish.getDish().getId(),
+                    ingredients_dish.getId().getIngredientId(),
+                    ingredients_dish.getId().getDishId(),
                     ingredients_dish.getAmount()
             ));
         }

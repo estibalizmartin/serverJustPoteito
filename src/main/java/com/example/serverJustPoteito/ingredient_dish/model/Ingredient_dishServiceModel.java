@@ -1,6 +1,8 @@
 package com.example.serverJustPoteito.ingredient_dish.model;
 
+import com.example.serverJustPoteito.dish.model.DishServiceModel;
 import com.example.serverJustPoteito.dish.persistence.Dish;
+import com.example.serverJustPoteito.ingredient.model.IngredientServiceModel;
 import com.example.serverJustPoteito.ingredient.persistence.Ingredient;
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import com.fasterxml.jackson.annotation.JsonInclude;
@@ -9,9 +11,9 @@ import jakarta.persistence.*;
 @JsonInclude(JsonInclude.Include.NON_NULL)
 public class Ingredient_dishServiceModel {
 
-    private Ingredient ingredient;
+    private IngredientServiceModel ingredient;
     private Integer ingredientId;
-    private Dish dish;
+    private DishServiceModel dish;
     private Integer dishId;
     private String amount;
 
@@ -24,7 +26,7 @@ public class Ingredient_dishServiceModel {
         this.amount = amount;
     }
 
-    public Ingredient_dishServiceModel(Ingredient ingredient, Integer ingredientId, Dish dish, Integer dishId, String amount) {
+    public Ingredient_dishServiceModel(IngredientServiceModel ingredient, Integer ingredientId, DishServiceModel dish, Integer dishId, String amount) {
         this.ingredient = ingredient;
         this.ingredientId = ingredientId;
         this.dish = dish;
@@ -32,11 +34,11 @@ public class Ingredient_dishServiceModel {
         this.amount = amount;
     }
 
-    public Ingredient getIngredient() {
+    public IngredientServiceModel getIngredient() {
         return ingredient;
     }
 
-    public void setIngredient(Ingredient ingredient) {
+    public void setIngredient(IngredientServiceModel ingredient) {
         this.ingredient = ingredient;
     }
 
@@ -48,11 +50,11 @@ public class Ingredient_dishServiceModel {
         this.ingredientId = ingredientId;
     }
 
-    public Dish getDish() {
+    public DishServiceModel getDish() {
         return dish;
     }
 
-    public void setDish(Dish dish) {
+    public void setDish(DishServiceModel dish) {
         this.dish = dish;
     }
 
