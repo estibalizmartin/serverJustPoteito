@@ -44,6 +44,7 @@ public class WebSecurityConfig {
 
 	// aqui definimos principalmente cuales son las urls van a poder ser accesibles sin identificarse
 	// y cuales seran obligatorias
+
 	@Bean
 	public SecurityFilterChain filterChain(HttpSecurity http) throws Exception {
 		
@@ -73,6 +74,7 @@ public class WebSecurityConfig {
 								.requestMatchers("/api/ingredients_dishesNoToken").permitAll()
 								.requestMatchers("/api/getAllDishesByIngredientNoToken").permitAll()
 								.requestMatchers("/api/forgotpassword").permitAll()
+								.requestMatchers("/api/changepasswordnotoken").permitAll()
 								.anyRequest().authenticated()
 		);
 		http.exceptionHandling().accessDeniedHandler(new CustomAccesDeniedHandler());
