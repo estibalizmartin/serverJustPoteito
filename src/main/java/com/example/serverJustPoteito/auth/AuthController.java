@@ -84,6 +84,10 @@ public class AuthController {
         return ResponseEntity.ok().body(userDetails);
     }
 
+    @GetMapping("/auth/users")
+    public ResponseEntity<List<UserServiceModel>> getUsers() {
+        return new ResponseEntity<>(userService.getUsers(), HttpStatus.OK);
+
     @PostMapping("/forgotpassword")
     public ResponseEntity<Boolean> sendEmail(@RequestBody String email) {
         return new ResponseEntity<>(userService.sendEmail(email), HttpStatus.OK);
@@ -93,19 +97,20 @@ public class AuthController {
     public ResponseEntity<List<UserServiceModel>> getUsers(@RequestParam int limit,
                                                            @RequestParam int offset) {
         return new ResponseEntity<>(userService.getUsers(limit, offset), HttpStatus.OK);
+
     }
 
-    @PostMapping("/get/{id}")
+    @GetMapping("/auth/users/{id}")
     public ResponseEntity<UserServiceModel> getUserById(@PathVariable("id") Integer id) {
         return new ResponseEntity<>(userService.getUserById(id), HttpStatus.OK);
     }
 
-    @PostMapping("/post")
+    @PostMapping("/auth/create")
     public ResponseEntity<UserServiceModel> createUser(@Valid @RequestBody UserPostRequest userPostRequest) {
         return new ResponseEntity<>(userService.createUser(userPostRequest), HttpStatus.CREATED);
     }
 
-    @PutMapping("/put")
+    @PutMapping("/auth/users/{id}")
     public ResponseEntity<UserServiceModel> updateUser(
             @PathVariable("id") Integer id,
             @Valid @RequestBody UserPostRequest userPostRequest) {
@@ -117,7 +122,7 @@ public class AuthController {
     }
 
     @PostMapping("/delete/{id}")
-    public ResponseEntity<Integer> deleteUserById(@RequestBody Integer id) {
+    public ResponseEntity<Integer> deleteUserById(@PathVariable("id") Integer id) {
         try {
             userService.deleteUserById(id);
             return new ResponseEntity<>(HttpStatus.NO_CONTENT);

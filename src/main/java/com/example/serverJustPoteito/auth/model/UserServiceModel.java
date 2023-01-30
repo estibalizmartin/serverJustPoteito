@@ -99,6 +99,10 @@ public class UserServiceModel implements UserDetails {
         this.roles = roles;
     }
 
+    public boolean isEnabled() {
+        return isEnabled;
+    }
+
     @Override
     public Collection<? extends GrantedAuthority> getAuthorities() {
         return null;
@@ -129,8 +133,4 @@ public class UserServiceModel implements UserDetails {
         return false;
     }
 
-    @Override
-    public boolean isEnabled() {
-        return false;
-    }
 }
