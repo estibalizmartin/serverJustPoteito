@@ -13,4 +13,28 @@ public class Ingredient_dishKey implements Serializable {
 
     @Column(name = "dish_id")
     Integer dishId;
+
+    public Ingredient_dishKey() {
+
+    }
+    public Ingredient_dishKey(Integer ingredientId, Integer dishId) {
+        this.ingredientId = ingredientId;
+        this.dishId = dishId;
+    }
+
+    public Integer getIngredientId() {
+        return ingredientId;
+    }
+
+    public void setIngredientId(Integer ingredientId) {
+        this.ingredientId = ingredientId;
+    }
+
+    public Integer getDishId() {
+        return dishId;
+    }
+
+    public void setDishId(Integer dishId) {
+        this.dishId = dishId;
+    }
 }

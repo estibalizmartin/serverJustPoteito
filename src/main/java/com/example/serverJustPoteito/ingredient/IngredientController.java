@@ -3,6 +3,7 @@ package com.example.serverJustPoteito.ingredient;
 import com.example.serverJustPoteito.ingredient.model.IngredientPostRequest;
 import com.example.serverJustPoteito.ingredient.model.IngredientServiceModel;
 import com.example.serverJustPoteito.ingredient.service.IngredientService;
+import com.example.serverJustPoteito.ingredient_dish.model.Ingredient_dishServiceModel;
 import jakarta.validation.Valid;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.dao.EmptyResultDataAccessException;
@@ -25,7 +26,7 @@ public class IngredientController {
     }
 
     @GetMapping("/ingredientsByDishIdNoToken/{dishId}")
-    public ResponseEntity<Iterable<IngredientServiceModel>> getAllIngredientsByDishId(@PathVariable("dishId") Integer dishId) {
+    public ResponseEntity<List<IngredientServiceModel>> getAllIngredientsByDishId(@PathVariable("dishId") Integer dishId) {
         return new ResponseEntity<>(ingredientService.getAllByDishId(dishId), HttpStatus.OK);
     }
     @GetMapping("/ingredientsNoToken")

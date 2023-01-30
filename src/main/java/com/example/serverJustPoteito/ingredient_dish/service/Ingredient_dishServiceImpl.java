@@ -24,10 +24,11 @@ public class Ingredient_dishServiceImpl implements Ingredient_dishService{
     @Autowired
     private DishService dishService;
 
-    @Autowired
-    private IngredientService ingredientService;
+//    @Autowired
+//    private IngredientService ingredientService;
     @Override
     public List<Ingredient_dishServiceModel> getAllIngredients_dish() {
+        /*
         Iterable<Ingredient_dish> ingredient_dish = ingredient_dishRepository.findAll();
 
         List<Ingredient_dishServiceModel> response = new ArrayList<>();
@@ -40,7 +41,53 @@ public class Ingredient_dishServiceImpl implements Ingredient_dishService{
             ));
         }
         return response;
+         */
+        return null;
     }
+//
+//    @Override
+//    public List<Ingredient_dishServiceModel> getAllIngredientsByDishId(Integer id) {
+//        Iterable<Ingredient_dish> ingredients_dish = ingredient_dishRepository.findAllByDishId(id);
+//
+//        List<Ingredient_dishServiceModel> response = new ArrayList<>();
+//
+//        for (Ingredient_dish ingredient_dish : ingredients_dish) {
+//
+//            Ingredient_dishServiceModel item = new Ingredient_dishServiceModel(
+//                    ingredient_dish.getId().getIngredientId(),
+//                    ingredient_dish.getId().getDishId(),
+//                    ingredient_dish.getAmount()
+//            );
+//            Ingredient ingredient = ingredient_dish.getIngredient();
+//            IngredientServiceModel ingSModel = new IngredientServiceModel(ingredient.getId(), ingredient.getName(), ingredient.getType());
+//            item.setIngredient(ingSModel);
+//            response.add(item);
+//        }
+//        return response;
+//    }
+
+    @Override
+    public List<IngredientServiceModel> getAllIngredientsByDishId(Integer id) {
+        Iterable<Ingredient_dish> ingredients_dish = ingredient_dishRepository.findAllByDishId(id);
+
+        List<IngredientServiceModel> response = new ArrayList<>();
+
+        for (Ingredient_dish ingredient_dish : ingredients_dish) {
+
+//            Ingredient_dishServiceModel item = new Ingredient_dishServiceModel(
+//                    ingredient_dish.getId().getIngredientId(),
+//                    ingredient_dish.getId().getDishId(),
+//                    ingredient_dish.getAmount()
+//            );
+            Ingredient ingredient = ingredient_dish.getIngredient();
+            IngredientServiceModel item = new IngredientServiceModel(ingredient.getId(), ingredient.getName(), ingredient.getType(), ingredient_dish.getAmount());
+            // IngredientServiceModel ingSModel = new IngredientServiceModel(ingredient.getId(), ingredient.getName(), ingredient.getType());
+            // item.setIngredient(ingSModel);
+            response.add(item);
+        }
+        return response;
+    }
+
 
     @Override
     public Ingredient_dishServiceModel getIngredient_dishById(Integer id) {
@@ -70,8 +117,8 @@ public class Ingredient_dishServiceImpl implements Ingredient_dishService{
 
         for (Ingredient_dish ingredients_dish : ingredient_dish) {
             response.add(new Ingredient_dishServiceModel(
-                    ingredients_dish.getIngredient().getId(),
-                    ingredients_dish.getDish().getId(),
+                    ingredients_dish.getId().getIngredientId(),
+                    ingredients_dish.getId().getDishId(),
                     ingredients_dish.getAmount()
             ));
         }
@@ -82,6 +129,12 @@ public class Ingredient_dishServiceImpl implements Ingredient_dishService{
         }
 
         return dishService.getAlldishesByIngredient(dishIds);
+    }
+
+    @Override
+    public String getAmount(Integer dishId, Integer ingredientId) {
+        //return ingredient_dishRepository.findAmount(dishId, ingredientId);
+        return null;
     }
 
     @Override

@@ -16,6 +16,9 @@ public interface Ingredient_dishService {
     Ingredient_dishServiceModel updateIngredient_dish(Integer id, Ingredient_dishPostRequest ingredients_dishPostRequest);
     void deleteIngredients_dishById(Integer id);
     List<DishServiceModel> getAlldishesByIngredient(List<Integer> ingredientIds);
+    String getAmount(Integer dishId, Integer ingredientId);
 
     boolean isAlreadyExists(Integer id);
+
+    List<IngredientServiceModel> getAllIngredientsByDishId(Integer id);
 }

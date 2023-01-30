@@ -8,11 +8,18 @@ public class IngredientServiceModel {
     private Integer id;
     private String name;
     private String type;
+    private String amount;
 
     public IngredientServiceModel(Integer id, String name, String type) {
         this.id = id;
         this.name = name;
         this.type = type;
+    }
+    public IngredientServiceModel(Integer id, String name, String type, String amount) {
+        this.id = id;
+        this.name = name;
+        this.type = type;
+        this.amount = amount;
     }
 
     public Integer getId() {
@@ -39,12 +46,21 @@ public class IngredientServiceModel {
         this.type = type;
     }
 
+    public String getAmount() {
+        return amount;
+    }
+
+    public void setAmount(String amount) {
+        this.amount = amount;
+    }
+
     @Override
     public String toString() {
-        return "IngredientsServiceModel{" +
+        return "IngredientServiceModel{" +
                 "id=" + id +
                 ", name='" + name + '\'' +
                 ", type='" + type + '\'' +
+                ", amount='" + amount + '\'' +
                 '}';
     }
 }
