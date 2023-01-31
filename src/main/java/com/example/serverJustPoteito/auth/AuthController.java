@@ -1,6 +1,6 @@
 package com.example.serverJustPoteito.auth;
 
-import com.example.serverJustPoteito.auth.Exceptions.UserCantCreateException;
+import com.example.serverJustPoteito.auth.exceptions.UserCantCreateException;
 import com.example.serverJustPoteito.auth.model.*;
 import com.example.serverJustPoteito.auth.persistence.User;
 import com.example.serverJustPoteito.auth.service.UserService;
