@@ -4,6 +4,8 @@ import com.example.serverJustPoteito.ingredient.persistence.Ingredient;
 import com.example.serverJustPoteito.ingredient.model.IngredientPostRequest;
 import com.example.serverJustPoteito.ingredient.model.IngredientServiceModel;
 import com.example.serverJustPoteito.ingredient.repository.IngredientRepository;
+import com.example.serverJustPoteito.ingredient_dish.model.Ingredient_dishServiceModel;
+import com.example.serverJustPoteito.ingredient_dish.service.Ingredient_dishService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.stereotype.Service;
@@ -16,6 +18,8 @@ import java.util.List;
 public class IngredientServicelmpl implements IngredientService{
     @Autowired
     private IngredientRepository ingredientRepository;
+    @Autowired
+    private Ingredient_dishService ingredient_dishService;
 
     @Override
     public List<IngredientServiceModel> getAllIngredients() {
@@ -48,6 +52,35 @@ public class IngredientServicelmpl implements IngredientService{
         );
 
         return response;
+    }
+
+    @Override
+    public List<IngredientServiceModel> getAllByDishId(Integer dishId) {
+
+        List<IngredientServiceModel> ingDish = ingredient_dishService.getAllIngredientsByDishId(dishId);
+        return ingDish;
+        /* Otra manera de hacerlo
+        Iterable<Ingredient> ingredients = ingredientRepository.findAllByDishId(dishId);
+        List<IngredientServiceModel> response = new ArrayList<>();
+        String amount;
+
+        for (Ingredient ingredient : ingredients) {
+            //amount = ingredient_dishService.getAmount(dishId, ingredient.getId());
+            response.add(new IngredientServiceModel(
+                    ingredient.getId(),
+                    ingredient.getName(),
+                    ingredient.getType()
+                    //amount
+            ));
+        }
+        return response;
+         */
+    }
+
+    @Override
+    public List<Ingredient> getAllIngredientById(List<Integer> listId) {
+        List<Ingredient> ingredientList = ingredientRepository.findAllByIdIn(listId);
+        return ingredientList;
     }
 
     @Override

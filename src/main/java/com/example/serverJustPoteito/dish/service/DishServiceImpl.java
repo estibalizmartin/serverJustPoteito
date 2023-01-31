@@ -7,7 +7,6 @@ import com.example.serverJustPoteito.dish.exceptions.DishNotFoundException;
 import com.example.serverJustPoteito.dish.model.*;
 import com.example.serverJustPoteito.dish.persistence.Dish;
 import com.example.serverJustPoteito.dish.repository.DishRepository;
-import com.example.serverJustPoteito.ingredient_dish.persistence.Ingredient_dish;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.stereotype.Service;
@@ -70,7 +69,8 @@ public class DishServiceImpl implements DishService {
                 dish.getPrepTime(),
                 dish.getSubtype(),
                 cuisineResponse,
-                dish.getCuisineTypeId()
+                dish.getCuisineTypeId(),
+                dish.getRecipe()
         );
 
         return response;
@@ -160,6 +160,25 @@ public class DishServiceImpl implements DishService {
     }
 
     @Override
+    public List<DishServiceModel> getDishesByCook(Integer cookId) {
+        Iterable<Dish> dishes = dishRepository.findByCookId(cookId);
+
+        List<DishServiceModel> response = new ArrayList<>();
+
+        for (Dish dish : dishes) {
+            response.add(new DishServiceModel(
+                    dish.getId(),
+                    dish.getName(),
+                    dish.getPrepTime(),
+                    dish.getSubtype(),
+                    null,
+                    dish.getCookId()
+            ));
+        }
+        return response;
+    }
+
+    @Override
     public List<DishServiceModel> findByDishListIds(List<Integer> dishesIds) {
         Iterable<Dish> dishes = dishRepository.findAllById(dishesIds);
         List<DishServiceModel> response = new ArrayList<>();
@@ -195,21 +214,5 @@ public class DishServiceImpl implements DishService {
 
         return response;
     }
-/*
-    @Override
-    public List<DishServiceModel> getDishesByCook(List<Integer> dishesIds) {
-        Iterable<Dish> dishes = dishRepository.findByDishListIds(dishesIds);
-        List<DishServiceModel> response = new ArrayList<>();
-        for (Dish dish : dishes) {
-            response.add(new DishServiceModel(
-                    dish.getId(),
-                    dish.getName(),
-                    dish.getPrepTime(),
-                    dish.getSubtype(),
-                    null,
-                    dish.getCuisineTypeId()
-            ));
-        }
-        return response;
-    }*/
+
 }

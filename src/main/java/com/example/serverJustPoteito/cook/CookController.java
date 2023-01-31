@@ -54,9 +54,5 @@ public class CookController {
         cookService.deleteCook(id);
         return new ResponseEntity<>(HttpStatus.NO_CONTENT);
     }
-    @GetMapping("/dishesByCookNoToken/{cookId}")
-    public ResponseEntity <List<DishServiceModel>> getDishesByCookId(@PathVariable("cookId") Integer cookId) {
-        return new ResponseEntity<>(cookService.getDishesByCookId(cookId), HttpStatus.OK);
-    }
 
 }

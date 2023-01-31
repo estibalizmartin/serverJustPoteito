@@ -7,5 +7,6 @@ import java.util.List;
 
 public interface DishRepository extends CrudRepository<Dish, Integer> {
     List<Dish> findByCuisineTypeId(int cuisineTypeId);
+    List<Dish> findByCookId(int cookId);
 
 }

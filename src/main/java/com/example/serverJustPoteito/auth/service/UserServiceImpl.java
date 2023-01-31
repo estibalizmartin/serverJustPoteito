@@ -100,8 +100,8 @@ public class UserServiceImpl implements UserService {
     }
 
     @Override
-    public List<UserServiceModel> getUsers(int limit, int offset) {
-        List<User> users = userRepository.findAllFiltered(limit, offset);
+    public List<UserServiceModel> getUsers() {
+        List<User> users = (List<User>) userRepository.findAll();
 
         List<UserServiceModel> response = new ArrayList<>();
 
@@ -116,6 +116,7 @@ public class UserServiceImpl implements UserService {
                     user.isEnabled(),
                     user.getRoles()
             ));
+
         }
 
         return response;
@@ -134,8 +135,8 @@ public class UserServiceImpl implements UserService {
                 user.getUserName(),
                 user.getEmail(),
                 user.getPassword(),
-                true,
-                null
+                user.isEnabled(),
+                user.getRoles()
         );
 
         return response;
@@ -172,16 +173,36 @@ public class UserServiceImpl implements UserService {
 
     @Override
     public UserServiceModel updateUser(Integer id, UserPostRequest userPostRequest) {
+
         User user = new User(
                 id,
                 userPostRequest.getName(),
                 userPostRequest.getSurnames(),
                 userPostRequest.getUserName(),
                 userPostRequest.getEmail(),
-                userPostRequest.getPassword(),
-                true,
+                null,
+                userPostRequest.isEnabled(),
                 null
         );
+
+        User userPassword = userRepository.findById(id)
+                .orElse(null);
+            CustomPasswordEncoder passwordEncoder = new CustomPasswordEncoder();
+            String password = passwordEncoder.encode(userPassword.getPassword());
+            user.setPassword(password);
+
+        Set<Role> roles = new HashSet<>();
+
+        for (Role role: userPostRequest.getRoles()) {
+            if (role.getName().equals((RoleTypeEnum.USER.name()))) {
+                roles.add(roleRepository.findByName(RoleTypeEnum.USER.name()).get());
+            }
+            if (role.getName().equals((RoleTypeEnum.ADMIN.name()))) {
+                roles.add(roleRepository.findByName(RoleTypeEnum.ADMIN.name()).get());
+            }
+        }
+
+        user.setRoles(roles);
 
         user = userRepository.save(user);
 

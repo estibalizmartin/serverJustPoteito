@@ -1,5 +1,6 @@
 package com.example.serverJustPoteito.dish.persistence;
 
+import com.example.serverJustPoteito.cook.model.Cook;
 import com.example.serverJustPoteito.cuisineType.persistence.CuisineType;
 import com.example.serverJustPoteito.ingredient_dish.persistence.Ingredient_dish;
 import com.fasterxml.jackson.annotation.JsonBackReference;
@@ -35,9 +36,20 @@ public class Dish {
     @Column(name = "cuisine_type_id", updatable = false, insertable = false)
     private Integer cuisineTypeId;
 
+    @ManyToOne(fetch = FetchType.LAZY)
+    @JoinColumn(name = "cook_id", foreignKey = @ForeignKey(name = "fk_cook_id"), nullable = false)
+    @JsonManagedReference
+    @JsonIgnoreProperties({"hibernateLazyInitializer", "handler"})
+    private Cook cook;
+
+    @Column(name = "cook_id", updatable = false, insertable = false)
+    private Integer cookId;
+
     @OneToMany(mappedBy = "dish", cascade = CascadeType.ALL, fetch = FetchType.LAZY)
     @JsonBackReference
     private List<Ingredient_dish> ingredient_dishes;
+
+    private String recipe;
 
     public Dish() {
     }
@@ -57,6 +69,40 @@ public class Dish {
         this.subtype = subtype;
         this.cuisineType = cuisineType;
         this.cuisineTypeId = cuisineTypeId;
+    }
+
+    public Dish(Integer id, String name, Integer prepTime, String subtype, CuisineType cuisineType, Integer cuisineTypeId, Cook cook, Integer cookId, List<Ingredient_dish> ingredient_dishes) {
+        Id = id;
+        this.name = name;
+        this.prepTime = prepTime;
+        this.subtype = subtype;
+        this.cuisineType = cuisineType;
+        this.cuisineTypeId = cuisineTypeId;
+        this.cook = cook;
+        this.cookId = cookId;
+        this.ingredient_dishes = ingredient_dishes;
+    }
+
+    public Dish(Integer id,
+                String name,
+                Integer prepTime,
+                String subtype,
+                CuisineType cuisineType,
+                Integer cuisineTypeId,
+                Cook cook,
+                Integer cookId,
+                List<Ingredient_dish> ingredient_dishes,
+                String recipe) {
+        Id = id;
+        this.name = name;
+        this.prepTime = prepTime;
+        this.subtype = subtype;
+        this.cuisineType = cuisineType;
+        this.cuisineTypeId = cuisineTypeId;
+        this.cook = cook;
+        this.cookId = cookId;
+        this.ingredient_dishes = ingredient_dishes;
+        this.recipe = recipe;
     }
 
     public Integer getId() {
@@ -107,6 +153,38 @@ public class Dish {
         this.cuisineTypeId = cuisineTypeId;
     }
 
+    public Cook getCook() {
+        return cook;
+    }
+
+    public void setCook(Cook cook) {
+        this.cook = cook;
+    }
+
+    public Integer getCookId() {
+        return cookId;
+    }
+
+    public void setCookId(Integer cookId) {
+        this.cookId = cookId;
+    }
+
+    public List<Ingredient_dish> getIngredient_dishes() {
+        return ingredient_dishes;
+    }
+
+    public void setIngredient_dishes(List<Ingredient_dish> ingredient_dishes) {
+        this.ingredient_dishes = ingredient_dishes;
+    }
+
+    public String getRecipe() {
+        return recipe;
+    }
+
+    public void setRecipe(String recipe) {
+        this.recipe = recipe;
+    }
+
     @Override
     public String toString() {
         return "Dish{" +
@@ -116,6 +194,10 @@ public class Dish {
                 ", subtype='" + subtype + '\'' +
                 ", cuisineType=" + cuisineType +
                 ", cuisineTypeId=" + cuisineTypeId +
+                ", cook=" + cook +
+                ", cookId=" + cookId +
+                ", ingredient_dishes=" + ingredient_dishes +
+                ", recipe=" + recipe +
                 '}';
     }
 }

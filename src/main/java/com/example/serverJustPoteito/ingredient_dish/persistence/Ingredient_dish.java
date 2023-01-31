@@ -8,6 +8,7 @@ import com.fasterxml.jackson.annotation.JsonManagedReference;
 import jakarta.persistence.*;
 
 import java.io.Serializable;
+import java.util.List;
 import java.util.Objects;
 
 @Entity
@@ -40,12 +41,16 @@ public class Ingredient_dish {
     public Ingredient_dish() {
     }
 
-    public Ingredient_dish(Ingredient ingredient, Integer ingredientId, Dish dish, Integer dishId, String amount) {
-        this.ingredient = ingredient;
+    public Ingredient_dish(Integer ingredientId, Integer dishId)  {
+        this.id = new Ingredient_dishKey(ingredientId, dishId);
+    }
 
-        this.dish = dish;
+    public Ingredient_dishKey getId() {
+        return id;
+    }
 
-        this.amount = amount;
+    public void setId(Ingredient_dishKey id) {
+        this.id = id;
     }
 
     public Ingredient getIngredient() {
@@ -56,14 +61,6 @@ public class Ingredient_dish {
         this.ingredient = ingredient;
     }
 
-//    public Integer getIngredientId() {
-//        return ingredientId;
-//    }
-//
-//    public void setIngredientId(Integer ingredientId) {
-//        this.ingredientId = ingredientId;
-//    }
-
     public Dish getDish() {
         return dish;
     }
@@ -71,14 +68,6 @@ public class Ingredient_dish {
     public void setDish(Dish dish) {
         this.dish = dish;
     }
-
-//    public Integer getDishId() {
-//        return dishId;
-//    }
-//
-//    public void setDishId(Integer dishId) {
-//        this.dishId = dishId;
-//    }
 
     public String getAmount() {
         return amount;
@@ -91,24 +80,10 @@ public class Ingredient_dish {
     @Override
     public String toString() {
         return "Ingredient_dish{" +
-                "ingredient=" + ingredient +
-
-                ", dish=" + dish +
-
-                ", amount=" + amount +
+                "id=" + id +
+                ", ingredientList=" + ingredient +
+                ", dishList=" + dish +
+                ", amount='" + amount + '\'' +
                 '}';
-    }
-
-    @Override
-    public boolean equals(Object o) {
-        if (this == o) return true;
-        if (o == null || getClass() != o.getClass()) return false;
-        Ingredient_dish that = (Ingredient_dish) o;
-        return id == that.id && Objects.equals(ingredient, that.ingredient) && Objects.equals(dish, that.dish) && Objects.equals(amount, that.amount);
-    }
-
-    @Override
-    public int hashCode() {
-        return Objects.hash(id, ingredient, dish, amount);
     }
 }

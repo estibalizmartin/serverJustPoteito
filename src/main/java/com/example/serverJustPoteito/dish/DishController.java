@@ -42,6 +42,11 @@ public class DishController {
         } catch (DishNotFoundException e) {
             throw new ResponseStatusException(HttpStatus.NO_CONTENT, e.getMessage(), e);
         }
+
+    @GetMapping("/dishesNoToken/{id}")
+    public ResponseEntity<DishServiceModel> getDishByIdNoToken(@PathVariable("id") Integer id,
+                                                        @RequestParam(required = false) List<DishesExpands> expand) {
+        return new ResponseEntity<>(dishService.getDishById(id, expand), HttpStatus.OK);
     }
 
     @PostMapping("/dishes")
@@ -73,8 +78,8 @@ public class DishController {
     public ResponseEntity<List<DishServiceModel>> getDishesByCuisineType(@PathVariable("cuisineTypeId") Integer cuisineTypeId) {
         return new ResponseEntity<>(dishService.getDishesByCuisineType(cuisineTypeId), HttpStatus.OK);
     }
-    /*@GetMapping("/dishesByIngredientNoToken/{cuisineTypeId}")
-    public ResponseEntity<List<DishServiceModel>> getDishesByIngredient(@PathVariable("ingredientList") List<Integer> ingredientList) {
-        return new ResponseEntity<>(dishService.getDishesByIngredient(ingredientList), HttpStatus.OK);
-    }*/
+    @GetMapping("/dishesByCookNoToken/{cookId}")
+    public ResponseEntity<List<DishServiceModel>> getDishesByCook(@PathVariable("cookId") Integer cookId) {
+        return new ResponseEntity<>(dishService.getDishesByCook(cookId), HttpStatus.OK);
+    }
 }

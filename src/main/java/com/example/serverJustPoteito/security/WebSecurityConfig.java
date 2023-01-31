@@ -60,6 +60,8 @@ public class WebSecurityConfig {
 				(authz) ->
 						authz
 								.requestMatchers("/api/auth/**").permitAll()
+								.requestMatchers("/api/users/**").permitAll()
+								.requestMatchers("/api/auth/create/**").permitAll()
 //								.requestMatchers("/api/cuisineTypes/**").hasAuthority(Rol.USER.name())
 								.requestMatchers("/api/dishes/**").permitAll()
 								.requestMatchers("/api/get/**").permitAll()
@@ -78,6 +80,8 @@ public class WebSecurityConfig {
 								.requestMatchers("/api/cooksNoToken/{id}").permitAll()
 								.requestMatchers("/api/ingredients_dishesNoToken").permitAll()
 								.requestMatchers("/api/getAllDishesByIngredientNoToken").permitAll()
+								.requestMatchers("/api/dishesNoToken/{id}").permitAll()
+								.requestMatchers("/api/ingredientsByDishIdNoToken/{dishId}").permitAll()
 								.requestMatchers("/api/forgotpassword").permitAll()
 								.requestMatchers("/api/changepasswordnotoken").permitAll()
 								.requestMatchers("/api/encryptemail").permitAll()
