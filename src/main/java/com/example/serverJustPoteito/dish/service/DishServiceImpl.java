@@ -3,6 +3,7 @@ package com.example.serverJustPoteito.dish.service;
 import com.example.serverJustPoteito.cuisineType.persistence.CuisineType;
 import com.example.serverJustPoteito.cuisineType.model.CuisineTypeServiceModel;
 import com.example.serverJustPoteito.cuisineType.repository.CuisineTypeRepository;
+import com.example.serverJustPoteito.dish.exceptions.DishNotFoundException;
 import com.example.serverJustPoteito.dish.model.*;
 import com.example.serverJustPoteito.dish.persistence.Dish;
 import com.example.serverJustPoteito.dish.repository.DishRepository;
@@ -43,9 +44,9 @@ public class DishServiceImpl implements DishService {
     }
 
     @Override
-    public DishServiceModel getDishById(Integer id, List<DishesExpands> expand) {
+    public DishServiceModel getDishById(Integer id, List<DishesExpands> expand) throws DishNotFoundException {
         Dish dish = dishRepository.findById(id).orElseThrow(
-                () -> new ResponseStatusException(HttpStatus.NO_CONTENT, "Plato no encontrado.")
+                () -> new DishNotFoundException("Dish not found")
         );
 
         CuisineTypeServiceModel cuisineResponse = null;

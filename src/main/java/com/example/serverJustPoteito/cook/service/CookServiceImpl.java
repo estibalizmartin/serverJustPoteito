@@ -1,17 +1,14 @@
 package com.example.serverJustPoteito.cook.service;
 
+import com.example.serverJustPoteito.cook.exceptions.CookNotFoundException;
 import com.example.serverJustPoteito.cook.model.Cook;
 import com.example.serverJustPoteito.cook.model.CookPostRequest;
 import com.example.serverJustPoteito.cook.model.CookServiceModel;
 import com.example.serverJustPoteito.cook.model.CookUpdateResponse;
 import com.example.serverJustPoteito.cook.repository.CookRepository;
-import com.example.serverJustPoteito.dish.model.DishServiceModel;
-import com.example.serverJustPoteito.dish.persistence.Dish;
 import com.example.serverJustPoteito.dish.service.DishServiceImpl;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.http.HttpStatus;
 import org.springframework.stereotype.Service;
-import org.springframework.web.server.ResponseStatusException;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -46,10 +43,10 @@ public class CookServiceImpl implements CookService {
     }
 
     @Override
-    public CookServiceModel getCookById(Integer id){
+    public CookServiceModel getCookById(Integer id) throws CookNotFoundException {
         Cook cook = cookRepository.findById(id)
                 .orElseThrow(
-                        () -> new ResponseStatusException(HttpStatus.NO_CONTENT, "Cocinero no encontrado.")
+                        () -> new CookNotFoundException("Cook not found")
                 );
 
         return new CookServiceModel(

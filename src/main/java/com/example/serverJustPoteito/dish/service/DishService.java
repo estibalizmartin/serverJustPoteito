@@ -1,12 +1,13 @@
 package com.example.serverJustPoteito.dish.service;
 
+import com.example.serverJustPoteito.dish.exceptions.DishNotFoundException;
 import com.example.serverJustPoteito.dish.model.*;
 
 import java.util.List;
 
 public interface DishService {
     List<DishServiceModel> getDishes();
-    DishServiceModel getDishById(Integer id, List<DishesExpands> expand);
+    DishServiceModel getDishById(Integer id, List<DishesExpands> expand) throws DishNotFoundException;
     DishServiceModel createDish(DishPostRequest dishPostRequest);
     DishServiceModel updateDish(Integer id, DishPostRequest dishPostRequest);
     void deleteDishById(Integer id);

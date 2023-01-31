@@ -35,15 +35,22 @@ public class DishController {
 
     @GetMapping("/dishes/{id}")
     public ResponseEntity<DishServiceModel> getDishById(@PathVariable("id") Integer id,
-                                                        @RequestParam(required = false) List<DishesExpands> expand
-    ) throws DishNotFoundException {
-        return new ResponseEntity<>(dishService.getDishById(id, expand), HttpStatus.OK);
+                                                        @RequestParam(required = false) List<DishesExpands> expand) {
+        try {
+            return new ResponseEntity<>(dishService.getDishById(id, expand), HttpStatus.OK);
+        } catch (DishNotFoundException e) {
+            throw new ResponseStatusException(HttpStatus.NO_CONTENT, e.getMessage(), e);
+        }
     }
 
     @GetMapping("/dishesNoToken/{id}")
     public ResponseEntity<DishServiceModel> getDishByIdNoToken(@PathVariable("id") Integer id,
-                                                        @RequestParam(required = false) List<DishesExpands> expand) {
-        return new ResponseEntity<>(dishService.getDishById(id, expand), HttpStatus.OK);
+                                                               @RequestParam(required = false) List<DishesExpands> expand) {
+        try {
+            return new ResponseEntity<>(dishService.getDishById(id, expand), HttpStatus.OK);
+        } catch (DishNotFoundException e) {
+            throw new ResponseStatusException(HttpStatus.NO_CONTENT, e.getMessage(), e);
+        }
     }
 
     @PostMapping("/dishes")

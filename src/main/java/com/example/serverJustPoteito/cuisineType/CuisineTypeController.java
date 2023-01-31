@@ -1,5 +1,6 @@
 package com.example.serverJustPoteito.cuisineType;
 
+import com.example.serverJustPoteito.cuisineType.exceptions.CuisineTypeNotFoundException;
 import com.example.serverJustPoteito.cuisineType.service.CuisineTypeServiceImpl;
 import com.example.serverJustPoteito.cuisineType.persistence.CuisineType;
 import com.example.serverJustPoteito.cuisineType.model.CuisineTypePostRequest;
@@ -26,14 +27,22 @@ public class CuisineTypeController {
     }
 
     @GetMapping("/cuisineTypes/{id}")
-    public ResponseEntity<CuisineType> getCuisineTypeId(@PathVariable("id") Integer id){
-        CuisineType cuisineType = cuisineTypeService.getCuisineType(id);
-        return new ResponseEntity<>(cuisineType, HttpStatus.OK);
+    public ResponseEntity<CuisineType> getCuisineTypeById(@PathVariable("id") Integer id) {
+        try {
+            CuisineType cuisineType = cuisineTypeService.getCuisineType(id);
+            return new ResponseEntity<>(cuisineType, HttpStatus.OK);
+        } catch (CuisineTypeNotFoundException e) {
+            throw new ResponseStatusException(HttpStatus.NO_CONTENT, e.getMessage(), e);
+        }
     }
     @GetMapping("/cuisineTypesNoToken/{id}")
-    public ResponseEntity<CuisineType> getCuisineTypeIdNoToken(@PathVariable("id") Integer id){
-        CuisineType cuisineType = cuisineTypeService.getCuisineType(id);
-        return new ResponseEntity<CuisineType>(cuisineType, HttpStatus.OK);
+    public ResponseEntity<CuisineType> getCuisineTypeIdNoToken(@PathVariable("id") Integer id) {
+        try {
+            CuisineType cuisineType = cuisineTypeService.getCuisineType(id);
+            return new ResponseEntity<CuisineType>(cuisineType, HttpStatus.OK);
+        } catch (CuisineTypeNotFoundException e) {
+            throw new ResponseStatusException(HttpStatus.NO_CONTENT, e.getMessage(), e);
+        }
     }
 
     @PostMapping("/cuisineTypes")

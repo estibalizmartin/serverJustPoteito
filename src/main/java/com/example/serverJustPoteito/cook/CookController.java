@@ -1,16 +1,15 @@
 package com.example.serverJustPoteito.cook;
 
+import com.example.serverJustPoteito.cook.exceptions.CookNotFoundException;
 import com.example.serverJustPoteito.cook.model.CookPostRequest;
 import com.example.serverJustPoteito.cook.model.CookServiceModel;
 import com.example.serverJustPoteito.cook.model.CookUpdateResponse;
 import com.example.serverJustPoteito.cook.service.CookService;
-import com.example.serverJustPoteito.dish.model.DishServiceModel;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
-
-import java.util.List;
+import org.springframework.web.server.ResponseStatusException;
 
 @RestController
 @RequestMapping("api")
@@ -30,7 +29,11 @@ public class CookController {
 
     @GetMapping("/cooksNoToken/{id}")
     public ResponseEntity<CookServiceModel> getCookById(@PathVariable("id") Integer id) {
-        return new ResponseEntity<>(cookService.getCookById(id), HttpStatus.OK);
+        try {
+            return new ResponseEntity<>(cookService.getCookById(id), HttpStatus.OK);
+        } catch (CookNotFoundException e) {
+            throw new ResponseStatusException(HttpStatus.NO_CONTENT, e.getMessage(), e);
+        }
     }
 
     @PostMapping("/cooks")

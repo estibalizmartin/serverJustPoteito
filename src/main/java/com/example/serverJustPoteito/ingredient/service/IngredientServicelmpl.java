@@ -1,15 +1,13 @@
 package com.example.serverJustPoteito.ingredient.service;
 
+import com.example.serverJustPoteito.ingredient.exceptions.IngredientNotFoundException;
 import com.example.serverJustPoteito.ingredient.persistence.Ingredient;
 import com.example.serverJustPoteito.ingredient.model.IngredientPostRequest;
 import com.example.serverJustPoteito.ingredient.model.IngredientServiceModel;
 import com.example.serverJustPoteito.ingredient.repository.IngredientRepository;
-import com.example.serverJustPoteito.ingredient_dish.model.Ingredient_dishServiceModel;
 import com.example.serverJustPoteito.ingredient_dish.service.Ingredient_dishService;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.http.HttpStatus;
 import org.springframework.stereotype.Service;
-import org.springframework.web.server.ResponseStatusException;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -39,11 +37,9 @@ public class IngredientServicelmpl implements IngredientService{
     }
 
     @Override
-    public IngredientServiceModel getIngredientById(Integer id) {
+    public IngredientServiceModel getIngredientById(Integer id) throws IngredientNotFoundException {
         Ingredient ingredients = ingredientRepository.findById(id)
-                .orElseThrow(() -> new ResponseStatusException
-                        (HttpStatus.NO_CONTENT, "This ingredient doesn't exists...")
-                );
+                .orElseThrow(() -> new IngredientNotFoundException("Ingredient not found"));
 
         IngredientServiceModel response = new IngredientServiceModel(
                 ingredients.getId(),

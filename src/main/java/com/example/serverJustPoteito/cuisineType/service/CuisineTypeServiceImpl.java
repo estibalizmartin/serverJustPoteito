@@ -1,12 +1,11 @@
 package com.example.serverJustPoteito.cuisineType.service;
+import com.example.serverJustPoteito.cuisineType.exceptions.CuisineTypeNotFoundException;
 import com.example.serverJustPoteito.cuisineType.persistence.CuisineType;
 import com.example.serverJustPoteito.cuisineType.model.CuisineTypePostRequest;
 import com.example.serverJustPoteito.cuisineType.model.CuisineTypeUpdateResponse;
 import com.example.serverJustPoteito.cuisineType.repository.CuisineTypeRepository;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.http.HttpStatus;
 import org.springframework.stereotype.Service;
-import org.springframework.web.server.ResponseStatusException;
 
 @Service
 public class CuisineTypeServiceImpl implements CuisineTypeService{
@@ -16,9 +15,9 @@ public class CuisineTypeServiceImpl implements CuisineTypeService{
     public Iterable<CuisineType> getCuisineTypes(){
         return cuisineTypeRepository.findAll();
     }
-    public CuisineType getCuisineType(Integer id){
+    public CuisineType getCuisineType(Integer id) throws CuisineTypeNotFoundException {
         return cuisineTypeRepository.findById(id).orElseThrow (
-                () -> new ResponseStatusException(HttpStatus.NO_CONTENT, "No existe el tipo de cocina")
+                () -> new CuisineTypeNotFoundException("Cuisine type not found")
         );
     }
 

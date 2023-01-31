@@ -1,9 +1,9 @@
 package com.example.serverJustPoteito.ingredient;
 
+import com.example.serverJustPoteito.ingredient.exceptions.IngredientNotFoundException;
 import com.example.serverJustPoteito.ingredient.model.IngredientPostRequest;
 import com.example.serverJustPoteito.ingredient.model.IngredientServiceModel;
 import com.example.serverJustPoteito.ingredient.service.IngredientService;
-import com.example.serverJustPoteito.ingredient_dish.model.Ingredient_dishServiceModel;
 import jakarta.validation.Valid;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.dao.EmptyResultDataAccessException;
@@ -35,8 +35,12 @@ public class IngredientController {
     }
 
     @GetMapping("/ingredients/{id}")
-    public ResponseEntity<IngredientServiceModel> getIngredientById(@PathVariable("id") Integer id){
-        return new ResponseEntity<>(ingredientService.getIngredientById(id), HttpStatus.OK);
+    public ResponseEntity<IngredientServiceModel> getIngredientById(@PathVariable("id") Integer id) throws IngredientNotFoundException {
+        try {
+            return new ResponseEntity<>(ingredientService.getIngredientById(id), HttpStatus.OK);
+        } catch (IngredientNotFoundException e) {
+            throw new RuntimeException(e);
+        }
     }
 
     @PostMapping("/ingredients")
