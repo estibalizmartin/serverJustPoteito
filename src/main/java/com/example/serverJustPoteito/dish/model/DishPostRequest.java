@@ -10,12 +10,17 @@ public class DishPostRequest {
     @NotBlank
     @NotEmpty
     private String name;
+    @NotNull
+    @NotBlank
+    @NotEmpty
     private Integer prepTime;
-
-//    private Allergens allergen;
-
+    @NotNull
+    @NotBlank
+    @NotEmpty
     private String subtype;
-
+    @NotNull
+    @NotBlank
+    @NotEmpty
     private Integer cuisineTypeId;
 
     public DishPostRequest() {

@@ -1,12 +1,9 @@
 package com.example.serverJustPoteito.auth.service;
 
-import com.example.serverJustPoteito.auth.Exceptions.UserCantCreateException;
-import com.example.serverJustPoteito.auth.model.PasswordPostRequest;
-import com.example.serverJustPoteito.auth.model.RoleTypeEnum;
-import com.example.serverJustPoteito.auth.model.UserPostRequest;
+import com.example.serverJustPoteito.auth.model.*;
+import com.example.serverJustPoteito.auth.exceptions.UserCantCreateException;
 import com.example.serverJustPoteito.auth.persistence.Role;
 import com.example.serverJustPoteito.auth.persistence.User;
-import com.example.serverJustPoteito.auth.model.UserServiceModel;
 import com.example.serverJustPoteito.auth.repository.RoleRepository;
 import com.example.serverJustPoteito.auth.repository.UserRepository;
 import com.example.serverJustPoteito.security.CustomPasswordEncoder;
@@ -91,7 +88,6 @@ public class UserServiceImpl implements UserService {
 
         if (queryResult == 1) {
             SimpleMailMessage message = new SimpleMailMessage();
-            message.setFrom("estibaliz.martines@elorrieta-errekamari.com");
             message.setTo(email);
             message.setSubject("Correo de recuperación de contraseña");
             message.setText("Txaber cómeme los cojones con esta contraseña: " + newPassword);

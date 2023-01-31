@@ -1,9 +1,10 @@
 package com.example.serverJustPoteito.auth;
 
-import com.example.serverJustPoteito.auth.Exceptions.UserCantCreateException;
+import com.example.serverJustPoteito.auth.exceptions.UserCantCreateException;
 import com.example.serverJustPoteito.auth.model.*;
 import com.example.serverJustPoteito.auth.persistence.User;
 import com.example.serverJustPoteito.auth.service.UserService;
+import com.example.serverJustPoteito.security.AesPasswordEncoder;
 import com.example.serverJustPoteito.security.JwtTokenUtil;
 import jakarta.validation.Valid;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -25,13 +26,23 @@ import java.util.List;
 public class AuthController {
 
     @Autowired
-    AuthenticationManager authManager;
-
+    private AuthenticationManager authManager;
     @Autowired
-    JwtTokenUtil jwtUtil;
-
+    private JwtTokenUtil jwtUtil;
     @Autowired
-    UserService userService;
+    private AesPasswordEncoder aesPasswordEncoder;
+    @Autowired
+    private UserService userService;
+
+    @PostMapping("/encryptemail")
+    public ResponseEntity<String> encryptEmailAddress(@RequestBody EncryptPostRequest encryptPostRequest) {
+        return new ResponseEntity<>(aesPasswordEncoder.cifrarEmail(encryptPostRequest), HttpStatus.OK);
+    }
+
+    @PostMapping("/encryptpassword")
+    public ResponseEntity<String> encryptEmailPassword(@RequestBody EncryptPostRequest encryptPostRequest) {
+        return new ResponseEntity<>(aesPasswordEncoder.cifrarPassword(encryptPostRequest), HttpStatus.OK);
+    }
 
     @PostMapping("/auth/login")
     public ResponseEntity<?> login(@RequestBody AuthRequest request) {

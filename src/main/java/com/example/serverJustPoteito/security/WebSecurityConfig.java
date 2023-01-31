@@ -3,6 +3,8 @@ package com.example.serverJustPoteito.security;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
+import org.springframework.mail.javamail.JavaMailSender;
+import org.springframework.mail.javamail.JavaMailSenderImpl;
 import org.springframework.security.authentication.AuthenticationManager;
 import org.springframework.security.config.annotation.authentication.configuration.AuthenticationConfiguration;
 import org.springframework.security.config.annotation.web.builders.HttpSecurity;
@@ -11,13 +13,16 @@ import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.security.web.SecurityFilterChain;
 import org.springframework.security.web.authentication.UsernamePasswordAuthenticationFilter;
 
+import java.util.Properties;
+
 @Configuration
 public class WebSecurityConfig {
 
 	@Autowired 
 	private JwtTokenFilter jwtTokenFilter;
+	@Autowired
+	private AesPasswordEncoder aesPasswordEncoder;
 
-	
 	@Bean
 	public AuthenticationManager authenticationManager(AuthenticationConfiguration authConfig) throws Exception {
 		return authConfig.getAuthenticationManager();
@@ -79,7 +84,8 @@ public class WebSecurityConfig {
 								.requestMatchers("/api/ingredientsByDishIdNoToken/{dishId}").permitAll()
 								.requestMatchers("/api/forgotpassword").permitAll()
 								.requestMatchers("/api/changepasswordnotoken").permitAll()
-
+								.requestMatchers("/api/encryptemail").permitAll()
+								.requestMatchers("/api/encryptpassword").permitAll()
 								.anyRequest().authenticated()
 		);
 		http.exceptionHandling().accessDeniedHandler(new CustomAccesDeniedHandler());
@@ -89,5 +95,25 @@ public class WebSecurityConfig {
 
 		//http.cors();
 		return http.build();
+	}
+
+	@Bean
+	public JavaMailSender mailSender() {
+		String decryptedEmail = aesPasswordEncoder.descifrarEmail("Clave");
+		String decryptedPassword = aesPasswordEncoder.descifrarPassword("Clave");
+
+		JavaMailSenderImpl mailSender = new JavaMailSenderImpl();
+		mailSender.setHost("smtp.gmail.com");
+		mailSender.setPort(587);
+
+		mailSender.setUsername(decryptedEmail);
+		mailSender.setPassword(decryptedPassword);
+
+		Properties props = mailSender.getJavaMailProperties();
+		props.put("mail.transport.protocol", "smtp");
+		props.put("mail.smtp.auth", "true");
+		props.put("mail.smtp.starttls.enable", "true");
+
+		return mailSender;
 	}
 }

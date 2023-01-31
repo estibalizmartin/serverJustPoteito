@@ -1,4 +1,4 @@
-package com.example.serverJustPoteito.auth.Exceptions;
+package com.example.serverJustPoteito.auth.exceptions;
 
 import org.springframework.http.HttpStatus;
 import org.springframework.web.bind.annotation.ResponseStatus;

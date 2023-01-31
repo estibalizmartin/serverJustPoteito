@@ -1,6 +1,7 @@
 package com.example.serverJustPoteito.dish;
 
 import com.example.serverJustPoteito.cuisineType.service.CuisineTypeService;
+import com.example.serverJustPoteito.dish.exceptions.DishNotFoundException;
 import com.example.serverJustPoteito.dish.model.*;
 import com.example.serverJustPoteito.dish.service.DishService;
 import com.example.serverJustPoteito.ingredient_dish.model.Ingredient_dishServiceModel;
@@ -34,9 +35,14 @@ public class DishController {
 
     @GetMapping("/dishes/{id}")
     public ResponseEntity<DishServiceModel> getDishById(@PathVariable("id") Integer id,
-                                                        @RequestParam(required = false) List<DishesExpands> expand) {
-        return new ResponseEntity<>(dishService.getDishById(id, expand), HttpStatus.OK);
-    }
+                                                        @RequestParam(required = false) List<DishesExpands> expand
+    ) throws DishNotFoundException {
+        try {
+            return new ResponseEntity<>(dishService.getDishById(id, expand), HttpStatus.OK);
+        } catch (DishNotFoundException e) {
+            throw new ResponseStatusException(HttpStatus.NO_CONTENT, e.getMessage(), e);
+        }
+
     @GetMapping("/dishesNoToken/{id}")
     public ResponseEntity<DishServiceModel> getDishByIdNoToken(@PathVariable("id") Integer id,
                                                         @RequestParam(required = false) List<DishesExpands> expand) {
