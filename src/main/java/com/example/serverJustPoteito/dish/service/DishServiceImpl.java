@@ -3,7 +3,6 @@ package com.example.serverJustPoteito.dish.service;
 import com.example.serverJustPoteito.cuisineType.persistence.CuisineType;
 import com.example.serverJustPoteito.cuisineType.model.CuisineTypeServiceModel;
 import com.example.serverJustPoteito.cuisineType.repository.CuisineTypeRepository;
-import com.example.serverJustPoteito.dish.exceptions.DishNotFoundException;
 import com.example.serverJustPoteito.dish.model.*;
 import com.example.serverJustPoteito.dish.persistence.Dish;
 import com.example.serverJustPoteito.dish.repository.DishRepository;
@@ -14,8 +13,6 @@ import org.springframework.web.server.ResponseStatusException;
 
 import java.util.ArrayList;
 import java.util.List;
-
-import static com.fasterxml.jackson.databind.type.LogicalType.Collection;
 
 @Service
 public class DishServiceImpl implements DishService {
@@ -46,7 +43,7 @@ public class DishServiceImpl implements DishService {
     }
 
     @Override
-    public DishServiceModel getDishById(Integer id, List<DishesExpands> expand) throws DishNotFoundException {
+    public DishServiceModel getDishById(Integer id, List<DishesExpands> expand) {
         Dish dish = dishRepository.findById(id).orElseThrow(
                 () -> new ResponseStatusException(HttpStatus.NO_CONTENT, "Plato no encontrado.")
         );

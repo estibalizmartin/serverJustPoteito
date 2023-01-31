@@ -98,17 +98,11 @@ public class AuthController {
     @GetMapping("/auth/users")
     public ResponseEntity<List<UserServiceModel>> getUsers() {
         return new ResponseEntity<>(userService.getUsers(), HttpStatus.OK);
+    }
 
     @PostMapping("/forgotpassword")
     public ResponseEntity<Boolean> sendEmail(@RequestBody String email) {
         return new ResponseEntity<>(userService.sendEmail(email), HttpStatus.OK);
-    }
-
-    @GetMapping("/get")
-    public ResponseEntity<List<UserServiceModel>> getUsers(@RequestParam int limit,
-                                                           @RequestParam int offset) {
-        return new ResponseEntity<>(userService.getUsers(limit, offset), HttpStatus.OK);
-
     }
 
     @GetMapping("/auth/users/{id}")
@@ -116,7 +110,7 @@ public class AuthController {
         return new ResponseEntity<>(userService.getUserById(id), HttpStatus.OK);
     }
 
-    @PostMapping("/auth/create")
+    @PostMapping("/auth/users")
     public ResponseEntity<UserServiceModel> createUser(@Valid @RequestBody UserPostRequest userPostRequest) {
         return new ResponseEntity<>(userService.createUser(userPostRequest), HttpStatus.CREATED);
     }
@@ -132,7 +126,7 @@ public class AuthController {
         }
     }
 
-    @PostMapping("/delete/{id}")
+    @PostMapping("/auth/users/{id}")
     public ResponseEntity<Integer> deleteUserById(@PathVariable("id") Integer id) {
         try {
             userService.deleteUserById(id);

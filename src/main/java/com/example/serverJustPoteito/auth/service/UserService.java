@@ -11,12 +11,9 @@ import java.util.List;
 
 public interface UserService {
     User signUp(User user) throws UserCantCreateException;
-
     List<UserServiceModel> getUsers();
-
     List<String> logUser(@RequestBody String email, String password);
     boolean sendEmail(String email);
-
     UserServiceModel getUserById(Integer id);
     UserServiceModel createUser(UserPostRequest userPostRequest);
     UserServiceModel updateUser(Integer id, UserPostRequest userPostRequest);

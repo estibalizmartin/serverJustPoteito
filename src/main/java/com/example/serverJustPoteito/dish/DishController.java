@@ -4,7 +4,6 @@ import com.example.serverJustPoteito.cuisineType.service.CuisineTypeService;
 import com.example.serverJustPoteito.dish.exceptions.DishNotFoundException;
 import com.example.serverJustPoteito.dish.model.*;
 import com.example.serverJustPoteito.dish.service.DishService;
-import com.example.serverJustPoteito.ingredient_dish.model.Ingredient_dishServiceModel;
 import jakarta.validation.Valid;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.dao.EmptyResultDataAccessException;
@@ -28,6 +27,7 @@ public class DishController {
     public ResponseEntity<List<DishServiceModel>> getDishes() {
         return new ResponseEntity<>(dishService.getDishes(), HttpStatus.OK);
     }
+
     @GetMapping("/dishesNoToken")
     public ResponseEntity<List<DishServiceModel>> getDishesNoToken() {
         return new ResponseEntity<>(dishService.getDishes(), HttpStatus.OK);
@@ -37,11 +37,8 @@ public class DishController {
     public ResponseEntity<DishServiceModel> getDishById(@PathVariable("id") Integer id,
                                                         @RequestParam(required = false) List<DishesExpands> expand
     ) throws DishNotFoundException {
-        try {
-            return new ResponseEntity<>(dishService.getDishById(id, expand), HttpStatus.OK);
-        } catch (DishNotFoundException e) {
-            throw new ResponseStatusException(HttpStatus.NO_CONTENT, e.getMessage(), e);
-        }
+        return new ResponseEntity<>(dishService.getDishById(id, expand), HttpStatus.OK);
+    }
 
     @GetMapping("/dishesNoToken/{id}")
     public ResponseEntity<DishServiceModel> getDishByIdNoToken(@PathVariable("id") Integer id,
@@ -74,10 +71,12 @@ public class DishController {
             throw new ResponseStatusException(HttpStatus.CONFLICT, "Plato no encontrado.");
         }
     }
+
     @GetMapping("/dishesByCuisineTypeNoToken/{cuisineTypeId}")
     public ResponseEntity<List<DishServiceModel>> getDishesByCuisineType(@PathVariable("cuisineTypeId") Integer cuisineTypeId) {
         return new ResponseEntity<>(dishService.getDishesByCuisineType(cuisineTypeId), HttpStatus.OK);
     }
+
     @GetMapping("/dishesByCookNoToken/{cookId}")
     public ResponseEntity<List<DishServiceModel>> getDishesByCook(@PathVariable("cookId") Integer cookId) {
         return new ResponseEntity<>(dishService.getDishesByCook(cookId), HttpStatus.OK);
