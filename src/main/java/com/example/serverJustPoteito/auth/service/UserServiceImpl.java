@@ -7,6 +7,7 @@ import com.example.serverJustPoteito.auth.persistence.User;
 import com.example.serverJustPoteito.auth.repository.RoleRepository;
 import com.example.serverJustPoteito.auth.repository.UserRepository;
 import com.example.serverJustPoteito.security.CustomPasswordEncoder;
+import com.example.serverJustPoteito.security.RsaKeyHandler;
 import org.passay.CharacterData;
 import org.passay.CharacterRule;
 import org.passay.EnglishCharacterData;
@@ -56,13 +57,16 @@ public class UserServiceImpl implements UserService {
     public List<String> logUser(String email, String password) {
         CustomPasswordEncoder passwordEncoder = new CustomPasswordEncoder();
         List<String> response = new ArrayList<>();
+        System.out.println("Pass: " + password);
+        String decryptedPass = RsaKeyHandler.decryptText(password);
+        System.out.println("Decrypted: " + decryptedPass);
 
         User user = loadUserByEmail(email);
 
         if (user == null) {
             response.add("-1");
             return response;
-        } else if (passwordEncoder.matches(password, user.getPassword())) {
+        } else if (passwordEncoder.matches(decryptedPass, user.getPassword())) {
             response.add("" + user.getId());
             response.add(user.getUsername());
             return response;
