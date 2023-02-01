@@ -27,6 +27,9 @@ public class Dish {
     private Allergens allergen;*/
     @Column(length = 70)
     private String subtype;
+
+    @Column(length = 200)
+    private String image;
     @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "cuisine_type_id", foreignKey = @ForeignKey(name = "fk_cuisine_type_id"), nullable = false)
     @JsonManagedReference
@@ -103,6 +106,29 @@ public class Dish {
         this.cookId = cookId;
         this.ingredient_dishes = ingredient_dishes;
         this.recipe = recipe;
+    }
+    public Dish(Integer id,
+                String name,
+                Integer prepTime,
+                String subtype,
+                CuisineType cuisineType,
+                Integer cuisineTypeId,
+                Cook cook,
+                Integer cookId,
+                List<Ingredient_dish> ingredient_dishes,
+                String recipe,
+                String image) {
+        Id = id;
+        this.name = name;
+        this.prepTime = prepTime;
+        this.subtype = subtype;
+        this.cuisineType = cuisineType;
+        this.cuisineTypeId = cuisineTypeId;
+        this.cook = cook;
+        this.cookId = cookId;
+        this.ingredient_dishes = ingredient_dishes;
+        this.recipe = recipe;
+        this.image = image;
     }
 
     public Integer getId() {
@@ -185,6 +211,14 @@ public class Dish {
         this.recipe = recipe;
     }
 
+    public String getImage() {
+        return image;
+    }
+
+    public void setImage(String image) {
+        this.image = image;
+    }
+
     @Override
     public String toString() {
         return "Dish{" +
@@ -198,6 +232,7 @@ public class Dish {
                 ", cookId=" + cookId +
                 ", ingredient_dishes=" + ingredient_dishes +
                 ", recipe=" + recipe +
+                ", image=" + image +
                 '}';
     }
 }
