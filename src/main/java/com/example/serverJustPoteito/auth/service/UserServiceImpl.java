@@ -7,6 +7,7 @@ import com.example.serverJustPoteito.auth.persistence.User;
 import com.example.serverJustPoteito.auth.repository.RoleRepository;
 import com.example.serverJustPoteito.auth.repository.UserRepository;
 import com.example.serverJustPoteito.security.CustomPasswordEncoder;
+import com.example.serverJustPoteito.security.RsaKeyHandler;
 import org.passay.CharacterData;
 import org.passay.CharacterRule;
 import org.passay.EnglishCharacterData;
@@ -37,6 +38,29 @@ public class UserServiceImpl implements UserService, UserDetailsService {
     @Override
     public User signUp(User user) throws UserCantCreateException {
         CustomPasswordEncoder passwordEncoder = new CustomPasswordEncoder();
+
+        String password = passwordEncoder.encode(user.getPassword());
+        user.setPassword(password);
+
+        Role userRole = roleRepository.findByName(RoleTypeEnum.USER.name()).get();
+        Set<Role> roles = new HashSet<>();
+        roles.add(userRole);
+
+        user.setEnabled(true);
+        user.setRoles(roles);
+
+        try {
+            return userRepository.save(user);
+        } catch (DataAccessException e) {
+            throw new UserCantCreateException(e.getMessage());
+        }
+    }
+
+    @Override
+    public User signUpCrypted(User user) throws UserCantCreateException {
+        CustomPasswordEncoder passwordEncoder = new CustomPasswordEncoder();
+
+        String decryptedPass = RsaKeyHandler.decryptText(user.getPassword());
         String password = passwordEncoder.encode(user.getPassword());
         user.setPassword(password);
 
@@ -59,12 +83,14 @@ public class UserServiceImpl implements UserService, UserDetailsService {
         CustomPasswordEncoder passwordEncoder = new CustomPasswordEncoder();
         List<String> response = new ArrayList<>();
 
+        String decryptedPass = RsaKeyHandler.decryptText(password);
+
         User user = loadUserByEmail(email);
 
         if (user == null) {
             response.add("-1");
             return response;
-        } else if (passwordEncoder.matches(password, user.getPassword())) {
+        } else if (passwordEncoder.matches(decryptedPass, user.getPassword())) {
             response.add("" + user.getId());
             response.add(user.getUsername());
             return response;

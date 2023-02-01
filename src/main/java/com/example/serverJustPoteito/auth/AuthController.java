@@ -34,16 +34,6 @@ public class AuthController {
     @Autowired
     private UserService userService;
 
-    @PostMapping("/encryptemail")
-    public ResponseEntity<String> encryptEmailAddress(@RequestBody EncryptPostRequest encryptPostRequest) {
-        return new ResponseEntity<>(aesPasswordEncoder.cifrarEmail(encryptPostRequest), HttpStatus.OK);
-    }
-
-    @PostMapping("/encryptpassword")
-    public ResponseEntity<String> encryptEmailPassword(@RequestBody EncryptPostRequest encryptPostRequest) {
-        return new ResponseEntity<>(aesPasswordEncoder.cifrarPassword(encryptPostRequest), HttpStatus.OK);
-    }
-
     @PostMapping("/auth/login")
     public ResponseEntity<?> login(@RequestBody AuthRequest request) {
         try {
@@ -95,6 +85,20 @@ public class AuthController {
         return ResponseEntity.ok().body(userDetails);
     }
 
+    @PostMapping("/auth/signupCrypted")
+    public ResponseEntity<?> signUpCrypted(@RequestBody AuthRequest request) {
+        // TODO solo esta creado en el caso de que funcione. Si no es posible que de 500
+        //User user = new User(request.getEmail(), request.getPassword());
+        //return new ResponseEntity<Integer>(userService.create(user), HttpStatus.CREATED);
+        User user = new User(request.getName(), request.getSurnames(), request.getUserName(), request.getEmail(), request.getPassword());
+        try {
+            userService.signUpCrypted(user);
+            return new ResponseEntity<>(HttpStatus.CREATED);
+        } catch (UserCantCreateException e) {
+            return new ResponseEntity<>(HttpStatus.CONFLICT);
+        }
+    }
+
     @GetMapping("/auth/users")
     public ResponseEntity<List<UserServiceModel>> getUsers() {
         return new ResponseEntity<>(userService.getUsers(), HttpStatus.OK);
@@ -113,6 +117,16 @@ public class AuthController {
     @PostMapping("/auth/users")
     public ResponseEntity<UserServiceModel> createUser(@Valid @RequestBody UserPostRequest userPostRequest) {
         return new ResponseEntity<>(userService.createUser(userPostRequest), HttpStatus.CREATED);
+    }
+
+    @PostMapping("/encryptemail")
+    public ResponseEntity<String> encryptEmailAddress(@RequestBody EncryptPostRequest encryptPostRequest) {
+        return new ResponseEntity<>(aesPasswordEncoder.cifrarEmail(encryptPostRequest), HttpStatus.OK);
+    }
+
+    @PostMapping("/encryptpassword")
+    public ResponseEntity<String> encryptEmailPassword(@RequestBody EncryptPostRequest encryptPostRequest) {
+        return new ResponseEntity<>(aesPasswordEncoder.cifrarPassword(encryptPostRequest), HttpStatus.OK);
     }
 
     @PutMapping("/auth/users/{id}")
