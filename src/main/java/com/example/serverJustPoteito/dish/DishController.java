@@ -24,13 +24,25 @@ public class DishController {
     private CuisineTypeService cuisineTypeService;
 
     @GetMapping("/dishes")
-    public ResponseEntity<List<DishServiceModel>> getDishes() {
-        return new ResponseEntity<>(dishService.getDishes(), HttpStatus.OK);
+    public ResponseEntity<?> getDishes() {
+        List<DishServiceModel> dishes = dishService.getDishes();
+
+        if (dishes != null) {
+            return new ResponseEntity<>(dishes, HttpStatus.OK);
+        } else {
+            return ResponseEntity.status(513).body("No se han podido cargar los platos");
+        }
     }
 
     @GetMapping("/dishesNoToken")
-    public ResponseEntity<List<DishServiceModel>> getDishesNoToken() {
-        return new ResponseEntity<>(dishService.getDishes(), HttpStatus.OK);
+    public ResponseEntity<?> getDishesNoToken() {
+        List<DishServiceModel> dishes = dishService.getDishes();
+
+        if (dishes != null) {
+            return new ResponseEntity<>(dishes, HttpStatus.OK);
+        } else {
+            return ResponseEntity.status(513).body("No se han podido cargar los platos");
+        }
     }
 
     @GetMapping("/dishes/{id}")
@@ -54,8 +66,16 @@ public class DishController {
     }
 
     @PostMapping("/dishes")
-    public ResponseEntity<DishServiceModel> createDish(@Valid @RequestBody DishPostRequest dishPostRequest) {
+    public ResponseEntity<?> createDish(@Valid @RequestBody DishPostRequest dishPostRequest) {
         return new ResponseEntity<>(dishService.createDish(dishPostRequest), HttpStatus.CREATED);
+
+        DishServiceModel createdDish = dishService.createDish(dishPostRequest);
+
+        if (createdDish != null) {
+            ResponseEntity.status(HttpStatus.CREATED).body(createdDish);
+        } else {
+            return ResponseEntity.status(514).body("No se puedo añadir el plato");
+        }
     }
 
     @PutMapping("/dishes/{id}")

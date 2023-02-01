@@ -16,23 +16,21 @@ public class Dish {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private Integer Id;
-
+    private Integer id;
     @Column(length = 70)
     private String name;
     @Column
     private Integer prepTime;
-    /*@Column
-    @Enumerated(EnumType.STRING)
-    private Allergens allergen;*/
     @Column(length = 70)
     private String subtype;
+    @Column(length = 2000)
+    private String recipe;
+
     @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "cuisine_type_id", foreignKey = @ForeignKey(name = "fk_cuisine_type_id"), nullable = false)
     @JsonManagedReference
     @JsonIgnoreProperties({"hibernateLazyInitializer", "handler"})
     private CuisineType cuisineType;
-
     @Column(name = "cuisine_type_id", updatable = false, insertable = false)
     private Integer cuisineTypeId;
 
@@ -41,7 +39,6 @@ public class Dish {
     @JsonManagedReference
     @JsonIgnoreProperties({"hibernateLazyInitializer", "handler"})
     private Cook cook;
-
     @Column(name = "cook_id", updatable = false, insertable = false)
     private Integer cookId;
 
@@ -49,68 +46,37 @@ public class Dish {
     @JsonBackReference
     private List<Ingredient_dish> ingredient_dishes;
 
-    private String recipe;
-
     public Dish() {
-    }
-
-    public Dish(Integer id, String name, Integer prepTime, String subtype, CuisineType cuisineType) {
-        Id = id;
-        this.name = name;
-        this.prepTime = prepTime;
-        this.subtype = subtype;
-        this.cuisineType = cuisineType;
-    }
-
-    public Dish(Integer id, String name, Integer prepTime, String subtype, CuisineType cuisineType, Integer cuisineTypeId) {
-        Id = id;
-        this.name = name;
-        this.prepTime = prepTime;
-        this.subtype = subtype;
-        this.cuisineType = cuisineType;
-        this.cuisineTypeId = cuisineTypeId;
-    }
-
-    public Dish(Integer id, String name, Integer prepTime, String subtype, CuisineType cuisineType, Integer cuisineTypeId, Cook cook, Integer cookId, List<Ingredient_dish> ingredient_dishes) {
-        Id = id;
-        this.name = name;
-        this.prepTime = prepTime;
-        this.subtype = subtype;
-        this.cuisineType = cuisineType;
-        this.cuisineTypeId = cuisineTypeId;
-        this.cook = cook;
-        this.cookId = cookId;
-        this.ingredient_dishes = ingredient_dishes;
     }
 
     public Dish(Integer id,
                 String name,
                 Integer prepTime,
                 String subtype,
+                String recipe,
                 CuisineType cuisineType,
                 Integer cuisineTypeId,
                 Cook cook,
                 Integer cookId,
-                List<Ingredient_dish> ingredient_dishes,
-                String recipe) {
-        Id = id;
+                List<Ingredient_dish> ingredient_dishes) {
+        this.id = id;
         this.name = name;
         this.prepTime = prepTime;
         this.subtype = subtype;
+        this.recipe = recipe;
         this.cuisineType = cuisineType;
         this.cuisineTypeId = cuisineTypeId;
         this.cook = cook;
         this.cookId = cookId;
         this.ingredient_dishes = ingredient_dishes;
-        this.recipe = recipe;
     }
 
     public Integer getId() {
-        return Id;
+        return id;
     }
 
     public void setId(Integer id) {
-        Id = id;
+        this.id = id;
     }
 
     public String getName() {
@@ -135,6 +101,14 @@ public class Dish {
 
     public void setSubtype(String subtype) {
         this.subtype = subtype;
+    }
+
+    public String getRecipe() {
+        return recipe;
+    }
+
+    public void setRecipe(String recipe) {
+        this.recipe = recipe;
     }
 
     public CuisineType getCuisineType() {
@@ -177,27 +151,19 @@ public class Dish {
         this.ingredient_dishes = ingredient_dishes;
     }
 
-    public String getRecipe() {
-        return recipe;
-    }
-
-    public void setRecipe(String recipe) {
-        this.recipe = recipe;
-    }
-
     @Override
     public String toString() {
         return "Dish{" +
-                "Id=" + Id +
+                "id=" + id +
                 ", name='" + name + '\'' +
                 ", prepTime=" + prepTime +
                 ", subtype='" + subtype + '\'' +
+                ", recipe='" + recipe + '\'' +
                 ", cuisineType=" + cuisineType +
                 ", cuisineTypeId=" + cuisineTypeId +
                 ", cook=" + cook +
                 ", cookId=" + cookId +
                 ", ingredient_dishes=" + ingredient_dishes +
-                ", recipe=" + recipe +
                 '}';
     }
 }

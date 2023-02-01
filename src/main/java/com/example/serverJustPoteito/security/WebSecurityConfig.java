@@ -59,6 +59,9 @@ public class WebSecurityConfig {
 		http.authorizeHttpRequests(
 				(authz) ->
 						authz
+								.requestMatchers("/v3/api-docs/**").permitAll()
+								.requestMatchers("/v3/api-docs").permitAll()
+								.requestMatchers("/swagger-ui.html").permitAll()
 								.requestMatchers("/api/auth/**").permitAll()
 								.requestMatchers("/api/users/**").permitAll()
 								.requestMatchers("/api/auth/create/**").permitAll()

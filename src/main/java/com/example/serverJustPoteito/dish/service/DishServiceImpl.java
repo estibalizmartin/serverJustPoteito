@@ -1,5 +1,6 @@
 package com.example.serverJustPoteito.dish.service;
 
+import com.example.serverJustPoteito.cook.model.Cook;
 import com.example.serverJustPoteito.cuisineType.persistence.CuisineType;
 import com.example.serverJustPoteito.cuisineType.model.CuisineTypeServiceModel;
 import com.example.serverJustPoteito.cuisineType.repository.CuisineTypeRepository;
@@ -7,6 +8,7 @@ import com.example.serverJustPoteito.dish.exceptions.DishNotFoundException;
 import com.example.serverJustPoteito.dish.model.*;
 import com.example.serverJustPoteito.dish.persistence.Dish;
 import com.example.serverJustPoteito.dish.repository.DishRepository;
+import com.example.serverJustPoteito.ingredient_dish.persistence.Ingredient_dish;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.stereotype.Service;
@@ -36,7 +38,8 @@ public class DishServiceImpl implements DishService {
                     dish.getPrepTime(),
                     dish.getSubtype(),
                     null,
-                    dish.getCuisineTypeId()
+                    dish.getCuisineTypeId(),
+                    null
             ));
         }
 
@@ -85,7 +88,9 @@ public class DishServiceImpl implements DishService {
                 dishPostRequest.getName(),
                 dishPostRequest.getPrepTime(),
                 dishPostRequest.getSubtype(),
-                cuisineType
+                dishPostRequest.getRecipe(),
+                cuisineType,
+                null
         );
 
         dish = dishRepository.save(dish);
@@ -174,6 +179,17 @@ public class DishServiceImpl implements DishService {
             ));
         }
         return response;
+
+        Integer id,
+        String name,
+        Integer prepTime,
+        String subtype,
+        CuisineType cuisineType,
+        Integer cuisineTypeId,
+        Cook cook,
+        Integer cookId,
+        List<Ingredient_dish> ingredient_dishes,
+        String recipe) {
     }
 
     @Override

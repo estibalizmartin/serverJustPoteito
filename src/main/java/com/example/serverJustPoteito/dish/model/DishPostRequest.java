@@ -21,15 +21,20 @@ public class DishPostRequest {
     @NotNull
     @NotBlank
     @NotEmpty
+    private String recipe;
+    @NotNull
+    @NotBlank
+    @NotEmpty
     private Integer cuisineTypeId;
 
     public DishPostRequest() {
     }
 
-    public DishPostRequest(String name, Integer prepTime, String subtype, Integer cuisineTypeId) {
+    public DishPostRequest(String name, Integer prepTime, String subtype, String recipe, Integer cuisineTypeId) {
         this.name = name;
         this.prepTime = prepTime;
         this.subtype = subtype;
+        this.recipe = recipe;
         this.cuisineTypeId = cuisineTypeId;
     }
 
@@ -57,6 +62,14 @@ public class DishPostRequest {
         this.subtype = subtype;
     }
 
+    public String getRecipe() {
+        return recipe;
+    }
+
+    public void setRecipe(String recipe) {
+        this.recipe = recipe;
+    }
+
     public Integer getCuisineTypeId() {
         return cuisineTypeId;
     }
@@ -71,6 +84,7 @@ public class DishPostRequest {
                 "name='" + name + '\'' +
                 ", prepTime=" + prepTime +
                 ", subtype='" + subtype + '\'' +
+                ", recipe='" + recipe + '\'' +
                 ", cuisineTypeId=" + cuisineTypeId +
                 '}';
     }

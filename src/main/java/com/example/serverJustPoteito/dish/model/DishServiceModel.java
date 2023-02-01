@@ -6,10 +6,9 @@ import com.fasterxml.jackson.annotation.JsonInclude;
 @JsonInclude(JsonInclude.Include.NON_NULL)
 public class DishServiceModel {
 
-    private Integer Id;
+    private Integer id;
     private String name;
     private Integer prepTime;
-//    private Allergens allergen;
     private String subtype;
     private CuisineTypeServiceModel cuisineTypeServiceModel;
     private Integer cuisineTypeId;
@@ -18,23 +17,8 @@ public class DishServiceModel {
     public DishServiceModel() {
     }
 
-    public DishServiceModel(Integer id,
-                            String name,
-                            Integer prepTime,
-                            String subtype,
-                            CuisineTypeServiceModel cuisineTypeServiceModel,
-                            Integer cuisineTypeId
-    ) {
-        Id = id;
-        this.name = name;
-        this.prepTime = prepTime;
-        this.subtype = subtype;
-        this.cuisineTypeServiceModel = cuisineTypeServiceModel;
-        this.cuisineTypeId = cuisineTypeId;
-    }
-
     public DishServiceModel(Integer id, String name, Integer prepTime, String subtype, CuisineTypeServiceModel cuisineTypeServiceModel, Integer cuisineTypeId, String recipe) {
-        Id = id;
+        this.id = id;
         this.name = name;
         this.prepTime = prepTime;
         this.subtype = subtype;
@@ -44,11 +28,11 @@ public class DishServiceModel {
     }
 
     public Integer getId() {
-        return Id;
+        return id;
     }
 
     public void setId(Integer id) {
-        Id = id;
+        this.id = id;
     }
 
     public String getName() {
@@ -102,7 +86,7 @@ public class DishServiceModel {
     @Override
     public String toString() {
         return "DishServiceModel{" +
-                "Id=" + Id +
+                "id=" + id +
                 ", name='" + name + '\'' +
                 ", prepTime=" + prepTime +
                 ", subtype='" + subtype + '\'' +
