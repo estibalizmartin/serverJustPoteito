@@ -67,14 +67,12 @@ public class DishController {
 
     @PostMapping("/dishes")
     public ResponseEntity<?> createDish(@Valid @RequestBody DishPostRequest dishPostRequest) {
-        return new ResponseEntity<>(dishService.createDish(dishPostRequest), HttpStatus.CREATED);
-
         DishServiceModel createdDish = dishService.createDish(dishPostRequest);
 
         if (createdDish != null) {
-            ResponseEntity.status(HttpStatus.CREATED).body(createdDish);
+            return ResponseEntity.status(HttpStatus.CREATED).body(createdDish);
         } else {
-            return ResponseEntity.status(514).body("No se puedo añadir el plato");
+            return ResponseEntity.status(514).body("No se puede añadir el plato");
         }
     }
 

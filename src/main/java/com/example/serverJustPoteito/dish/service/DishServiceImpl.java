@@ -1,6 +1,7 @@
 package com.example.serverJustPoteito.dish.service;
 
 import com.example.serverJustPoteito.cook.model.Cook;
+import com.example.serverJustPoteito.cook.repository.CookRepository;
 import com.example.serverJustPoteito.cuisineType.persistence.CuisineType;
 import com.example.serverJustPoteito.cuisineType.model.CuisineTypeServiceModel;
 import com.example.serverJustPoteito.cuisineType.repository.CuisineTypeRepository;
@@ -8,7 +9,6 @@ import com.example.serverJustPoteito.dish.exceptions.DishNotFoundException;
 import com.example.serverJustPoteito.dish.model.*;
 import com.example.serverJustPoteito.dish.persistence.Dish;
 import com.example.serverJustPoteito.dish.repository.DishRepository;
-import com.example.serverJustPoteito.ingredient_dish.persistence.Ingredient_dish;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.stereotype.Service;
@@ -24,6 +24,8 @@ public class DishServiceImpl implements DishService {
     private DishRepository dishRepository;
     @Autowired
     private CuisineTypeRepository cuisineTypeRepository;
+    @Autowired
+    private CookRepository cookRepository;
 
     @Override
     public List<DishServiceModel> getDishes() {
@@ -37,9 +39,9 @@ public class DishServiceImpl implements DishService {
                     dish.getName(),
                     dish.getPrepTime(),
                     dish.getSubtype(),
-                    null,
+                    dish.getRecipe(),
                     dish.getCuisineTypeId(),
-                    null
+                    dish.getCookId()
             ));
         }
 
@@ -69,9 +71,9 @@ public class DishServiceImpl implements DishService {
                 dish.getName(),
                 dish.getPrepTime(),
                 dish.getSubtype(),
-                cuisineResponse,
+                dish.getRecipe(),
                 dish.getCuisineTypeId(),
-                dish.getRecipe()
+                dish.getCookId()
         );
 
         return response;
@@ -83,6 +85,10 @@ public class DishServiceImpl implements DishService {
                 () -> new ResponseStatusException(HttpStatus.NO_CONTENT, "Tipo de cocina no encontrado.")
         );
 
+        Cook cook = cookRepository.findById(dishPostRequest.getCookId()).orElseThrow(
+                () -> new ResponseStatusException(HttpStatus.NO_CONTENT, "Cocinero no encontrado.")
+        );
+
         Dish dish = new Dish(
                 null,
                 dishPostRequest.getName(),
@@ -90,6 +96,9 @@ public class DishServiceImpl implements DishService {
                 dishPostRequest.getSubtype(),
                 dishPostRequest.getRecipe(),
                 cuisineType,
+                null,
+                cook,
+                null,
                 null
         );
 
@@ -100,8 +109,9 @@ public class DishServiceImpl implements DishService {
                 dish.getName(),
                 dish.getPrepTime(),
                 dish.getSubtype(),
-                null,
-                dish.getCuisineTypeId()
+                dish.getRecipe(),
+                dish.getCuisineTypeId(),
+                dish.getCookId()
         );
 
         return response;
@@ -114,8 +124,12 @@ public class DishServiceImpl implements DishService {
                 dishPostRequest.getName(),
                 dishPostRequest.getPrepTime(),
                 dishPostRequest.getSubtype(),
+                dishPostRequest.getRecipe(),
                 null,
-                dishPostRequest.getCuisineTypeId()
+                dishPostRequest.getCuisineTypeId(),
+                null,
+                dishPostRequest.getCookId(),
+                null
         );
 
         dish.setId(id);
@@ -127,8 +141,9 @@ public class DishServiceImpl implements DishService {
                 dish.getName(),
                 dish.getPrepTime(),
                 dish.getSubtype(),
-                null,
-                dish.getCuisineTypeId()
+                dish.getRecipe(),
+                dish.getCuisineTypeId(),
+                dish.getCookId()
         );
 
         return response;
@@ -155,8 +170,9 @@ public class DishServiceImpl implements DishService {
                     dish.getName(),
                     dish.getPrepTime(),
                     dish.getSubtype(),
-                    null,
-                    dish.getCuisineTypeId()
+                    dish.getRecipe(),
+                    dish.getCuisineTypeId(),
+                    dish.getCookId()
             ));
         }
         return response;
@@ -174,22 +190,13 @@ public class DishServiceImpl implements DishService {
                     dish.getName(),
                     dish.getPrepTime(),
                     dish.getSubtype(),
-                    null,
+                    dish.getRecipe(),
+                    dish.getCuisineTypeId(),
                     dish.getCookId()
             ));
         }
-        return response;
 
-        Integer id,
-        String name,
-        Integer prepTime,
-        String subtype,
-        CuisineType cuisineType,
-        Integer cuisineTypeId,
-        Cook cook,
-        Integer cookId,
-        List<Ingredient_dish> ingredient_dishes,
-        String recipe) {
+        return response;
     }
 
     @Override
@@ -202,8 +209,9 @@ public class DishServiceImpl implements DishService {
                     dish.getName(),
                     dish.getPrepTime(),
                     dish.getSubtype(),
-                    null,
-                    dish.getCuisineTypeId()
+                    dish.getRecipe(),
+                    dish.getCuisineTypeId(),
+                    dish.getCookId()
             ));
         }
         return response;
@@ -221,8 +229,9 @@ public class DishServiceImpl implements DishService {
                     dish.getName(),
                     dish.getPrepTime(),
                     dish.getSubtype(),
-                    null,
-                    dish.getCuisineTypeId()
+                    dish.getRecipe(),
+                    dish.getCuisineTypeId(),
+                    dish.getCookId()
             ));
         }
 
