@@ -1,5 +1,6 @@
 package com.example.serverJustPoteito.cuisineType;
 
+import com.example.serverJustPoteito.cuisineType.model.CuisineTypeServiceModel;
 import com.example.serverJustPoteito.cuisineType.service.CuisineTypeServiceImpl;
 import com.example.serverJustPoteito.cuisineType.persistence.CuisineType;
 import com.example.serverJustPoteito.cuisineType.model.CuisineTypePostRequest;
@@ -11,18 +12,20 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.server.ResponseStatusException;
 
+import java.util.List;
+
 @RestController
 @RequestMapping("api")
 public class CuisineTypeController {
     @Autowired
     private CuisineTypeServiceImpl cuisineTypeService;
     @GetMapping("/cuisineTypes")
-    public ResponseEntity<Iterable<CuisineType>> getCuisineTypes() {
+    public ResponseEntity<List<CuisineTypeServiceModel>> getCuisineTypes() {
         return new ResponseEntity<>(cuisineTypeService.getCuisineTypes(), HttpStatus.OK);
     }
     @GetMapping("/cuisineTypesNoToken")
-    public ResponseEntity<Iterable<CuisineType>> getCuisineTypesNoToken() {
-        return new ResponseEntity<Iterable<CuisineType>>(cuisineTypeService.getCuisineTypes(), HttpStatus.OK);
+    public ResponseEntity<List<CuisineTypeServiceModel>> getCuisineTypesNoToken() {
+        return new ResponseEntity<>(cuisineTypeService.getCuisineTypes(), HttpStatus.OK);
     }
 
     @GetMapping("/cuisineTypes/{id}")

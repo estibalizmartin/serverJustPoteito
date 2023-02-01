@@ -11,6 +11,7 @@ public class DishServiceModel {
     private Integer prepTime;
 //    private Allergens allergen;
     private String subtype;
+    private String image;
     private CuisineTypeServiceModel cuisineTypeServiceModel;
     private Integer cuisineTypeId;
     private String recipe;
@@ -41,6 +42,16 @@ public class DishServiceModel {
         this.cuisineTypeServiceModel = cuisineTypeServiceModel;
         this.cuisineTypeId = cuisineTypeId;
         this.recipe = recipe;
+    }
+    public DishServiceModel(Integer id, String name, Integer prepTime, String subtype, CuisineTypeServiceModel cuisineTypeServiceModel, Integer cuisineTypeId, String recipe, String image) {
+        Id = id;
+        this.name = name;
+        this.prepTime = prepTime;
+        this.subtype = subtype;
+        this.cuisineTypeServiceModel = cuisineTypeServiceModel;
+        this.cuisineTypeId = cuisineTypeId;
+        this.recipe = recipe;
+        this.image = image;
     }
 
     public Integer getId() {
@@ -99,6 +110,14 @@ public class DishServiceModel {
         this.recipe = recipe;
     }
 
+    public String getImage() {
+        return image;
+    }
+
+    public void setImage(String image) {
+        this.image = image;
+    }
+
     @Override
     public String toString() {
         return "DishServiceModel{" +
@@ -109,6 +128,7 @@ public class DishServiceModel {
                 ", cuisineTypeServiceModel=" + cuisineTypeServiceModel +
                 ", cuisineTypeId=" + cuisineTypeId +
                 ", recipe=" + recipe +
+                ", image=" + image +
                 '}';
     }
 }

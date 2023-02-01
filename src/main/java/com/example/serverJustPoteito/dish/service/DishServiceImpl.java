@@ -6,11 +6,15 @@ import com.example.serverJustPoteito.cuisineType.repository.CuisineTypeRepositor
 import com.example.serverJustPoteito.dish.model.*;
 import com.example.serverJustPoteito.dish.persistence.Dish;
 import com.example.serverJustPoteito.dish.repository.DishRepository;
+import org.apache.commons.io.FileUtils;
+import org.apache.tomcat.util.codec.binary.Base64;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.stereotype.Service;
 import org.springframework.web.server.ResponseStatusException;
 
+import java.io.File;
+import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -67,7 +71,8 @@ public class DishServiceImpl implements DishService {
                 dish.getSubtype(),
                 cuisineResponse,
                 dish.getCuisineTypeId(),
-                dish.getRecipe()
+                dish.getRecipe(),
+                getBase64EncodedImage(dish.getImage())
         );
 
         return response;
@@ -133,9 +138,6 @@ public class DishServiceImpl implements DishService {
         dishRepository.deleteById(id);
     }
 
-    public boolean isAlreadyExists(Integer id) {
-        return dishRepository.existsById(id);
-    }
 
     @Override
     public List<DishServiceModel> getDishesByCuisineType(Integer cuisineTypeId) {
@@ -150,9 +152,12 @@ public class DishServiceImpl implements DishService {
                     dish.getPrepTime(),
                     dish.getSubtype(),
                     null,
-                    dish.getCuisineTypeId()
+                    dish.getCuisineTypeId(),
+                    dish.getRecipe(),
+                    getBase64EncodedImage(dish.getImage())
             ));
         }
+        System.out.println(response.get(0).getImage().getBytes());
         return response;
     }
 
@@ -169,7 +174,9 @@ public class DishServiceImpl implements DishService {
                     dish.getPrepTime(),
                     dish.getSubtype(),
                     null,
-                    dish.getCookId()
+                    dish.getCookId(),
+                    dish.getRecipe(),
+                    getBase64EncodedImage(dish.getImage())
             ));
         }
         return response;
@@ -186,7 +193,8 @@ public class DishServiceImpl implements DishService {
                     dish.getPrepTime(),
                     dish.getSubtype(),
                     null,
-                    dish.getCuisineTypeId()
+                    dish.getCuisineTypeId(),
+                    getBase64EncodedImage(dish.getImage())
             ));
         }
         return response;
@@ -205,11 +213,30 @@ public class DishServiceImpl implements DishService {
                     dish.getPrepTime(),
                     dish.getSubtype(),
                     null,
-                    dish.getCuisineTypeId()
+                    dish.getCuisineTypeId(),
+                    dish.getRecipe(),
+                    getBase64EncodedImage(dish.getImage())
             ));
         }
 
         return response;
     }
+    public String getBase64EncodedImage(String imageURL) {
 
+        if (imageURL != null) {
+            try {
+                byte[] fileContent = FileUtils.readFileToByteArray(new File(imageURL + ".png"));
+                String encodedString = Base64.encodeBase64String(fileContent);
+                return encodedString;
+            } catch (IOException ioe) {
+                ioe.printStackTrace();
+                return "";
+            }
+        } else {
+            return "";
+        }
+    }
+    public boolean isAlreadyExists(Integer id) {
+        return dishRepository.existsById(id);
+    }
 }

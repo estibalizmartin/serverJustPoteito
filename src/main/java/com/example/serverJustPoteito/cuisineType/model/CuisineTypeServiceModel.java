@@ -11,6 +11,7 @@ public class CuisineTypeServiceModel {
     private Integer id;
     private String name;
     private String subtype;
+    private String image;
     private List<DishServiceModel> dishes;
 
     public CuisineTypeServiceModel() {
@@ -21,6 +22,13 @@ public class CuisineTypeServiceModel {
         this.name = name;
         this.subtype = subtype;
         this.dishes = dishes;
+    }
+    public CuisineTypeServiceModel(Integer id, String name, String subtype, List<DishServiceModel> dishes, String image) {
+        this.id = id;
+        this.name = name;
+        this.subtype = subtype;
+        this.dishes = dishes;
+        this.image = image;
     }
 
     public Integer getId() {
@@ -55,12 +63,21 @@ public class CuisineTypeServiceModel {
         this.dishes = dishes;
     }
 
+    public String getImage() {
+        return image;
+    }
+
+    public void setImage(String image) {
+        this.image = image;
+    }
+
     @Override
     public String toString() {
         return "CuisineTypeServiceModel{" +
                 "id=" + id +
                 ", name='" + name + '\'' +
                 ", subtype='" + subtype + '\'' +
+                ", subtype='" + image + '\'' +
                 ", dishes=" + dishes +
                 '}';
     }
