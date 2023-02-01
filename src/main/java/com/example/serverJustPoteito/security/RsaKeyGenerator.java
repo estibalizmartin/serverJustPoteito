@@ -18,18 +18,16 @@ public class RsaKeyGenerator {
         KeyPairGenerator generator;
         try {
             generator = KeyPairGenerator.getInstance("RSA");
-            generator.initialize(1024); // Inicializamos el tamanio a 1024 bits
+            generator.initialize(1024);
             KeyPair keypair = generator.generateKeyPair();
-            PublicKey publicKey = keypair.getPublic(); // Clave Publica
-            PrivateKey privateKey = keypair.getPrivate(); // Clave Privada
+            PublicKey publicKey = keypair.getPublic();
+            PrivateKey privateKey = keypair.getPrivate();
 
-            // Publica
             X509EncodedKeySpec x509EncodedKeySpec = new X509EncodedKeySpec(publicKey.getEncoded());
             FileOutputStream fileOutputStream = new FileOutputStream(PUBLIC_KEY_FILE_PATH);
             fileOutputStream.write(x509EncodedKeySpec.getEncoded());
             fileOutputStream.close();
 
-            // Privada
             PKCS8EncodedKeySpec pKCS8EncodedKeySpec = new PKCS8EncodedKeySpec(privateKey.getEncoded());
             fileOutputStream = new FileOutputStream(PRIVATE_KEY_FILE_PATH);
             fileOutputStream.write(pKCS8EncodedKeySpec.getEncoded());

@@ -25,10 +25,10 @@ public class CustomPasswordEncoder implements PasswordEncoder {
         try {
 
             algoritmo = MessageDigest.getInstance("SHA");
-            algoritmo.reset(); // Limpiar la instancia por si acaso
+            algoritmo.reset();
             byte[] dataBytes = texto.getBytes();
-            algoritmo.update(dataBytes); // Mensaje a cifrar
-            byte[] resumen = algoritmo.digest(); // Generar hash
+            algoritmo.update(dataBytes);
+            byte[] resumen = algoritmo.digest();
             textoCifrado = convertBytesToHex(resumen);
 
         } catch (NoSuchAlgorithmException e) {

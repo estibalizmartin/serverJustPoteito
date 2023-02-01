@@ -22,7 +22,7 @@ public class RsaKeyHandler {
     public static String decryptText(String mensaje) {
         String decodedMessage = null;
         try {
-            // Clave publica
+
             File ficheroPrivada = new File(PRIVATE_KEY_FILE_PATH);
             byte[] clavePrivada = Files.readAllBytes(ficheroPrivada.toPath());
 

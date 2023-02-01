@@ -61,7 +61,7 @@ public class UserServiceImpl implements UserService, UserDetailsService {
         CustomPasswordEncoder passwordEncoder = new CustomPasswordEncoder();
 
         String decryptedPass = RsaKeyHandler.decryptText(user.getPassword());
-        String password = passwordEncoder.encode(user.getPassword());
+        String password = passwordEncoder.encode(decryptedPass);
         user.setPassword(password);
 
         Role userRole = roleRepository.findByName(RoleTypeEnum.USER.name()).get();
