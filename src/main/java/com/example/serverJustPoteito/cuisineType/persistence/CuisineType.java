@@ -16,6 +16,8 @@ public class CuisineType {
     private String name;
     @Column(length = 120)
     private String subtype;
+    @Column(length = 200)
+    private String image;
 
     @OneToMany(mappedBy = "cuisineType", cascade = CascadeType.ALL, fetch = FetchType.LAZY)
     @JsonBackReference
@@ -39,6 +41,12 @@ public class CuisineType {
         this.name = name;
         this.subtype = subtype;
         this.dishes = dishes;
+    }
+    public CuisineType(Integer id, String name, String subtype, String image) {
+        this.id = id;
+        this.name = name;
+        this.subtype = subtype;
+        this.image = image;
     }
 
     public Integer getId() {
@@ -73,12 +81,21 @@ public class CuisineType {
         this.dishes = dishes;
     }
 
+    public String getImage() {
+        return image;
+    }
+
+    public void setImage(String image) {
+        this.image = image;
+    }
+
     @Override
     public String toString() {
         return "CuisineType{" +
                 "id=" + id +
                 ", name='" + name + '\'' +
                 ", subtype='" + subtype + '\'' +
+                ", image='" + image + '\'' +
                 ", dishes=" + dishes +
                 '}';
     }

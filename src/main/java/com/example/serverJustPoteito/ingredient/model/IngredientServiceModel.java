@@ -9,6 +9,7 @@ public class IngredientServiceModel {
     private String name;
     private String type;
     private String amount;
+    private String image;
 
     public IngredientServiceModel(Integer id, String name, String type) {
         this.id = id;
@@ -20,6 +21,13 @@ public class IngredientServiceModel {
         this.name = name;
         this.type = type;
         this.amount = amount;
+    }
+    public IngredientServiceModel(Integer id, String name, String type, String amount, String image) {
+        this.id = id;
+        this.name = name;
+        this.type = type;
+        this.amount = amount;
+        this.image = image;
     }
 
     public Integer getId() {
@@ -54,6 +62,14 @@ public class IngredientServiceModel {
         this.amount = amount;
     }
 
+    public String getImage() {
+        return image;
+    }
+
+    public void setImage(String image) {
+        this.image = image;
+    }
+
     @Override
     public String toString() {
         return "IngredientServiceModel{" +
@@ -61,6 +77,7 @@ public class IngredientServiceModel {
                 ", name='" + name + '\'' +
                 ", type='" + type + '\'' +
                 ", amount='" + amount + '\'' +
+                ", amount='" + image + '\'' +
                 '}';
     }
 }
