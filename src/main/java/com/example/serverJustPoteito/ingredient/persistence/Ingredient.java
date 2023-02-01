@@ -18,7 +18,8 @@ public class Ingredient {
     @Column(length = 150)
     private String type;
 
-
+    @Column(length = 500)
+    private String image;
 
     @OneToMany(mappedBy = "ingredient", cascade = CascadeType.ALL, fetch = FetchType.LAZY)
     @JsonBackReference
@@ -35,6 +36,12 @@ public class Ingredient {
         this.id = id;
         this.name = name;
         this.type = type;
+    }
+    public Ingredient(int id, String name, String type, String image) {
+        this.id = id;
+        this.name = name;
+        this.type = type;
+        this.image = image;
     }
 
     public Integer getId() {
@@ -61,12 +68,29 @@ public class Ingredient {
         this.type = type;
     }
 
+    public String getImage() {
+        return image;
+    }
+
+    public void setImage(String image) {
+        this.image = image;
+    }
+
+    public List<Ingredient_dish> getIngredient_dishes() {
+        return ingredient_dishes;
+    }
+
+    public void setIngredient_dishes(List<Ingredient_dish> ingredient_dishes) {
+        this.ingredient_dishes = ingredient_dishes;
+    }
+
     @Override
     public String toString() {
         return "Ingredients{" +
                 "id=" + id +
                 ", name='" + name + '\'' +
                 ", type='" + type + '\'' +
+                ", image='" + image + '\'' +
                 '}';
     }
 }

@@ -1,5 +1,6 @@
 package com.example.serverJustPoteito.ingredient_dish.service;
 
+import ch.qos.logback.core.encoder.EchoEncoder;
 import com.example.serverJustPoteito.dish.model.DishServiceModel;
 import com.example.serverJustPoteito.dish.repository.DishRepository;
 import com.example.serverJustPoteito.dish.service.DishService;
@@ -11,9 +12,14 @@ import com.example.serverJustPoteito.ingredient_dish.model.Ingredient_dishPostRe
 import com.example.serverJustPoteito.ingredient_dish.model.Ingredient_dishServiceModel;
 import com.example.serverJustPoteito.ingredient_dish.persistence.Ingredient_dish;
 import com.example.serverJustPoteito.ingredient_dish.repository.Ingredient_dishRepository;
+import org.apache.commons.io.FileUtils;
+import org.apache.tomcat.util.codec.binary.Base64;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import java.io.File;
+import java.io.IOException;
+import java.io.InputStream;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -47,16 +53,22 @@ public class Ingredient_dishServiceImpl implements Ingredient_dishService{
 
     @Override
     public List<IngredientServiceModel> getAllIngredientsByDishId(Integer id) {
+
         Iterable<Ingredient_dish> ingredients_dish = ingredient_dishRepository.findAllByDishId(id);
 
         List<IngredientServiceModel> response = new ArrayList<>();
+            for (Ingredient_dish ingredient_dish : ingredients_dish) {
 
-        for (Ingredient_dish ingredient_dish : ingredients_dish) {
-
-            Ingredient ingredient = ingredient_dish.getIngredient();
-            IngredientServiceModel item = new IngredientServiceModel(ingredient.getId(), ingredient.getName(), ingredient.getType(), ingredient_dish.getAmount());
-            response.add(item);
-        }
+                Ingredient ingredient = ingredient_dish.getIngredient();
+                IngredientServiceModel item = new IngredientServiceModel(
+                        ingredient.getId(),
+                        ingredient.getName(),
+                        ingredient.getType(),
+                        ingredient_dish.getAmount(),
+                        getBase64EncodedImage(ingredient.getImage()
+                        ));
+                response.add(item);
+            }
         return response;
     }
 
@@ -106,5 +118,21 @@ public class Ingredient_dishServiceImpl implements Ingredient_dishService{
     @Override
     public boolean isAlreadyExists(Integer id) {
         return false;
+    }
+
+    public String getBase64EncodedImage(String imageURL) {
+
+        if (imageURL != null) {
+            try {
+                byte[] fileContent = FileUtils.readFileToByteArray(new File(imageURL + ".png"));
+                String encodedString = Base64.encodeBase64String(fileContent);
+                return encodedString;
+            } catch (IOException ioe) {
+                ioe.printStackTrace();
+                return "";
+            }
+        } else {
+            return "";
+        }
     }
 }
