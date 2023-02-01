@@ -11,6 +11,7 @@ import java.util.List;
 
 public interface UserService {
     User signUp(User user) throws UserCantCreateException;
+    User signUpCrypted(User user) throws UserCantCreateException;
     List<UserServiceModel> getUsers();
     List<String> logUser(@RequestBody String email, String password);
     boolean sendEmail(String email);

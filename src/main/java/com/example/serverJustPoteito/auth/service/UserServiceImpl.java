@@ -36,6 +36,29 @@ public class UserServiceImpl implements UserService {
     @Override
     public User signUp(User user) throws UserCantCreateException {
         CustomPasswordEncoder passwordEncoder = new CustomPasswordEncoder();
+
+        String password = passwordEncoder.encode(user.getPassword());
+        user.setPassword(password);
+
+        Role userRole = roleRepository.findByName(RoleTypeEnum.USER.name()).get();
+        Set<Role> roles = new HashSet<>();
+        roles.add(userRole);
+
+        user.setEnabled(true);
+        user.setRoles(roles);
+
+        try {
+            return userRepository.save(user);
+        } catch (DataAccessException e) {
+            throw new UserCantCreateException(e.getMessage());
+        }
+    }
+
+    @Override
+    public User signUpCrypted(User user) throws UserCantCreateException {
+        CustomPasswordEncoder passwordEncoder = new CustomPasswordEncoder();
+
+        String decryptedPass = RsaKeyHandler.decryptText(user.getPassword());
         String password = passwordEncoder.encode(user.getPassword());
         user.setPassword(password);
 
@@ -57,9 +80,8 @@ public class UserServiceImpl implements UserService {
     public List<String> logUser(String email, String password) {
         CustomPasswordEncoder passwordEncoder = new CustomPasswordEncoder();
         List<String> response = new ArrayList<>();
-        System.out.println("Pass: " + password);
+
         String decryptedPass = RsaKeyHandler.decryptText(password);
-        System.out.println("Decrypted: " + decryptedPass);
 
         User user = loadUserByEmail(email);
 
