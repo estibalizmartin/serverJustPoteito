@@ -258,17 +258,22 @@ public class UserServiceImpl implements UserService, UserDetailsService {
         CustomPasswordEncoder passwordEncoder = new CustomPasswordEncoder();
         String encodedNewPassword = passwordEncoder.encode(passwordPostRequest.getNewPassword());
 
-        User user = loadUserByEmail(passwordPostRequest.getEmail());
+        Optional<User> optionalUser = userRepository.findById(passwordPostRequest.getId());
+        User user = null;
+
+        if (!optionalUser.isEmpty()) {
+            user = optionalUser.get();
+        } else {
+            return -1;
+        }
+
         if (user == null) return -1;
 
         int queryResult = 0;
         if (user != null && passwordEncoder.matches(passwordPostRequest.getOldPassword(), user.getPassword())) {
-            passwordPostRequest.setOldPassword(user.getPassword());
-            passwordPostRequest.setNewPassword(encodedNewPassword);
             queryResult = userRepository.updatePassword(
-                    passwordPostRequest.getNewPassword(),
-                    passwordPostRequest.getEmail(),
-                    passwordPostRequest.getOldPassword()
+                    encodedNewPassword,
+                    passwordPostRequest.getId()
             );
             return queryResult;
         }

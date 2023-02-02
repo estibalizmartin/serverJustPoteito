@@ -150,7 +150,7 @@ public class AuthController {
         }
     }
 
-    @PostMapping("/changepasswordnotoken")
+    @PutMapping("/changepasswordnotoken")
     public ResponseEntity<Integer> changeUserPasswordNoToken(
             @RequestBody PasswordPostRequest passwordPostRequest
     ) {
