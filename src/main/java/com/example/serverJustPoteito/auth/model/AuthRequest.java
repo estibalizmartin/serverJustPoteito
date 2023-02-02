@@ -1,11 +1,30 @@
 package com.example.serverJustPoteito.auth.model;
 
+import jakarta.validation.constraints.NotBlank;
+import jakarta.validation.constraints.NotNull;
+import org.hibernate.validator.constraints.Length;
+
 public class AuthRequest {
 
+    @NotNull
+    @NotBlank
+    @Length(max = 70)
     private String name;
+    @NotNull
+    @NotBlank
+    @Length(max = 70)
     private String userName;
+    @NotNull
+    @NotBlank
+    @Length(max = 120)
     private String surnames;
+    @NotNull
+    @NotBlank
+    @Length(max = 70)
     private String email;
+    @NotNull
+    @NotBlank
+    @Length(min = 5, max = 70)
     private String password;
 
     public AuthRequest() {

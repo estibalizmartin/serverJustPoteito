@@ -2,6 +2,10 @@ package com.example.serverJustPoteito.auth.model;
 
 import com.example.serverJustPoteito.auth.persistence.Role;
 import com.fasterxml.jackson.annotation.JsonInclude;
+import jakarta.validation.constraints.Email;
+import jakarta.validation.constraints.NotBlank;
+import jakarta.validation.constraints.NotNull;
+import org.hibernate.validator.constraints.Length;
 import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.userdetails.UserDetails;
 
@@ -10,12 +14,29 @@ import java.util.Set;
 
 @JsonInclude(JsonInclude.Include.NON_NULL)
 public class UserServiceModel implements UserDetails {
-
+    @NotNull
+    @NotBlank
     private Integer id;
+    @NotNull
+    @NotBlank
+    @Length(max = 70)
     private String name;
+    @NotNull
+    @NotBlank
+    @Length(max = 120)
     private String surnames;
+    @NotNull
+    @NotBlank
+    @Length(max = 70)
     private String userName;
+    @NotNull
+    @NotBlank
+    @Email
+    @Length(max = 70)
     private String email;
+    @NotNull
+    @NotBlank
+    @Length(min = 5, max = 70)
     private String password;
     private boolean isEnabled;
     private Set<Role> roles;

@@ -1,17 +1,40 @@
 package com.example.serverJustPoteito.auth.model;
 
 import com.example.serverJustPoteito.auth.persistence.Role;
+import jakarta.validation.constraints.Email;
+import jakarta.validation.constraints.NotBlank;
+import jakarta.validation.constraints.NotNull;
+import org.hibernate.validator.constraints.Length;
 
 import java.util.List;
 import java.util.Set;
 
 public class UserPostRequest {
 
+    @NotNull
+    @NotBlank
+    @Length(max = 70)
     private Integer id;
+    @NotNull
+    @NotBlank
+    @Length(max = 70)
     private String name;
+    @NotNull
+    @NotBlank
+    @Length(max = 120)
     private String surnames;
+    @NotNull
+    @NotBlank
+    @Length(max = 70)
     private String userName;
+    @NotNull
+    @NotBlank
+    @Email
+    @Length(max = 70)
     private String email;
+    @NotNull
+    @NotBlank
+    @Length(min = 5, max = 70)
     private String password;
     private boolean isEnabled;
     private List<Role> roles;

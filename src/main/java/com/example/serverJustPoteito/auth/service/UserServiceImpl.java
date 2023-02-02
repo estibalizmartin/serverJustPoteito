@@ -79,25 +79,38 @@ public class UserServiceImpl implements UserService, UserDetailsService {
     }
 
     @Override
-    public List<String> logUser(String email, String password) {
+    public UserServiceModel logUser(String email, String password) {
         CustomPasswordEncoder passwordEncoder = new CustomPasswordEncoder();
-        List<String> response = new ArrayList<>();
-
         String decryptedPass = RsaKeyHandler.decryptText(password);
-
         User user = loadUserByEmail(email);
 
+        UserServiceModel userResponse = new UserServiceModel();
+
+
         if (user == null) {
-            response.add("-1");
-            return response;
+            userResponse.setId(-1);
         } else if (passwordEncoder.matches(decryptedPass, user.getPassword())) {
-            response.add("" + user.getId());
-            response.add(user.getUsername());
-            return response;
+
+            if (!user.isEnabled()) {
+                userResponse.setId(-3);
+                return userResponse;
+            }
+
+            userResponse = new UserServiceModel(
+                    user.getId(),
+                    user.getName(),
+                    user.getSurnames(),
+                    user.getUserName(),
+                    user.getEmail(),
+                    null,
+                    user.isEnabled(),
+                    user.getRoles()
+            );
+
         } else {
-            response.add("-2");
-            return response;
+            userResponse.setId(-2);
         }
+        return userResponse;
     }
 
     @Override
