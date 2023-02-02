@@ -255,25 +255,34 @@ public class UserServiceImpl implements UserService, UserDetailsService {
 
     @Override
     public int changeUserPasswordNoToken(PasswordPostRequest passwordPostRequest) {
-        CustomPasswordEncoder passwordEncoder = new CustomPasswordEncoder();
-        String encodedNewPassword = passwordEncoder.encode(passwordPostRequest.getNewPassword());
 
-        User user = loadUserByEmail(passwordPostRequest.getEmail());
-        if (user == null) return -1;
+        String newPassword = RsaKeyHandler.decryptText(passwordPostRequest.getNewPassword());
+        String oldPassword = RsaKeyHandler.decryptText(passwordPostRequest.getOldPassword());
+
+        CustomPasswordEncoder passwordEncoder = new CustomPasswordEncoder();
+        String encodedNewPassword = passwordEncoder.encode(newPassword);
+
+        Optional<User> optionalUser = userRepository.findById(passwordPostRequest.getId());
+        User user = null;
+
+        if (!optionalUser.isEmpty()) {
+            user = optionalUser.get();
+        } else {
+            return -2;
+        }
+
+        if (user == null) return -2;
 
         int queryResult = 0;
-        if (user != null && passwordEncoder.matches(passwordPostRequest.getOldPassword(), user.getPassword())) {
-            passwordPostRequest.setOldPassword(user.getPassword());
-            passwordPostRequest.setNewPassword(encodedNewPassword);
+        if (user != null && passwordEncoder.matches(oldPassword, user.getPassword())) {
             queryResult = userRepository.updatePassword(
-                    passwordPostRequest.getNewPassword(),
-                    passwordPostRequest.getEmail(),
-                    passwordPostRequest.getOldPassword()
+                    encodedNewPassword,
+                    passwordPostRequest.getId()
             );
             return queryResult;
         }
         else
-            return -2;
+            return -1;
     }
 
     private User loadUserByEmail(String email) {
