@@ -144,6 +144,8 @@ public class UserServiceImpl implements UserService, UserDetailsService {
     public List<UserServiceModel> getUsers() {
         List<User> users = (List<User>) userRepository.findAll();
 
+        System.out.println(users.get(2).toString());
+
         List<UserServiceModel> response = new ArrayList<>();
 
         for (User user : users) {

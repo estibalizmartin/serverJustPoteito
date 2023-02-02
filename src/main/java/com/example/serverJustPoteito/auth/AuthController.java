@@ -84,7 +84,7 @@ public class AuthController {
         }
     }
 
-    @PostMapping("/auth/users/{id}")
+    @PostMapping("/auth/auth/{id}")
     public ResponseEntity<Integer> deleteUserById(@PathVariable("id") Integer id) {
         try {
             userService.deleteUserById(id);
