@@ -157,7 +157,7 @@ public class AuthController {
         int passwordChanged = userService.changeUserPasswordNoToken(passwordPostRequest);
 
         if (passwordChanged == -1) {
-            return ResponseEntity.status(432).build();
+            return ResponseEntity.status(434).build();
         } else if (passwordChanged == -2) {
             return ResponseEntity.status(433).build();
         } else {
