@@ -55,6 +55,7 @@ public class AuthController {
     @PostMapping("/loginnotoken")
     public ResponseEntity<List<String>> loginNoToken(@RequestBody AuthRequest request){
         List<String> response = userService.logUser(request.getEmail(), request.getPassword());
+
         if (response.get(0).equals("-1")) {
             return ResponseEntity.status(432).build();
         } else if (response.get(0).equals("-2")) {
@@ -163,5 +164,17 @@ public class AuthController {
         } else {
             return ResponseEntity.status(HttpStatus.ACCEPTED).body(passwordChanged);
         }
+    }
+
+    @PutMapping("/user/image")
+    public ResponseEntity<UserServiceModel> updateUserImage(
+            @Valid @RequestBody UserPostRequest userPostRequest) {
+        System.out.println("pruevba");
+        if (userService.isAlreadyExists(userPostRequest.getId())) {
+            return new ResponseEntity<>(userService.updateUserImage(userPostRequest), HttpStatus.OK);
+        } else {
+            return new ResponseEntity<>(userService.updateUserImage(userPostRequest), HttpStatus.BAD_REQUEST);
+        }
+
     }
 }

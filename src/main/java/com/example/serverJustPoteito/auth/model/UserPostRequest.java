@@ -15,8 +15,14 @@ public class UserPostRequest {
     private String password;
     private boolean isEnabled;
     private List<Role> roles;
+    private String image;
 
     public UserPostRequest() {
+    }
+
+    public UserPostRequest(Integer id, String image) {
+        this.id = id;
+        this.image = image;
     }
 
     public UserPostRequest(
@@ -37,6 +43,18 @@ public class UserPostRequest {
         this.password = password;
         this.isEnabled = isEnabled;
         this.roles = roles;
+    }
+
+    public UserPostRequest(Integer id, String name, String surnames, String userName, String email, String password, boolean isEnabled, List<Role> roles, String image) {
+        this.id = id;
+        this.name = name;
+        this.surnames = surnames;
+        this.userName = userName;
+        this.email = email;
+        this.password = password;
+        this.isEnabled = isEnabled;
+        this.roles = roles;
+        this.image = image;
     }
 
     public Integer getId() {
@@ -103,6 +121,14 @@ public class UserPostRequest {
         this.roles = roles;
     }
 
+    public String getImage() {
+        return image;
+    }
+
+    public void setImage(String image) {
+        this.image = image;
+    }
+
     @Override
     public String toString() {
         return "UserPostRequest{" +
@@ -112,6 +138,7 @@ public class UserPostRequest {
                 ", userName='" + userName + '\'' +
                 ", email='" + email + '\'' +
                 ", password='" + password + '\'' +
+                ", image='" + image + '\'' +
                 ", isEnabled=" + isEnabled +
                 '}';
     }
