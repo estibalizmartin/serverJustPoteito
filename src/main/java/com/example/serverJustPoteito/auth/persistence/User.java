@@ -28,6 +28,8 @@ public class User implements UserDetails {
     private String password;
     @Column(columnDefinition = "boolean default true")
     private boolean isEnabled;
+    @Column(length = 200)
+    private String image;
 
     @ManyToMany(fetch = FetchType.LAZY)
     @JoinTable(name = "user_roles",
@@ -41,6 +43,15 @@ public class User implements UserDetails {
     private Set<Role> roles;
 
     public User() {
+    }
+
+    public User(Integer id, String image) {
+        this.id = id;
+        this.image = image;
+    }
+
+    public User(String image) {
+        this.image = image;
     }
 
     public User(String email, String password) {
@@ -63,6 +74,18 @@ public class User implements UserDetails {
         this.email = email;
         this.password = password;
         this.isEnabled = isEnabled;
+        this.roles = roles;
+    }
+
+    public User(Integer id, String name, String surnames, String userName, String email, String password, boolean isEnabled, String image, Set<Role> roles) {
+        this.id = id;
+        this.name = name;
+        this.surnames = surnames;
+        this.userName = userName;
+        this.email = email;
+        this.password = password;
+        this.isEnabled = isEnabled;
+        this.image = image;
         this.roles = roles;
     }
 
@@ -120,6 +143,14 @@ public class User implements UserDetails {
 
     public void setRoles(Set<Role> roles) {
         this.roles = roles;
+    }
+
+    public String getImage() {
+        return image;
+    }
+
+    public void setImage(String image) {
+        this.image = image;
     }
 
     @Override

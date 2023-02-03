@@ -29,7 +29,6 @@ public class WebSecurityConfig {
 		return authConfig.getAuthenticationManager();
 	}
 	
-	// utilizado para encriptar las contraseñas en la DB
 	@Bean
 	public PasswordEncoder passwordEncoder() {
 		return new CustomPasswordEncoder();
@@ -60,6 +59,9 @@ public class WebSecurityConfig {
 		http.authorizeHttpRequests(
 				(authz) ->
 						authz
+								.requestMatchers("/v3/api-docs/**").permitAll()
+								.requestMatchers("/v3/api-docs").permitAll()
+								.requestMatchers("/swagger-ui/**").permitAll()
 								.requestMatchers("/api/auth/**").permitAll()
 								.requestMatchers("/api/notoken/**").permitAll()
 //								.requestMatchers("/api/cuisineTypes/**").hasAuthority(Rol.USER.name())
@@ -82,6 +84,7 @@ public class WebSecurityConfig {
 								.requestMatchers("/api/changepasswordnotoken").permitAll()
 								.requestMatchers("/api/encryptemail").permitAll()
 								.requestMatchers("/api/encryptpassword").permitAll()
+								.requestMatchers("/api/user/image").permitAll()
 								.anyRequest().authenticated()
 		);
 		http.exceptionHandling().accessDeniedHandler(new CustomAccesDeniedHandler());
