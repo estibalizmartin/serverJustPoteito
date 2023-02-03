@@ -28,21 +28,10 @@ public class DishController {
         return new ResponseEntity<>(dishService.getDishes(), HttpStatus.OK);
     }
 
-    @GetMapping("/dishesNoToken")
-    public ResponseEntity<List<DishServiceModel>> getDishesNoToken() {
-        return new ResponseEntity<>(dishService.getDishes(), HttpStatus.OK);
-    }
-
     @GetMapping("/dishes/{id}")
     public ResponseEntity<DishServiceModel> getDishById(@PathVariable("id") Integer id,
                                                         @RequestParam(required = false) List<DishesExpands> expand
     ) throws DishNotFoundException {
-        return new ResponseEntity<>(dishService.getDishById(id, expand), HttpStatus.OK);
-    }
-
-    @GetMapping("/dishesNoToken/{id}")
-    public ResponseEntity<DishServiceModel> getDishByIdNoToken(@PathVariable("id") Integer id,
-                                                        @RequestParam(required = false) List<DishesExpands> expand) {
         return new ResponseEntity<>(dishService.getDishById(id, expand), HttpStatus.OK);
     }
 
@@ -70,6 +59,18 @@ public class DishController {
         } catch (EmptyResultDataAccessException e) {
             throw new ResponseStatusException(HttpStatus.CONFLICT, "Plato no encontrado.");
         }
+    }
+
+    // Endpoints para PMD/DI
+    @GetMapping("/dishesNoToken")
+    public ResponseEntity<List<DishServiceModel>> getDishesNoToken() {
+        return new ResponseEntity<>(dishService.getDishes(), HttpStatus.OK);
+    }
+
+    @GetMapping("/dishesNoToken/{id}")
+    public ResponseEntity<DishServiceModel> getDishByIdNoToken(@PathVariable("id") Integer id,
+                                                               @RequestParam(required = false) List<DishesExpands> expand) {
+        return new ResponseEntity<>(dishService.getDishById(id, expand), HttpStatus.OK);
     }
 
     @GetMapping("/dishesByCuisineTypeNoToken/{cuisineTypeId}")

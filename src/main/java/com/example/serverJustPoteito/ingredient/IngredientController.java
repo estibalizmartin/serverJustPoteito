@@ -3,7 +3,6 @@ package com.example.serverJustPoteito.ingredient;
 import com.example.serverJustPoteito.ingredient.model.IngredientPostRequest;
 import com.example.serverJustPoteito.ingredient.model.IngredientServiceModel;
 import com.example.serverJustPoteito.ingredient.service.IngredientService;
-import com.example.serverJustPoteito.ingredient_dish.model.Ingredient_dishServiceModel;
 import jakarta.validation.Valid;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.dao.EmptyResultDataAccessException;
@@ -22,15 +21,6 @@ public class IngredientController {
 
     @GetMapping("/ingredients")
     public ResponseEntity<List<IngredientServiceModel>> getAllIngredients() {
-        return new ResponseEntity<>(ingredientService.getAllIngredients(), HttpStatus.OK);
-    }
-
-    @GetMapping("/ingredientsByDishIdNoToken/{dishId}")
-    public ResponseEntity<List<IngredientServiceModel>> getAllIngredientsByDishId(@PathVariable("dishId") Integer dishId) {
-        return new ResponseEntity<>(ingredientService.getAllByDishId(dishId), HttpStatus.OK);
-    }
-    @GetMapping("/ingredientsNoToken")
-    public ResponseEntity<List<IngredientServiceModel>> getAllIngredientsNoToken() {
         return new ResponseEntity<>(ingredientService.getAllIngredients(), HttpStatus.OK);
     }
 
@@ -65,5 +55,16 @@ public class IngredientController {
         } catch (EmptyResultDataAccessException e) {
             throw new ResponseStatusException(HttpStatus.CONFLICT, "This ingredient doesn't exists...");
         }
+    }
+
+    // Endpoints para PMD/DI
+    @GetMapping("/ingredientsNoToken")
+    public ResponseEntity<List<IngredientServiceModel>> getAllIngredientsNoToken() {
+        return new ResponseEntity<>(ingredientService.getAllIngredients(), HttpStatus.OK);
+    }
+
+    @GetMapping("/ingredientsByDishIdNoToken/{dishId}")
+    public ResponseEntity<List<IngredientServiceModel>> getAllIngredientsByDishId(@PathVariable("dishId") Integer dishId) {
+        return new ResponseEntity<>(ingredientService.getAllByDishId(dishId), HttpStatus.OK);
     }
 }

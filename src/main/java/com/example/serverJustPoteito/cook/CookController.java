@@ -4,13 +4,10 @@ import com.example.serverJustPoteito.cook.model.CookPostRequest;
 import com.example.serverJustPoteito.cook.model.CookServiceModel;
 import com.example.serverJustPoteito.cook.model.CookUpdateResponse;
 import com.example.serverJustPoteito.cook.service.CookService;
-import com.example.serverJustPoteito.dish.model.DishServiceModel;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
-
-import java.util.List;
 
 @RestController
 @RequestMapping("api")
@@ -22,15 +19,6 @@ public class CookController {
     @GetMapping("/cooks")
     public ResponseEntity<Iterable<CookServiceModel>> getCooks() {
         return new ResponseEntity<>(cookService.getCooks(), HttpStatus.OK);
-    }
-    @GetMapping("/cooksNoToken")
-    public ResponseEntity<Iterable<CookServiceModel>> getCooksNoToken() {
-        return new ResponseEntity<>(cookService.getCooks(), HttpStatus.OK);
-    }
-
-    @GetMapping("/cooksNoToken/{id}")
-    public ResponseEntity<CookServiceModel> getCookById(@PathVariable("id") Integer id) {
-        return new ResponseEntity<>(cookService.getCookById(id), HttpStatus.OK);
     }
 
     @PostMapping("/cooks")
@@ -55,4 +43,14 @@ public class CookController {
         return new ResponseEntity<>(HttpStatus.NO_CONTENT);
     }
 
+    // Endpoints para PMD/DI
+    @GetMapping("/cooksNoToken")
+    public ResponseEntity<Iterable<CookServiceModel>> getCooksNoToken() {
+        return new ResponseEntity<>(cookService.getCooks(), HttpStatus.OK);
+    }
+
+    @GetMapping("/cooksNoToken/{id}")
+    public ResponseEntity<CookServiceModel> getCookById(@PathVariable("id") Integer id) {
+        return new ResponseEntity<>(cookService.getCookById(id), HttpStatus.OK);
+    }
 }

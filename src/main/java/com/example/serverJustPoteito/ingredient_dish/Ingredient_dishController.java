@@ -1,8 +1,6 @@
 package com.example.serverJustPoteito.ingredient_dish;
 
 import com.example.serverJustPoteito.dish.model.DishServiceModel;
-import com.example.serverJustPoteito.dish.model.DishesExpands;
-import com.example.serverJustPoteito.ingredient.persistence.Ingredient;
 import com.example.serverJustPoteito.ingredient_dish.model.Ingredient_dishPostRequest;
 import com.example.serverJustPoteito.ingredient_dish.model.Ingredient_dishServiceModel;
 import com.example.serverJustPoteito.ingredient_dish.service.Ingredient_dishService;
@@ -25,16 +23,6 @@ public class Ingredient_dishController {
     @GetMapping("/ingredients_dishes")
     public ResponseEntity<List<Ingredient_dishServiceModel>> getAllIngredients_dish() {
         return new ResponseEntity<>(ingredient_dishService.getAllIngredients_dish(), HttpStatus.OK);
-    }
-
-    @GetMapping("/ingredients_dishesNoToken")
-    public ResponseEntity<List<Ingredient_dishServiceModel>> getAllIngredients_dishNoToken() {
-        return new ResponseEntity<>(ingredient_dishService.getAllIngredients_dish(), HttpStatus.OK);
-    }
-    @GetMapping("/getAllDishesByIngredientNoToken")
-    public ResponseEntity<List<DishServiceModel>> getAlldishesByIngredientNoToken(@RequestParam(required = false) List<Integer> idList) {
-        System.out.println(idList);
-        return new ResponseEntity<>(ingredient_dishService.getAlldishesByIngredient(idList), HttpStatus.OK);
     }
 
     @GetMapping("/ingredients_dishes/{id}")
@@ -68,5 +56,17 @@ public class Ingredient_dishController {
         } catch (EmptyResultDataAccessException e) {
             throw new ResponseStatusException(HttpStatus.CONFLICT, "This ingredient_dish doesn't exists...");
         }
+    }
+
+    // Endpoints para PMD/DI
+    @GetMapping("/ingredients_dishesNoToken")
+    public ResponseEntity<List<Ingredient_dishServiceModel>> getAllIngredients_dishNoToken() {
+        return new ResponseEntity<>(ingredient_dishService.getAllIngredients_dish(), HttpStatus.OK);
+    }
+
+    @GetMapping("/getAllDishesByIngredientNoToken")
+    public ResponseEntity<List<DishServiceModel>> getAlldishesByIngredientNoToken(@RequestParam(required = false) List<Integer> idList) {
+        System.out.println(idList);
+        return new ResponseEntity<>(ingredient_dishService.getAlldishesByIngredient(idList), HttpStatus.OK);
     }
 }
