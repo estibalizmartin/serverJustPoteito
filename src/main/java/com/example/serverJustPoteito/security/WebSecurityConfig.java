@@ -28,7 +28,6 @@ public class WebSecurityConfig {
 		return authConfig.getAuthenticationManager();
 	}
 	
-	// utilizado para encriptar las contraseñas en la DB
 	@Bean
 	public PasswordEncoder passwordEncoder() {
 		return new CustomPasswordEncoder();
@@ -59,6 +58,9 @@ public class WebSecurityConfig {
 		http.authorizeHttpRequests(
 				(authz) ->
 						authz
+								.requestMatchers("/v3/api-docs/**").permitAll()
+								.requestMatchers("/v3/api-docs").permitAll()
+								.requestMatchers("/swagger-ui/**").permitAll()
 								.requestMatchers("/api/auth/**").permitAll()
 								.requestMatchers("/api/users/**").permitAll()
 								.requestMatchers("/api/auth/create/**").permitAll()
