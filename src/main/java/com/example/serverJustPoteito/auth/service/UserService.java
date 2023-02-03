@@ -18,6 +18,7 @@ public interface UserService {
     UserServiceModel getUserById(Integer id);
     UserServiceModel createUser(UserPostRequest userPostRequest);
     UserServiceModel updateUser(Integer id, UserPostRequest userPostRequest);
+    UserServiceModel updateUserNoToken(Integer id, UserPostRequest userPostRequest);
     void deleteUserById(Integer id);
     int changeUserPasswordNoToken(PasswordPostRequest passwordPostRequest);
     boolean isAlreadyExists(Integer id);

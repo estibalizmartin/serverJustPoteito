@@ -1,5 +1,6 @@
 package com.example.serverJustPoteito.security;
 
+import com.example.serverJustPoteito.auth.persistence.Role;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
@@ -60,14 +61,9 @@ public class WebSecurityConfig {
 				(authz) ->
 						authz
 								.requestMatchers("/api/auth/**").permitAll()
-								.requestMatchers("/api/users/**").permitAll()
-								.requestMatchers("/api/auth/create/**").permitAll()
+								.requestMatchers("/api/notoken/**").permitAll()
 //								.requestMatchers("/api/cuisineTypes/**").hasAuthority(Rol.USER.name())
 								.requestMatchers("/api/dishes/**").permitAll()
-								.requestMatchers("/api/get/**").permitAll()
-								.requestMatchers("/api/post").permitAll()
-								.requestMatchers("/api/put/**").permitAll()
-								.requestMatchers("/api/delete/**").permitAll()
 								.requestMatchers("/api/dish/**").permitAll()
 								.requestMatchers("/api/cuisineTypesNoToken").permitAll()
 								.requestMatchers("/api/cuisineTypesNoToken/{id}").permitAll()

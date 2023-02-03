@@ -73,8 +73,61 @@ public class AuthController {
         return ResponseEntity.ok().body(userDetails);
     }
 
-    @PutMapping("/auth/users/{id}")
+    @GetMapping("/auth/users/{id}")
+    public ResponseEntity<UserServiceModel> getUserById(@PathVariable("id") Integer id) {
+        return new ResponseEntity<>(userService.getUserById(id), HttpStatus.OK);
+    }
+
+    @PostMapping("/admin/users")
+    public ResponseEntity<UserServiceModel> createUser(@Valid @RequestBody UserPostRequest userPostRequest) {
+        UserServiceModel userResponse = userService.createUser(userPostRequest);
+
+        if (userResponse.getId() == null) {
+            return new ResponseEntity<>(HttpStatus.CONFLICT);
+        } else {
+            return new ResponseEntity<>(userResponse, HttpStatus.CREATED);
+        }
+    }
+
+    @PutMapping("/admin/users/{id}")
     public ResponseEntity<UserServiceModel> updateUser(
+            @PathVariable("id") Integer id,
+            @Valid @RequestBody UserPostRequest userPostRequest) {
+
+        UserServiceModel userResponse = userService.updateUser(id, userPostRequest);
+
+        if (userResponse.getId() == null) {
+            return new ResponseEntity<>(HttpStatus.CONFLICT);
+        } else {
+            if (userService.isAlreadyExists(id)) {
+                return new ResponseEntity<>(userResponse, HttpStatus.OK);
+            } else {
+                return new ResponseEntity<>(userResponse, HttpStatus.CREATED);
+            }
+        }
+    }
+
+    @DeleteMapping("/users/{id}")
+    public ResponseEntity<Integer> deleteUserById(@PathVariable("id") Integer id) {
+        try {
+            userService.deleteUserById(id);
+            return new ResponseEntity<>(HttpStatus.NO_CONTENT);
+        } catch (EmptyResultDataAccessException e) {
+            throw new ResponseStatusException(HttpStatus.CONFLICT, "Usuario no encontrado.");
+        }
+    }
+
+    //DI Y ANDROID
+
+    @PostMapping("/notoken/createUser")
+    public ResponseEntity<UserServiceModel> createUserNoToken( @RequestBody UserPostRequest userPostRequest) {
+        UserServiceModel userResponse = userService.createUser(userPostRequest);
+
+           return new ResponseEntity<>(userService.createUser(userPostRequest), HttpStatus.CREATED);
+    }
+
+    @PutMapping("/notoken/update/{id}")
+    public ResponseEntity<UserServiceModel> updateUserNoToken(
             @PathVariable("id") Integer id,
             @Valid @RequestBody UserPostRequest userPostRequest) {
         if (userService.isAlreadyExists(id)) {
@@ -84,8 +137,8 @@ public class AuthController {
         }
     }
 
-    @PostMapping("/auth/auth/{id}")
-    public ResponseEntity<Integer> deleteUserById(@PathVariable("id") Integer id) {
+    @PostMapping("/notoken/delete/{id}")
+    public ResponseEntity<Integer> deleteUserByIdNoToken(@PathVariable("id") Integer id) {
         try {
             userService.deleteUserById(id);
             return new ResponseEntity<>(HttpStatus.NO_CONTENT);
@@ -108,8 +161,8 @@ public class AuthController {
         }
     }
 
-    @PostMapping("/loginnotoken")
-    public ResponseEntity<UserServiceModel> loginNoToken(@RequestBody AuthRequest request){
+    @PostMapping("/notoken/login")
+    public ResponseEntity<UserServiceModel> loginNoToken(@Valid @RequestBody AuthRequest request){
         UserServiceModel userResponse = userService.logUser(request.getEmail(), request.getPassword());
         if (userResponse.getId() == -1) {
             return ResponseEntity.status(433).build();
@@ -131,16 +184,6 @@ public class AuthController {
     @PostMapping("/forgotpassword")
     public ResponseEntity<Boolean> sendEmail(@RequestBody String email) {
         return new ResponseEntity<>(userService.sendEmail(email), HttpStatus.OK);
-    }
-
-    @GetMapping("/auth/users/{id}")
-    public ResponseEntity<UserServiceModel> getUserById(@PathVariable("id") Integer id) {
-        return new ResponseEntity<>(userService.getUserById(id), HttpStatus.OK);
-    }
-
-    @PostMapping("/auth/users")
-    public ResponseEntity<UserServiceModel> createUser(@Valid @RequestBody UserPostRequest userPostRequest) {
-        return new ResponseEntity<>(userService.createUser(userPostRequest), HttpStatus.CREATED);
     }
 
     @PostMapping("/encryptemail")
