@@ -8,6 +8,7 @@ import com.example.serverJustPoteito.auth.repository.RoleRepository;
 import com.example.serverJustPoteito.auth.repository.UserRepository;
 import com.example.serverJustPoteito.security.CustomPasswordEncoder;
 import com.example.serverJustPoteito.security.RsaKeyHandler;
+import jakarta.xml.bind.DatatypeConverter;
 import org.passay.CharacterData;
 import org.passay.CharacterRule;
 import org.passay.EnglishCharacterData;
@@ -23,6 +24,7 @@ import org.springframework.security.core.userdetails.UsernameNotFoundException;
 import org.springframework.stereotype.Service;
 import org.springframework.web.server.ResponseStatusException;
 
+import java.io.*;
 import java.sql.SQLIntegrityConstraintViolationException;
 import java.util.*;
 
@@ -420,5 +422,67 @@ public class UserServiceImpl implements UserService, UserDetailsService {
         return userRepository.findByEmail(username)
                 .orElseThrow(
                         () -> new UsernameNotFoundException("User " + username + " not found."));
+    }
+
+
+    @Override
+    public UserServiceModel updateUserImage(UserPostRequest userPostRequest) {
+        User user = new User(
+                userPostRequest.getId(),
+                "./src/main/resources/images/users/" + userPostRequest.getId() + ".png"
+        );
+
+        //user = userRepository.save(user);
+
+        UserServiceModel response = new UserServiceModel(
+                user.getId(),
+                user.getName(),
+                user.getSurnames(),
+                user.getUserName(),
+                user.getEmail(),
+                user.getPassword(),
+                user.isEnabled(),
+                user.getRoles()
+        );
+
+        base64decoder(userPostRequest.getImage(), userPostRequest.getId());
+        return response;
+    }
+
+    @Override
+    public UserServiceModel getUserImage(Integer id) {
+        return null;
+    }
+
+    public void base64decoder(String base64String, int id){
+        String extCode = base64String.substring(0, 1);
+        String extension;
+        switch (extCode) {//check image's extension
+            case "/":
+                extension = "jpg";
+                break;
+            case "i":
+                extension = "png";
+                break;
+            case "R":
+                extension = "gif";
+                break;
+            case "U":
+                extension = "webp";
+                break;
+            default://should write cases for more images types
+                extension = "jpg";
+                break;
+        }
+        //convert base64 string to binary data
+        byte[] data = DatatypeConverter.parseBase64Binary(base64String);
+        System.out.println("Extensión "+extension);
+        String path = "./src/main/resources/images/users/"+ id + "." + extension;
+        File file = new File(path);
+        try (OutputStream outputStream = new BufferedOutputStream(new FileOutputStream(file))) {
+            outputStream.write(data);
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
     }
 }
