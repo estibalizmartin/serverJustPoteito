@@ -40,8 +40,14 @@ public class UserServiceModel implements UserDetails {
     private String password;
     private boolean isEnabled;
     private Set<Role> roles;
+    private String image;
 
     public UserServiceModel() {
+    }
+
+    public UserServiceModel(Integer id, String image) {
+        this.id = id;
+        this.image = image;
     }
 
     public UserServiceModel(
@@ -62,6 +68,18 @@ public class UserServiceModel implements UserDetails {
         this.password = password;
         this.isEnabled = isEnabled;
         this.roles = roles;
+    }
+
+    public UserServiceModel(Integer id, String name, String surnames, String userName, String email, String password, boolean isEnabled, Set<Role> roles, String image) {
+        this.id = id;
+        this.name = name;
+        this.surnames = surnames;
+        this.userName = userName;
+        this.email = email;
+        this.password = password;
+        this.isEnabled = isEnabled;
+        this.roles = roles;
+        this.image = image;
     }
 
     public Integer getId() {
@@ -122,6 +140,14 @@ public class UserServiceModel implements UserDetails {
 
     public boolean isEnabled() {
         return isEnabled;
+    }
+
+    public String getImage() {
+        return image;
+    }
+
+    public void setImage(String image) {
+        this.image = image;
     }
 
     @Override

@@ -52,6 +52,20 @@ public class AuthController {
         }
     }
 
+    @PostMapping("/loginnotoken")
+    public ResponseEntity<List<String>> loginNoToken(@RequestBody AuthRequest request){
+        List<String> response = userService.logUser(request.getEmail(), request.getPassword());
+
+        if (response.get(0).equals("-1")) {
+            return ResponseEntity.status(432).build();
+        } else if (response.get(0).equals("-2")) {
+            return ResponseEntity.status(433).build();
+        } else {
+            return ResponseEntity.status(HttpStatus.ACCEPTED).body(response);
+        }
+    }
+
+
     @PostMapping("/auth/signup")
     public ResponseEntity<?> signUp(@RequestBody AuthRequest request) {
         // TODO solo esta creado en el caso de que funcione. Si no es posible que de 500
@@ -166,5 +180,17 @@ public class AuthController {
         } else {
             return ResponseEntity.status(HttpStatus.ACCEPTED).body(passwordChanged);
         }
+    }
+
+    @PutMapping("/user/image")
+    public ResponseEntity<UserServiceModel> updateUserImage(
+            @Valid @RequestBody UserPostRequest userPostRequest) {
+        System.out.println("pruevba");
+        if (userService.isAlreadyExists(userPostRequest.getId())) {
+            return new ResponseEntity<>(userService.updateUserImage(userPostRequest), HttpStatus.OK);
+        } else {
+            return new ResponseEntity<>(userService.updateUserImage(userPostRequest), HttpStatus.BAD_REQUEST);
+        }
+
     }
 }

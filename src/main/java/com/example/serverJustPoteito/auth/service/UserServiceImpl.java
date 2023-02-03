@@ -8,6 +8,7 @@ import com.example.serverJustPoteito.auth.repository.RoleRepository;
 import com.example.serverJustPoteito.auth.repository.UserRepository;
 import com.example.serverJustPoteito.security.CustomPasswordEncoder;
 import com.example.serverJustPoteito.security.RsaKeyHandler;
+import jakarta.xml.bind.DatatypeConverter;
 import org.passay.CharacterData;
 import org.passay.CharacterRule;
 import org.passay.EnglishCharacterData;
@@ -23,6 +24,7 @@ import org.springframework.security.core.userdetails.UsernameNotFoundException;
 import org.springframework.stereotype.Service;
 import org.springframework.web.server.ResponseStatusException;
 
+import java.io.*;
 import java.util.*;
 
 @Service("userDetailsService")
@@ -331,9 +333,40 @@ public class UserServiceImpl implements UserService, UserDetailsService {
     }
 
     @Override
+    public UserServiceModel updateUserImage(UserPostRequest userPostRequest) {
+        System.out.println(userPostRequest.getImage());
+        return null;
+    }
+
+    @Override
     public UserDetails loadUserByUsername(String username) throws UsernameNotFoundException {
         return userRepository.findByEmail(username)
                 .orElseThrow(
                         () -> new UsernameNotFoundException("User " + username + " not found."));
+    }
+    public String base64decoder(String base64String){
+        base64String = "data:image/jpeg;base64,iVBORw0KGgoAAAANSUhEUgAAAHkAAAB5C...";
+        String[] strings = base64String.split(",");
+        String extension;
+        switch (strings[0]) {//check image's extension
+            case "data:image/jpeg;base64":
+                extension = "jpeg";
+                break;
+            case "data:image/png;base64":
+                extension = "png";
+                break;
+            default://should write cases for more images types
+                extension = "jpg";
+                break;
+        }
+        //convert base64 string to binary data
+        byte[] data = DatatypeConverter.parseBase64Binary(strings[1]);
+        String path = "C:\\Users\\Ene\\Desktop\\test_image." + extension;
+        File file = new File(path);
+        try (OutputStream outputStream = new BufferedOutputStream(new FileOutputStream(file))) {
+            outputStream.write(data);
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
     }
 }
