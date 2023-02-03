@@ -62,10 +62,10 @@ Asimismo, el proyecto cuenta con una colección Postman en formato .json que inc
 ### Testing 
 
 ## API documentation
-La API puede consultarse en la URL que genera Swagger sin necesidad de estar logueado. Es necesario haber arrancado el servidor para acceder a ella.
+La API puede consultarse en la URL que genera Swagger. Es necesario tener arrancado el servidor para acceder a ella, pero no el estar logueado.
 
 
-        GET http://localhost:8080/api/dishes
+        http://localhost:8080/swagger-ui/index.html
 
 ## Contact
 - Txaber Olabe (txaber.olabesa@elorrieta-errekamari.com)
