@@ -60,6 +60,7 @@ Un ejemplo de una petición HTTP existente es el siguiente:
 Asimismo, el proyecto cuenta con una colección Postman en formato .json que incluye todas las peticiones necesarias para acceder a cada endpoint del servidor. Para acceder a este archivo será necesario seguir la ruta src/main/resources/postman.
 
 ### Testing 
+No disponible actualmente.
 
 ## API documentation
 La API puede consultarse en la URL que genera Swagger. Es necesario tener arrancado el servidor para acceder a ella, pero no el estar logueado.
