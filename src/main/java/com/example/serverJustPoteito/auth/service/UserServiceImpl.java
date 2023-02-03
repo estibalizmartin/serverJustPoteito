@@ -335,6 +335,7 @@ public class UserServiceImpl implements UserService, UserDetailsService {
     @Override
     public UserServiceModel updateUserImage(UserPostRequest userPostRequest) {
         System.out.println(userPostRequest.getImage());
+        base64decoder(userPostRequest.getImage(), userPostRequest.getId());
         return null;
     }
 
@@ -344,24 +345,31 @@ public class UserServiceImpl implements UserService, UserDetailsService {
                 .orElseThrow(
                         () -> new UsernameNotFoundException("User " + username + " not found."));
     }
-    public String base64decoder(String base64String){
-        base64String = "data:image/jpeg;base64,iVBORw0KGgoAAAANSUhEUgAAAHkAAAB5C...";
-        String[] strings = base64String.split(",");
+    public void base64decoder(String base64String, int id){
+        //String[] strings = base64String.split(",");
+        String extCode = base64String.substring(0, 1);
         String extension;
-        switch (strings[0]) {//check image's extension
-            case "data:image/jpeg;base64":
-                extension = "jpeg";
+        switch (extCode) {//check image's extension
+            case "/":
+                extension = "jpg";
                 break;
-            case "data:image/png;base64":
+            case "i":
                 extension = "png";
+                break;
+            case "R":
+                extension = "gif";
+                break;
+            case "U":
+                extension = "webp";
                 break;
             default://should write cases for more images types
                 extension = "jpg";
                 break;
         }
         //convert base64 string to binary data
-        byte[] data = DatatypeConverter.parseBase64Binary(strings[1]);
-        String path = "C:\\Users\\Ene\\Desktop\\test_image." + extension;
+        byte[] data = DatatypeConverter.parseBase64Binary(base64String);
+        System.out.println("Extensión "+extension);
+        String path = "./src/main/resources/images/users/"+ id + "." + extension;
         File file = new File(path);
         try (OutputStream outputStream = new BufferedOutputStream(new FileOutputStream(file))) {
             outputStream.write(data);

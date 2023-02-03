@@ -43,8 +43,7 @@ public class UserPostRequest {
     public UserPostRequest() {
     }
 
-    public UserPostRequest(Integer id, String image) {
-        this.id = id;
+    public UserPostRequest(String image) {
         this.image = image;
     }
 
