@@ -81,25 +81,38 @@ public class UserServiceImpl implements UserService, UserDetailsService {
     }
 
     @Override
-    public List<String> logUser(String email, String password) {
+    public UserServiceModel logUser(String email, String password) {
         CustomPasswordEncoder passwordEncoder = new CustomPasswordEncoder();
-        List<String> response = new ArrayList<>();
-
         String decryptedPass = RsaKeyHandler.decryptText(password);
-
         User user = loadUserByEmail(email);
 
+        UserServiceModel userResponse = new UserServiceModel();
+
+
         if (user == null) {
-            response.add("-1");
-            return response;
+            userResponse.setId(-1);
         } else if (passwordEncoder.matches(decryptedPass, user.getPassword())) {
-            response.add("" + user.getId());
-            response.add(user.getUsername());
-            return response;
+
+            if (!user.isEnabled()) {
+                userResponse.setId(-3);
+                return userResponse;
+            }
+
+            userResponse = new UserServiceModel(
+                    user.getId(),
+                    user.getName(),
+                    user.getSurnames(),
+                    user.getUserName(),
+                    user.getEmail(),
+                    null,
+                    user.isEnabled(),
+                    user.getRoles()
+            );
+
         } else {
-            response.add("-2");
-            return response;
+            userResponse.setId(-2);
         }
+        return userResponse;
     }
 
     @Override
@@ -132,6 +145,8 @@ public class UserServiceImpl implements UserService, UserDetailsService {
     @Override
     public List<UserServiceModel> getUsers() {
         List<User> users = (List<User>) userRepository.findAll();
+
+        System.out.println(users.get(2).toString());
 
         List<UserServiceModel> response = new ArrayList<>();
 
@@ -257,25 +272,34 @@ public class UserServiceImpl implements UserService, UserDetailsService {
 
     @Override
     public int changeUserPasswordNoToken(PasswordPostRequest passwordPostRequest) {
-        CustomPasswordEncoder passwordEncoder = new CustomPasswordEncoder();
-        String encodedNewPassword = passwordEncoder.encode(passwordPostRequest.getNewPassword());
 
-        User user = loadUserByEmail(passwordPostRequest.getEmail());
-        if (user == null) return -1;
+        String newPassword = RsaKeyHandler.decryptText(passwordPostRequest.getNewPassword());
+        String oldPassword = RsaKeyHandler.decryptText(passwordPostRequest.getOldPassword());
+
+        CustomPasswordEncoder passwordEncoder = new CustomPasswordEncoder();
+        String encodedNewPassword = passwordEncoder.encode(newPassword);
+
+        Optional<User> optionalUser = userRepository.findById(passwordPostRequest.getId());
+        User user = null;
+
+        if (!optionalUser.isEmpty()) {
+            user = optionalUser.get();
+        } else {
+            return -2;
+        }
+
+        if (user == null) return -2;
 
         int queryResult = 0;
-        if (user != null && passwordEncoder.matches(passwordPostRequest.getOldPassword(), user.getPassword())) {
-            passwordPostRequest.setOldPassword(user.getPassword());
-            passwordPostRequest.setNewPassword(encodedNewPassword);
+        if (user != null && passwordEncoder.matches(oldPassword, user.getPassword())) {
             queryResult = userRepository.updatePassword(
-                    passwordPostRequest.getNewPassword(),
-                    passwordPostRequest.getEmail(),
-                    passwordPostRequest.getOldPassword()
+                    encodedNewPassword,
+                    passwordPostRequest.getId()
             );
             return queryResult;
         }
         else
-            return -2;
+            return -1;
     }
 
     private User loadUserByEmail(String email) {

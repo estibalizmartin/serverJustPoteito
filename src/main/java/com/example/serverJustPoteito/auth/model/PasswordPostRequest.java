@@ -1,13 +1,14 @@
 package com.example.serverJustPoteito.auth.model;
 
+import jakarta.validation.constraints.NotBlank;
 import jakarta.validation.constraints.NotNull;
 import org.hibernate.validator.constraints.Length;
 
 public class PasswordPostRequest {
 
     @NotNull
-    @Length(min = 5, max = 70)
-    private String email;
+    @NotBlank
+    private Integer id;
     @NotNull
     @Length(min = 5, max = 70)
     private String oldPassword;
@@ -18,18 +19,18 @@ public class PasswordPostRequest {
     public PasswordPostRequest() {
     }
 
-    public PasswordPostRequest(String email, String oldPassword, String newPassword) {
-        this.email = email;
+    public PasswordPostRequest(Integer id, String oldPassword, String newPassword) {
+        this.id = id;
         this.oldPassword = oldPassword;
         this.newPassword = newPassword;
     }
 
-    public String getEmail() {
-        return email;
+    public Integer getId() {
+        return id;
     }
 
-    public void setEmail(String email) {
-        this.email = email;
+    public void setEmail(Integer id) {
+        this.id = id;
     }
 
     public String getOldPassword() {

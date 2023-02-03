@@ -65,6 +65,7 @@ public class AuthController {
         }
     }
 
+
     @PostMapping("/auth/signup")
     public ResponseEntity<?> signUp(@RequestBody AuthRequest request) {
         // TODO solo esta creado en el caso de que funcione. Si no es posible que de 500
@@ -86,6 +87,27 @@ public class AuthController {
         return ResponseEntity.ok().body(userDetails);
     }
 
+    @PutMapping("/auth/users/{id}")
+    public ResponseEntity<UserServiceModel> updateUser(
+            @PathVariable("id") Integer id,
+            @Valid @RequestBody UserPostRequest userPostRequest) {
+        if (userService.isAlreadyExists(id)) {
+            return new ResponseEntity<>(userService.updateUser(id, userPostRequest), HttpStatus.OK);
+        } else {
+            return new ResponseEntity<>(userService.updateUser(id, userPostRequest), HttpStatus.CREATED);
+        }
+    }
+
+    @PostMapping("/auth/auth/{id}")
+    public ResponseEntity<Integer> deleteUserById(@PathVariable("id") Integer id) {
+        try {
+            userService.deleteUserById(id);
+            return new ResponseEntity<>(HttpStatus.NO_CONTENT);
+        } catch (EmptyResultDataAccessException e) {
+            throw new ResponseStatusException(HttpStatus.CONFLICT, "Usuario no encontrado.");
+        }
+    }
+
     @PostMapping("/auth/signupCrypted")
     public ResponseEntity<?> signUpCrypted(@RequestBody AuthRequest request) {
         // TODO solo esta creado en el caso de que funcione. Si no es posible que de 500
@@ -98,6 +120,21 @@ public class AuthController {
         } catch (UserCantCreateException e) {
             return new ResponseEntity<>(HttpStatus.CONFLICT);
         }
+    }
+
+    @PostMapping("/loginnotoken")
+    public ResponseEntity<UserServiceModel> loginNoToken(@RequestBody AuthRequest request){
+        UserServiceModel userResponse = userService.logUser(request.getEmail(), request.getPassword());
+        if (userResponse.getId() == -1) {
+            return ResponseEntity.status(433).build();
+        } else if (userResponse.getId() == -2) {
+            return ResponseEntity.status(434).build();
+        } else if (userResponse.getId() == -3) {
+            return ResponseEntity.status(435).build();
+        } else {
+            return ResponseEntity.status(HttpStatus.ACCEPTED).body(userResponse);
+        }
+
     }
 
     @GetMapping("/auth/users")
@@ -130,35 +167,14 @@ public class AuthController {
         return new ResponseEntity<>(aesPasswordEncoder.cifrarPassword(encryptPostRequest), HttpStatus.OK);
     }
 
-    @PutMapping("/auth/users/{id}")
-    public ResponseEntity<UserServiceModel> updateUser(
-            @PathVariable("id") Integer id,
-            @Valid @RequestBody UserPostRequest userPostRequest) {
-        if (userService.isAlreadyExists(id)) {
-            return new ResponseEntity<>(userService.updateUser(id, userPostRequest), HttpStatus.OK);
-        } else {
-            return new ResponseEntity<>(userService.updateUser(id, userPostRequest), HttpStatus.CREATED);
-        }
-    }
-
-    @PostMapping("/auth/users/{id}")
-    public ResponseEntity<Integer> deleteUserById(@PathVariable("id") Integer id) {
-        try {
-            userService.deleteUserById(id);
-            return new ResponseEntity<>(HttpStatus.NO_CONTENT);
-        } catch (EmptyResultDataAccessException e) {
-            throw new ResponseStatusException(HttpStatus.CONFLICT, "Usuario no encontrado.");
-        }
-    }
-
-    @PostMapping("/changepasswordnotoken")
+    @PutMapping("/changepasswordnotoken")
     public ResponseEntity<Integer> changeUserPasswordNoToken(
             @RequestBody PasswordPostRequest passwordPostRequest
     ) {
         int passwordChanged = userService.changeUserPasswordNoToken(passwordPostRequest);
 
         if (passwordChanged == -1) {
-            return ResponseEntity.status(432).build();
+            return ResponseEntity.status(434).build();
         } else if (passwordChanged == -2) {
             return ResponseEntity.status(433).build();
         } else {
