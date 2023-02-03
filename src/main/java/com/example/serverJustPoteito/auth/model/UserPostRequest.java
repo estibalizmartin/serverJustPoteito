@@ -11,9 +11,6 @@ import java.util.Set;
 
 public class UserPostRequest {
 
-    @NotNull
-    @NotBlank
-    @Length(max = 70)
     private Integer id;
     @NotNull
     @NotBlank
@@ -32,9 +29,7 @@ public class UserPostRequest {
     @Email
     @Length(max = 70)
     private String email;
-    @NotNull
-    @NotBlank
-    @Length(min = 5, max = 70)
+
     private String password;
     private boolean isEnabled;
     private List<Role> roles;

@@ -187,16 +187,25 @@ public class UserServiceImpl implements UserService, UserDetailsService {
 
     @Override
     public UserServiceModel createUser(UserPostRequest userPostRequest) {
+
+        CustomPasswordEncoder passwordEncoder = new CustomPasswordEncoder();
+        String encodedPassword = passwordEncoder.encode(userPostRequest.getPassword());
         User user = new User(
                 null,
                 userPostRequest.getName(),
                 userPostRequest.getSurnames(),
                 userPostRequest.getUserName(),
                 userPostRequest.getEmail(),
-                userPostRequest.getPassword(),
-                true,
+                encodedPassword,
+                userPostRequest.isEnabled(),
                 null
         );
+
+        Set<Role> roles = new HashSet<Role>();
+        for (Role role  : userPostRequest.getRoles())
+            roles.add(role);
+
+        user.setRoles(roles);
 
         user = userRepository.save(user);
 
@@ -217,22 +226,19 @@ public class UserServiceImpl implements UserService, UserDetailsService {
     @Override
     public UserServiceModel updateUser(Integer id, UserPostRequest userPostRequest) {
 
+        CustomPasswordEncoder passwordEncoder = new CustomPasswordEncoder();
+        String encodedPassword = passwordEncoder.encode(userPostRequest.getPassword());
+
         User user = new User(
                 id,
                 userPostRequest.getName(),
                 userPostRequest.getSurnames(),
                 userPostRequest.getUserName(),
                 userPostRequest.getEmail(),
-                null,
+                encodedPassword,
                 userPostRequest.isEnabled(),
                 null
         );
-
-        User userPassword = userRepository.findById(id)
-                .orElse(null);
-            CustomPasswordEncoder passwordEncoder = new CustomPasswordEncoder();
-            String password = passwordEncoder.encode(userPassword.getPassword());
-            user.setPassword(password);
 
         Set<Role> roles = new HashSet<>();
 
@@ -247,7 +253,10 @@ public class UserServiceImpl implements UserService, UserDetailsService {
 
         user.setRoles(roles);
 
+        System.out.println(user.getPassword());
+
         user = userRepository.save(user);
+
 
         UserServiceModel response = new UserServiceModel(
                 user.getId(),
