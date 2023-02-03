@@ -190,32 +190,18 @@ public class UserServiceImpl implements UserService, UserDetailsService {
 
     @Override
     public UserServiceModel createUser(UserPostRequest userPostRequest) {
-
-        CustomPasswordEncoder passwordEncoder = new CustomPasswordEncoder();
-        String encodedPassword = passwordEncoder.encode(userPostRequest.getPassword());
         User user = new User(
                 null,
                 userPostRequest.getName(),
                 userPostRequest.getSurnames(),
                 userPostRequest.getUserName(),
                 userPostRequest.getEmail(),
-                encodedPassword,
-                userPostRequest.isEnabled(),
+                userPostRequest.getPassword(),
+                true,
                 null
         );
 
-        Set<Role> roles = new HashSet<Role>();
-        for (Role role  : userPostRequest.getRoles())
-            roles.add(role);
-
-        try {
-        user.setRoles(roles);
-
-            user = userRepository.save(user);
-
-        } catch (Exception e) {
-            return new UserServiceModel();
-        }
+        user = userRepository.save(user);
 
         UserServiceModel response = new UserServiceModel(
                 user.getId(),
@@ -232,7 +218,7 @@ public class UserServiceImpl implements UserService, UserDetailsService {
     }
 
     @Override
-    public UserServiceModel updateUserNoToken(Integer id, UserPostRequest userPostRequest) {
+    public UserServiceModel updateUser(Integer id, UserPostRequest userPostRequest) {
 
         User user = new User(
                 id,
@@ -245,15 +231,11 @@ public class UserServiceImpl implements UserService, UserDetailsService {
                 null
         );
 
-        if (userPostRequest.getPassword() == null) {
-            User userPassword = userRepository.findById(id).get();
-            user.setPassword(userPassword.getPassword());
-        } else {
-            CustomPasswordEncoder passwordEncoder = new CustomPasswordEncoder();
-            String encodedPassword = passwordEncoder.encode(userPostRequest.getPassword());
-
-            user.setPassword(encodedPassword);
-        }
+        User userPassword = userRepository.findById(id)
+                .orElse(null);
+        CustomPasswordEncoder passwordEncoder = new CustomPasswordEncoder();
+        String password = passwordEncoder.encode(userPassword.getPassword());
+        user.setPassword(password);
 
         Set<Role> roles = new HashSet<>();
 
@@ -269,72 +251,6 @@ public class UserServiceImpl implements UserService, UserDetailsService {
         user.setRoles(roles);
 
         user = userRepository.save(user);
-
-
-        UserServiceModel response = new UserServiceModel(
-                user.getId(),
-                user.getName(),
-                user.getSurnames(),
-                user.getUserName(),
-                user.getEmail(),
-                user.getPassword(),
-                user.isEnabled(),
-                user.getRoles()
-        );
-
-        return response;
-    }
-
-
-    @Override
-    public UserServiceModel updateUser(Integer id, UserPostRequest userPostRequest) {
-
-        User user = new User();
-        user.setId(id);
-
-        if(userPostRequest.getName() != null) {
-            user.setName(userPostRequest.getName());
-        }
-        if(userPostRequest.getUserName() != null) {
-            user.setUserName(userPostRequest.getUserName());
-        }
-        if(userPostRequest.getSurnames() != null) {
-            user.setSurnames(userPostRequest.getSurnames());
-        }
-        if(userPostRequest.getEmail() != null) {
-            user.setEmail(userPostRequest.getEmail());
-        }
-        if(userPostRequest.getPassword() != null) {
-            CustomPasswordEncoder passwordEncoder = new CustomPasswordEncoder();
-            String encodedPassword = passwordEncoder.encode(userPostRequest.getPassword());
-            user.setPassword(encodedPassword);
-        }
-        if(userPostRequest.isEnabled()) {
-            user.setEnabled(true);
-        }
-        if (userPostRequest.getRoles() != null) {
-            Set<Role> roles = new HashSet<>();
-
-            for (Role role: userPostRequest.getRoles()) {
-                if (role.getName().equals((RoleTypeEnum.USER.name()))) {
-                    roles.add(roleRepository.findByName(RoleTypeEnum.USER.name()).get());
-                }
-                if (role.getName().equals((RoleTypeEnum.ADMIN.name()))) {
-                    roles.add(roleRepository.findByName(RoleTypeEnum.ADMIN.name()).get());
-                }
-            }
-
-            user.setRoles(roles);
-        }
-
-        try {
-
-            user = userRepository.save(user);
-
-        } catch (Exception e) {
-            return new UserServiceModel();
-        }
-
 
         UserServiceModel response = new UserServiceModel(
                 user.getId(),
@@ -418,12 +334,39 @@ public class UserServiceImpl implements UserService, UserDetailsService {
     }
 
     @Override
+    public UserServiceModel updateUserImage(UserPostRequest userPostRequest) {
+        User user = new User(
+                userPostRequest.getId(),
+                "./src/main/resources/images/users/" + userPostRequest.getId() + ".png"
+        );
+
+        //user = userRepository.save(user);
+
+        UserServiceModel response = new UserServiceModel(
+                user.getId(),
+                user.getName(),
+                user.getSurnames(),
+                user.getUserName(),
+                user.getEmail(),
+                user.getPassword(),
+                user.isEnabled(),
+                user.getRoles()
+        );
+
+        base64decoder(userPostRequest.getImage(), userPostRequest.getId());
+        return response;
+    }
+
+    @Override
     public UserDetails loadUserByUsername(String username) throws UsernameNotFoundException {
         return userRepository.findByEmail(username)
                 .orElseThrow(
                         () -> new UsernameNotFoundException("User " + username + " not found."));
     }
-
+    
+    public void base64decoder(String base64String, int id){
+        System.out.println("DDDDDDDDDDDDD "+base64String);
+        //String[] strings = base64String.split(",");
 
     @Override
     public UserServiceModel updateUserImage(UserPostRequest userPostRequest) {
@@ -484,5 +427,19 @@ public class UserServiceImpl implements UserService, UserDetailsService {
         } catch (IOException e) {
             e.printStackTrace();
         }
+    }
+
+    @Override
+    public UserServiceModel getUserImage(Integer id) {
+        User user = userRepository.findById(id).orElseThrow(
+                () -> new ResponseStatusException(HttpStatus.NO_CONTENT, "Usuario no encontrado.")
+        );
+
+        UserServiceModel response = new UserServiceModel(
+                user.getId(),
+                user.getImage()
+        );
+
+        return response;
     }
 }

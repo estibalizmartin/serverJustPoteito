@@ -1,11 +1,16 @@
 package com.example.serverJustPoteito.dish.service;
 
+import com.example.serverJustPoteito.cook.model.Cook;
+import com.example.serverJustPoteito.cook.model.CookServiceModel;
+import com.example.serverJustPoteito.cook.repository.CookRepository;
 import com.example.serverJustPoteito.cuisineType.persistence.CuisineType;
 import com.example.serverJustPoteito.cuisineType.model.CuisineTypeServiceModel;
 import com.example.serverJustPoteito.cuisineType.repository.CuisineTypeRepository;
 import com.example.serverJustPoteito.dish.model.*;
 import com.example.serverJustPoteito.dish.persistence.Dish;
 import com.example.serverJustPoteito.dish.repository.DishRepository;
+import com.example.serverJustPoteito.ingredient_dish.model.Ingredient_dishServiceModel;
+import com.example.serverJustPoteito.ingredient_dish.persistence.Ingredient_dish;
 import org.apache.commons.io.FileUtils;
 import org.apache.tomcat.util.codec.binary.Base64;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -25,6 +30,8 @@ public class DishServiceImpl implements DishService {
     private DishRepository dishRepository;
     @Autowired
     private CuisineTypeRepository cuisineTypeRepository;
+    @Autowired
+    private CookRepository cookRepository;
 
     @Override
     public List<DishServiceModel> getDishes() {
@@ -38,8 +45,13 @@ public class DishServiceImpl implements DishService {
                     dish.getName(),
                     dish.getPrepTime(),
                     dish.getSubtype(),
+                    dish.getRecipe(),
+                    dish.getImage(),
                     null,
-                    dish.getCuisineTypeId()
+                    dish.getCuisineTypeId(),
+                    null,
+                    dish.getCookId(),
+                    null
             ));
         }
 
@@ -69,10 +81,13 @@ public class DishServiceImpl implements DishService {
                 dish.getName(),
                 dish.getPrepTime(),
                 dish.getSubtype(),
+                dish.getRecipe(),
+                getBase64EncodedImage(dish.getImage()),
                 cuisineResponse,
                 dish.getCuisineTypeId(),
-                dish.getRecipe(),
-                getBase64EncodedImage(dish.getImage())
+                null,
+                dish.getCookId(),
+                null
         );
 
         return response;
@@ -89,7 +104,13 @@ public class DishServiceImpl implements DishService {
                 dishPostRequest.getName(),
                 dishPostRequest.getPrepTime(),
                 dishPostRequest.getSubtype(),
-                cuisineType
+                dishPostRequest.getRecipe(),
+                null,
+                null,
+                dishPostRequest.getCuisineTypeId(),
+                null,
+                dishPostRequest.getCookId(),
+                null
         );
 
         dish = dishRepository.save(dish);
@@ -99,8 +120,13 @@ public class DishServiceImpl implements DishService {
                 dish.getName(),
                 dish.getPrepTime(),
                 dish.getSubtype(),
+                dish.getRecipe(),
                 null,
-                dish.getCuisineTypeId()
+                null,
+                dish.getCuisineTypeId(),
+                null,
+                dish.getCookId(),
+                null
         );
 
         return response;
@@ -113,8 +139,13 @@ public class DishServiceImpl implements DishService {
                 dishPostRequest.getName(),
                 dishPostRequest.getPrepTime(),
                 dishPostRequest.getSubtype(),
+                dishPostRequest.getRecipe(),
                 null,
-                dishPostRequest.getCuisineTypeId()
+                null,
+                dishPostRequest.getCuisineTypeId(),
+                null,
+                dishPostRequest.getCookId(),
+                null
         );
 
         dish.setId(id);
@@ -126,8 +157,13 @@ public class DishServiceImpl implements DishService {
                 dish.getName(),
                 dish.getPrepTime(),
                 dish.getSubtype(),
+                dish.getRecipe(),
                 null,
-                dish.getCuisineTypeId()
+                null,
+                dish.getCuisineTypeId(),
+                null,
+                dish.getCookId(),
+                null
         );
 
         return response;
@@ -151,10 +187,13 @@ public class DishServiceImpl implements DishService {
                     dish.getName(),
                     dish.getPrepTime(),
                     dish.getSubtype(),
+                    dish.getRecipe(),
+                    getBase64EncodedImage(dish.getImage()),
                     null,
                     dish.getCuisineTypeId(),
-                    dish.getRecipe(),
-                    getBase64EncodedImage(dish.getImage())
+                    null,
+                    dish.getCookId(),
+                    null
             ));
         }
         System.out.println(response.get(0).getImage().getBytes());
@@ -173,10 +212,13 @@ public class DishServiceImpl implements DishService {
                     dish.getName(),
                     dish.getPrepTime(),
                     dish.getSubtype(),
+                    dish.getRecipe(),
+                    getBase64EncodedImage(dish.getImage()),
+                    null,
+                    dish.getCuisineTypeId(),
                     null,
                     dish.getCookId(),
-                    dish.getRecipe(),
-                    getBase64EncodedImage(dish.getImage())
+                    null
             ));
         }
         return response;
@@ -192,9 +234,13 @@ public class DishServiceImpl implements DishService {
                     dish.getName(),
                     dish.getPrepTime(),
                     dish.getSubtype(),
+                    dish.getRecipe(),
+                    getBase64EncodedImage(dish.getImage()),
                     null,
                     dish.getCuisineTypeId(),
-                    getBase64EncodedImage(dish.getImage())
+                    null,
+                    dish.getCookId(),
+                    null
             ));
         }
         return response;
@@ -212,15 +258,19 @@ public class DishServiceImpl implements DishService {
                     dish.getName(),
                     dish.getPrepTime(),
                     dish.getSubtype(),
+                    dish.getRecipe(),
+                    getBase64EncodedImage(dish.getImage()),
                     null,
                     dish.getCuisineTypeId(),
-                    dish.getRecipe(),
-                    getBase64EncodedImage(dish.getImage())
+                    null,
+                    dish.getCookId(),
+                    null
             ));
         }
 
         return response;
     }
+
     public String getBase64EncodedImage(String imageURL) {
 
         if (imageURL != null) {
