@@ -253,8 +253,6 @@ public class UserServiceImpl implements UserService, UserDetailsService {
 
         user.setRoles(roles);
 
-        System.out.println(user.getPassword());
-
         user = userRepository.save(user);
 
 
