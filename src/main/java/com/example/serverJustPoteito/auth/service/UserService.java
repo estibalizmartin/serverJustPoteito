@@ -22,5 +22,6 @@ public interface UserService {
     int changeUserPasswordNoToken(PasswordPostRequest passwordPostRequest);
     boolean isAlreadyExists(Integer id);
     UserServiceModel updateUserImage(UserPostRequest userPostRequest);
+    UserServiceModel getUserImage(Integer id);
 
 }

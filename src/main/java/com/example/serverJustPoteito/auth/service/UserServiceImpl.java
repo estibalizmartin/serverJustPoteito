@@ -334,9 +334,26 @@ public class UserServiceImpl implements UserService, UserDetailsService {
 
     @Override
     public UserServiceModel updateUserImage(UserPostRequest userPostRequest) {
-        System.out.println(userPostRequest.getImage());
+        User user = new User(
+                userPostRequest.getId(),
+                "./src/main/resources/images/users/" + userPostRequest.getId() + ".png"
+        );
+
+        //user = userRepository.save(user);
+
+        UserServiceModel response = new UserServiceModel(
+                user.getId(),
+                user.getName(),
+                user.getSurnames(),
+                user.getUserName(),
+                user.getEmail(),
+                user.getPassword(),
+                user.isEnabled(),
+                user.getRoles()
+        );
+
         base64decoder(userPostRequest.getImage(), userPostRequest.getId());
-        return null;
+        return response;
     }
 
     @Override
@@ -346,6 +363,7 @@ public class UserServiceImpl implements UserService, UserDetailsService {
                         () -> new UsernameNotFoundException("User " + username + " not found."));
     }
     public void base64decoder(String base64String, int id){
+        System.out.println("DDDDDDDDDDDDD "+base64String);
         //String[] strings = base64String.split(",");
         String extCode = base64String.substring(0, 1);
         String extension;
@@ -376,5 +394,18 @@ public class UserServiceImpl implements UserService, UserDetailsService {
         } catch (IOException e) {
             e.printStackTrace();
         }
+    }
+    @Override
+    public UserServiceModel getUserImage(Integer id) {
+        User user = userRepository.findById(id).orElseThrow(
+                () -> new ResponseStatusException(HttpStatus.NO_CONTENT, "Usuario no encontrado.")
+        );
+
+        UserServiceModel response = new UserServiceModel(
+                user.getId(),
+                user.getImage()
+        );
+
+        return response;
     }
 }
