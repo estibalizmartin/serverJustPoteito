@@ -62,6 +62,10 @@ Asimismo, el proyecto cuenta con una colección Postman en formato .json que inc
 ### Testing 
 
 ## API documentation
+La API puede consultarse en la URL que genera Swagger sin necesidad de estar logueado. Es necesario haber arrancado el servidor para acceder a ella.
+
+
+        GET http://localhost:8080/api/dishes
 
 ## Contact
 - Txaber Olabe (txaber.olabesa@elorrieta-errekamari.com)
