@@ -1,124 +1,119 @@
 {
 	"info": {
-		"_postman_id": "6d5975bd-5b2c-4faf-978f-a37985d923da",
+		"_postman_id": "6dca516d-a28b-40c8-a47e-d343aa4d2530",
 		"name": "JustPoteito",
 		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
-		"_exporter_id": "23304115"
+		"_exporter_id": "24965315"
 	},
 	"item": [
 		{
 			"name": "Dish",
 			"item": [
 				{
-					"name": "Token",
-					"item": [
-						{
-							"name": "GetDishes",
-							"request": {
-								"method": "GET",
-								"header": [],
-								"url": {
-									"raw": "{{API_URI}}/dishes",
-									"host": [
-										"{{API_URI}}"
-									],
-									"path": [
-										"dishes"
-									]
-								}
-							},
-							"response": []
-						},
-						{
-							"name": "GetDishById",
-							"request": {
-								"method": "GET",
-								"header": [],
-								"url": {
-									"raw": "{{API_URI}}/dishes/1",
-									"host": [
-										"{{API_URI}}"
-									],
-									"path": [
-										"dishes",
-										"1"
-									]
-								}
-							},
-							"response": []
-						},
-						{
-							"name": "CreateDish",
-							"request": {
-								"method": "POST",
-								"header": [],
-								"body": {
-									"mode": "raw",
-									"raw": "{\r\n    \"name\": \"Alubias\",\r\n    \"prepTime\": 15,\r\n    \"subtype\": \"Traditional\",\r\n    \"image\": null,\r\n    \"recipe\": \"Hola\",\r\n    \"cuisineTypeId\": 2,\r\n    \"cookId\": 2\r\n}",
-									"options": {
-										"raw": {
-											"language": "json"
-										}
-									}
-								},
-								"url": {
-									"raw": "{{API_URI}}/dishes",
-									"host": [
-										"{{API_URI}}"
-									],
-									"path": [
-										"dishes"
-									]
-								}
-							},
-							"response": []
-						},
-						{
-							"name": "UpdateDish",
-							"request": {
-								"method": "PUT",
-								"header": [],
-								"body": {
-									"mode": "raw",
-									"raw": "{\r\n    \"name\": \"Alubias\",\r\n    \"prepTime\": 15,\r\n    \"subtype\": \"Traditional\",\r\n    \"image\": null,\r\n    \"recipe\": \"Hola\",\r\n    \"cuisineTypeId\": 2,\r\n    \"cookId\": 2\r\n}",
-									"options": {
-										"raw": {
-											"language": "json"
-										}
-									}
-								},
-								"url": {
-									"raw": "{{API_URI}}/dishes/8",
-									"host": [
-										"{{API_URI}}"
-									],
-									"path": [
-										"dishes",
-										"8"
-									]
-								}
-							},
-							"response": []
-						},
-						{
-							"name": "DeleteDishById",
-							"request": {
-								"method": "DELETE",
-								"header": [],
-								"url": {
-									"raw": "{{API_URI}}/dishes/8",
-									"host": [
-										"{{API_URI}}"
-									],
-									"path": [
-										"dishes",
-										"8"
-									]
-								}
-							},
-							"response": []
+					"name": "GetDishes",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{API_URI}}/dishes",
+							"host": [
+								"{{API_URI}}"
+							],
+							"path": [
+								"dishes"
+							]
 						}
-					]
+					},
+					"response": []
+				},
+				{
+					"name": "GetDishById",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{API_URI}}/dishes/1",
+							"host": [
+								"{{API_URI}}"
+							],
+							"path": [
+								"dishes",
+								"1"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "CreateDish",
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"name\": \"Alubias\",\r\n    \"prepTime\": 15,\r\n    \"subtype\": \"Traditional\",\r\n    \"cuisineTypeId\": 2\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{API_URI}}/dishes",
+							"host": [
+								"{{API_URI}}"
+							],
+							"path": [
+								"dishes"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "UpdateDish",
+					"request": {
+						"method": "PUT",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"name\": \"Chili con carne\",\r\n    \"prepTime\": 60,\r\n    \"subtype\": \"Mexican\",\r\n    \"cuisineTypeId\": 3\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{API_URI}}/dishes/8",
+							"host": [
+								"{{API_URI}}"
+							],
+							"path": [
+								"dishes",
+								"8"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "DeleteDishById",
+					"request": {
+						"method": "DELETE",
+						"header": [],
+						"url": {
+							"raw": "{{API_URI}}/dishes/6",
+							"host": [
+								"{{API_URI}}"
+							],
+							"path": [
+								"dishes",
+								"6"
+							]
+						}
+					},
+					"response": []
 				}
 			]
 		},
@@ -126,335 +121,153 @@
 			"name": "CuisineType",
 			"item": [
 				{
-					"name": "Token",
-					"item": [
-						{
-							"name": "GetCuisineTypes",
-							"request": {
-								"method": "GET",
-								"header": [
-									{
-										"key": "Authorization",
-										"value": "Bearer eyJhbGciOiJIUzUxMiJ9.eyJzdWIiOiJkYXZpZEBkYXZpZG9mZmYuY29tIiwiaXNzIjoiQURUREFNIiwiaWF0IjoxNjczMjc1NTQ4LCJleHAiOjE2NzMzNjE5NDgsInVzZXJJZCI6MSwicm9sZXMiOlt7ImlkIjoxLCJuYW1lIjoiQURNSU4ifV19.BxQ40lOpu96KqJKWFNCaWE8lK_-V9i2IzeZ_nccwtGvc9B7imNLEtW6pczZEm0jvYc6ChEmxm40pWCRC70pr6Q",
-										"type": "default"
-									}
-								],
-								"url": {
-									"raw": "{{API_URI}}/cuisineTypes",
-									"host": [
-										"{{API_URI}}"
-									],
-									"path": [
-										"cuisineTypes"
-									]
-								}
-							},
-							"response": []
-						},
-						{
-							"name": "GetCuisineType",
-							"request": {
-								"method": "GET",
-								"header": [
-									{
-										"key": "Authorization",
-										"value": "Bearer eyJhbGciOiJIUzUxMiJ9.eyJzdWIiOiJkYXZpZEBkYXZpZG9mZmYuY29tIiwiaXNzIjoiQURUREFNIiwiaWF0IjoxNjczMjc1NTQ4LCJleHAiOjE2NzMzNjE5NDgsInVzZXJJZCI6MSwicm9sZXMiOlt7ImlkIjoxLCJuYW1lIjoiQURNSU4ifV19.BxQ40lOpu96KqJKWFNCaWE8lK_-V9i2IzeZ_nccwtGvc9B7imNLEtW6pczZEm0jvYc6ChEmxm40pWCRC70pr6Q",
-										"type": "default"
-									}
-								],
-								"url": {
-									"raw": "{{API_URI}}/cuisineTypes/1",
-									"host": [
-										"{{API_URI}}"
-									],
-									"path": [
-										"cuisineTypes",
-										"1"
-									],
-									"query": [
-										{
-											"key": "expand",
-											"value": "DEPARTMENT",
-											"disabled": true
-										}
-									]
-								}
-							},
-							"response": []
-						},
-						{
-							"name": "CreateCuisineType",
-							"request": {
-								"method": "POST",
-								"header": [
-									{
-										"key": "Content-Type",
-										"value": "application/json",
-										"type": "default"
-									},
-									{
-										"key": "Authorization",
-										"value": "Bearer eyJhbGciOiJIUzUxMiJ9.eyJzdWIiOiJkYXZpZEBkYXZpZG9mZmYuY29tIiwiaXNzIjoiQURUREFNIiwiaWF0IjoxNjczMjc1NTQ4LCJleHAiOjE2NzMzNjE5NDgsInVzZXJJZCI6MSwicm9sZXMiOlt7ImlkIjoxLCJuYW1lIjoiQURNSU4ifV19.BxQ40lOpu96KqJKWFNCaWE8lK_-V9i2IzeZ_nccwtGvc9B7imNLEtW6pczZEm0jvYc6ChEmxm40pWCRC70pr6Q",
-										"type": "default"
-									}
-								],
-								"body": {
-									"mode": "raw",
-									"raw": "{\r\n    \"name\": \"Asian\",\r\n    \"subtype\" : \"Chinesse\"\r\n}"
-								},
-								"url": {
-									"raw": "{{API_URI}}/cuisineTypes",
-									"host": [
-										"{{API_URI}}"
-									],
-									"path": [
-										"cuisineTypes"
-									]
-								}
-							},
-							"response": []
-						},
-						{
-							"name": "UpdateCuisineType",
-							"request": {
-								"method": "PUT",
-								"header": [
-									{
-										"key": "Content-Type",
-										"value": "application/json",
-										"type": "default"
-									},
-									{
-										"key": "Authorization",
-										"value": "Bearer eyJhbGciOiJIUzUxMiJ9.eyJzdWIiOiJkYXZpZEBkYXZpZG9mZmYuY29tIiwiaXNzIjoiQURUREFNIiwiaWF0IjoxNjczMjc1NTQ4LCJleHAiOjE2NzMzNjE5NDgsInVzZXJJZCI6MSwicm9sZXMiOlt7ImlkIjoxLCJuYW1lIjoiQURNSU4ifV19.BxQ40lOpu96KqJKWFNCaWE8lK_-V9i2IzeZ_nccwtGvc9B7imNLEtW6pczZEm0jvYc6ChEmxm40pWCRC70pr6Q",
-										"type": "default"
-									}
-								],
-								"body": {
-									"mode": "raw",
-									"raw": "{\r\n    \"name\": \"North Europe\",\r\n    \"subtype\" : \"Norwegian\"\r\n\r\n}"
-								},
-								"url": {
-									"raw": "{{API_URI}}/cuisineTypes/3",
-									"host": [
-										"{{API_URI}}"
-									],
-									"path": [
-										"cuisineTypes",
-										"3"
-									]
-								}
-							},
-							"response": []
-						},
-						{
-							"name": "DeleteCuisineType",
-							"request": {
-								"method": "DELETE",
-								"header": [
-									{
-										"key": "Authorization",
-										"value": "Bearer eyJhbGciOiJIUzUxMiJ9.eyJzdWIiOiJkYXZpZEBkYXZpZG9mZmYuY29tIiwiaXNzIjoiQURUREFNIiwiaWF0IjoxNjczMjc1NTQ4LCJleHAiOjE2NzMzNjE5NDgsInVzZXJJZCI6MSwicm9sZXMiOlt7ImlkIjoxLCJuYW1lIjoiQURNSU4ifV19.BxQ40lOpu96KqJKWFNCaWE8lK_-V9i2IzeZ_nccwtGvc9B7imNLEtW6pczZEm0jvYc6ChEmxm40pWCRC70pr6Q",
-										"type": "default"
-									}
-								],
-								"url": {
-									"raw": "{{API_URI}}/cuisineTypes/3",
-									"host": [
-										"{{API_URI}}"
-									],
-									"path": [
-										"cuisineTypes",
-										"3"
-									]
-								}
-							},
-							"response": []
+					"name": "GetCuisineTypes",
+					"request": {
+						"method": "GET",
+						"header": [
+							{
+								"key": "Authorization",
+								"value": "Bearer eyJhbGciOiJIUzUxMiJ9.eyJzdWIiOiJkYXZpZEBkYXZpZG9mZmYuY29tIiwiaXNzIjoiQURUREFNIiwiaWF0IjoxNjczMjc1NTQ4LCJleHAiOjE2NzMzNjE5NDgsInVzZXJJZCI6MSwicm9sZXMiOlt7ImlkIjoxLCJuYW1lIjoiQURNSU4ifV19.BxQ40lOpu96KqJKWFNCaWE8lK_-V9i2IzeZ_nccwtGvc9B7imNLEtW6pczZEm0jvYc6ChEmxm40pWCRC70pr6Q",
+								"type": "default"
+							}
+						],
+						"url": {
+							"raw": "{{API_URI}}/cuisineTypes",
+							"host": [
+								"{{API_URI}}"
+							],
+							"path": [
+								"cuisineTypes"
+							]
 						}
-					]
+					},
+					"response": []
+				},
+				{
+					"name": "GetCuisineType",
+					"request": {
+						"method": "GET",
+						"header": [
+							{
+								"key": "Authorization",
+								"value": "Bearer eyJhbGciOiJIUzUxMiJ9.eyJzdWIiOiJkYXZpZEBkYXZpZG9mZmYuY29tIiwiaXNzIjoiQURUREFNIiwiaWF0IjoxNjczMjc1NTQ4LCJleHAiOjE2NzMzNjE5NDgsInVzZXJJZCI6MSwicm9sZXMiOlt7ImlkIjoxLCJuYW1lIjoiQURNSU4ifV19.BxQ40lOpu96KqJKWFNCaWE8lK_-V9i2IzeZ_nccwtGvc9B7imNLEtW6pczZEm0jvYc6ChEmxm40pWCRC70pr6Q",
+								"type": "default"
+							}
+						],
+						"url": {
+							"raw": "{{API_URI}}/cuisineTypes/1",
+							"host": [
+								"{{API_URI}}"
+							],
+							"path": [
+								"cuisineTypes",
+								"1"
+							],
+							"query": [
+								{
+									"key": "expand",
+									"value": "DEPARTMENT",
+									"disabled": true
+								}
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "CreateCuisineType",
+					"request": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "Content-Type",
+								"value": "application/json",
+								"type": "default"
+							},
+							{
+								"key": "Authorization",
+								"value": "Bearer eyJhbGciOiJIUzUxMiJ9.eyJzdWIiOiJkYXZpZEBkYXZpZG9mZmYuY29tIiwiaXNzIjoiQURUREFNIiwiaWF0IjoxNjczMjc1NTQ4LCJleHAiOjE2NzMzNjE5NDgsInVzZXJJZCI6MSwicm9sZXMiOlt7ImlkIjoxLCJuYW1lIjoiQURNSU4ifV19.BxQ40lOpu96KqJKWFNCaWE8lK_-V9i2IzeZ_nccwtGvc9B7imNLEtW6pczZEm0jvYc6ChEmxm40pWCRC70pr6Q",
+								"type": "default"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"name\": \"Asian\",\r\n    \"subtype\" : \"Chinesse\"\r\n}"
+						},
+						"url": {
+							"raw": "{{API_URI}}/cuisineTypes",
+							"host": [
+								"{{API_URI}}"
+							],
+							"path": [
+								"cuisineTypes"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "UpdateCuisineType",
+					"request": {
+						"method": "PUT",
+						"header": [
+							{
+								"key": "Content-Type",
+								"value": "application/json",
+								"type": "default"
+							},
+							{
+								"key": "Authorization",
+								"value": "Bearer eyJhbGciOiJIUzUxMiJ9.eyJzdWIiOiJkYXZpZEBkYXZpZG9mZmYuY29tIiwiaXNzIjoiQURUREFNIiwiaWF0IjoxNjczMjc1NTQ4LCJleHAiOjE2NzMzNjE5NDgsInVzZXJJZCI6MSwicm9sZXMiOlt7ImlkIjoxLCJuYW1lIjoiQURNSU4ifV19.BxQ40lOpu96KqJKWFNCaWE8lK_-V9i2IzeZ_nccwtGvc9B7imNLEtW6pczZEm0jvYc6ChEmxm40pWCRC70pr6Q",
+								"type": "default"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"name\": \"North Europe\",\r\n    \"subtype\" : \"Norwegian\"\r\n\r\n}"
+						},
+						"url": {
+							"raw": "{{API_URI}}/cuisineTypes/3",
+							"host": [
+								"{{API_URI}}"
+							],
+							"path": [
+								"cuisineTypes",
+								"3"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "DeleteCuisineType",
+					"request": {
+						"method": "DELETE",
+						"header": [
+							{
+								"key": "Authorization",
+								"value": "Bearer eyJhbGciOiJIUzUxMiJ9.eyJzdWIiOiJkYXZpZEBkYXZpZG9mZmYuY29tIiwiaXNzIjoiQURUREFNIiwiaWF0IjoxNjczMjc1NTQ4LCJleHAiOjE2NzMzNjE5NDgsInVzZXJJZCI6MSwicm9sZXMiOlt7ImlkIjoxLCJuYW1lIjoiQURNSU4ifV19.BxQ40lOpu96KqJKWFNCaWE8lK_-V9i2IzeZ_nccwtGvc9B7imNLEtW6pczZEm0jvYc6ChEmxm40pWCRC70pr6Q",
+								"type": "default"
+							}
+						],
+						"url": {
+							"raw": "{{API_URI}}/cuisineTypes/3",
+							"host": [
+								"{{API_URI}}"
+							],
+							"path": [
+								"cuisineTypes",
+								"3"
+							]
+						}
+					},
+					"response": []
 				}
 			]
 		},
 		{
-			"name": "Auth",
+			"name": "Login/SignUp",
 			"item": [
-				{
-					"name": "User",
-					"item": [
-						{
-							"name": "GetUsers",
-							"request": {
-								"method": "GET",
-								"header": [
-									{
-										"key": "Content-Type",
-										"value": "application/json",
-										"type": "text"
-									}
-								],
-								"url": {
-									"raw": "{{API_URI}}/get?limit=5&offset=0",
-									"host": [
-										"{{API_URI}}"
-									],
-									"path": [
-										"get"
-									],
-									"query": [
-										{
-											"key": "limit",
-											"value": "5"
-										},
-										{
-											"key": "offset",
-											"value": "0"
-										}
-									]
-								}
-							},
-							"response": []
-						},
-						{
-							"name": "GetUserById",
-							"request": {
-								"method": "POST",
-								"header": [
-									{
-										"key": "Content-Type",
-										"value": "application/json",
-										"type": "text"
-									}
-								],
-								"url": {
-									"raw": "{{API_URI}}/get/19",
-									"host": [
-										"{{API_URI}}"
-									],
-									"path": [
-										"get",
-										"19"
-									]
-								}
-							},
-							"response": []
-						},
-						{
-							"name": "CreateUser",
-							"request": {
-								"method": "POST",
-								"header": [
-									{
-										"key": "Content-Type",
-										"value": "application/json",
-										"type": "text"
-									}
-								],
-								"body": {
-									"mode": "raw",
-									"raw": "{\r\n    \"name\": \"uswexeer\",\r\n    \"surnames\": \"usfceaxer\",\r\n    \"userName\": \"uscfxeefer\",\r\n    \"email\": \"user@gmawxrwrwil.com\",\r\n    \"password\": \"1234\",\r\n    \"isEnabled\": true,\r\n    \"roles\": null\r\n}"
-								},
-								"url": {
-									"raw": "{{API_URI}}/post",
-									"host": [
-										"{{API_URI}}"
-									],
-									"path": [
-										"post"
-									]
-								}
-							},
-							"response": []
-						},
-						{
-							"name": "UpdateUser",
-							"request": {
-								"method": "PUT",
-								"header": [
-									{
-										"key": "Content-Type",
-										"value": "application/json",
-										"type": "text"
-									}
-								],
-								"body": {
-									"mode": "raw",
-									"raw": "{\r\n    \"name\": \"txxxxx\",\r\n    \"surnames\": \"xxxxx\",\r\n    \"userName\": \"axxxx\",\r\n    \"email\": \"xxxb\",\r\n    \"password\": \"exxxxr\",\r\n    \"isEnabled\": true\r\n}"
-								},
-								"url": {
-									"raw": "{{API_URI}}/put",
-									"host": [
-										"{{API_URI}}"
-									],
-									"path": [
-										"put"
-									]
-								}
-							},
-							"response": []
-						},
-						{
-							"name": "DeleteUserById",
-							"request": {
-								"method": "POST",
-								"header": [
-									{
-										"key": "Content-Type",
-										"value": "application/json",
-										"type": "text"
-									}
-								],
-								"body": {
-									"mode": "raw",
-									"raw": "{\r\n    \"id\": 19\r\n}"
-								},
-								"url": {
-									"raw": "{{API_URI}}/delete/19",
-									"host": [
-										"{{API_URI}}"
-									],
-									"path": [
-										"delete",
-										"19"
-									]
-								}
-							},
-							"response": []
-						},
-						{
-							"name": "UserImage",
-							"request": {
-								"method": "PUT",
-								"header": [
-									{
-										"key": "Content-Type",
-										"value": "application/json",
-										"type": "text"
-									}
-								],
-								"body": {
-									"mode": "raw",
-									"raw": "{\r\n    \"id\":1,\r\n    \"image\":\"holauqetal\"\r\n}",
-									"options": {
-										"raw": {
-											"language": "json"
-										}
-									}
-								},
-								"url": {
-									"raw": "{{API_URI}}/user/image",
-									"host": [
-										"{{API_URI}}"
-									],
-									"path": [
-										"user",
-										"image"
-									]
-								}
-							},
-							"response": []
-						}
-					]
-				},
 				{
 					"name": "SignUp",
 					"request": {
@@ -462,7 +275,7 @@
 						"header": [],
 						"body": {
 							"mode": "raw",
-							"raw": "{\r\n    \"name\": \"txaber\",\r\n    \"surnames\": \"txaber\",\r\n    \"userName\": \"txaber\",\r\n    \"email\": \"txaber.olabesa@elorrieta-errekamari.com\",\r\n    \"password\": \"12345\"\r\n}",
+							"raw": "{\r\n    \"name\": \"David\",\r\n    \"surnames\": \"Pereiro Amez\",\r\n    \"userName\": \"Deivid1\",\r\n    \"email\": \"david@davidofff.com\",\r\n    \"password\": \"12345\"\r\n}",
 							"options": {
 								"raw": {
 									"language": "json"
@@ -495,7 +308,7 @@
 						],
 						"body": {
 							"mode": "raw",
-							"raw": "{\r\n    \"email\": \"david@gemail.com\",\r\n    \"password\": \"12345\"\r\n}"
+							"raw": "{\r\n    \"email\": \"david@davidofff.com\",\r\n    \"password\": \"12345\"\r\n}"
 						},
 						"url": {
 							"raw": "{{API_URI}}/auth/login",
@@ -509,149 +322,6 @@
 						}
 					},
 					"response": []
-				},
-				{
-					"name": "Login (no token)",
-					"request": {
-						"method": "POST",
-						"header": [
-							{
-								"key": "Content-Type",
-								"value": "application/json",
-								"type": "text"
-							}
-						],
-						"body": {
-							"mode": "raw",
-							"raw": "{\r\n    \"email\": \"david@gemail.com\",\r\n    \"password\": \"12345\"\r\n}"
-						},
-						"url": {
-							"raw": "{{API_URI}}/loginnotoken",
-							"host": [
-								"{{API_URI}}"
-							],
-							"path": [
-								"loginnotoken"
-							]
-						}
-					},
-					"response": []
-				},
-				{
-					"name": "Forgot password",
-					"request": {
-						"method": "POST",
-						"header": [
-							{
-								"key": "Content-Type",
-								"value": "text/plain",
-								"type": "text"
-							}
-						],
-						"body": {
-							"mode": "raw",
-							"raw": "estibalizmares@gmail.com",
-							"options": {
-								"raw": {
-									"language": "text"
-								}
-							}
-						},
-						"url": {
-							"raw": "{{API_URI}}/forgotpassword",
-							"host": [
-								"{{API_URI}}"
-							],
-							"path": [
-								"forgotpassword"
-							]
-						}
-					},
-					"response": []
-				},
-				{
-					"name": "Change password (no token)",
-					"request": {
-						"method": "POST",
-						"header": [
-							{
-								"key": "Content-Type",
-								"value": "application/json",
-								"type": "text"
-							}
-						],
-						"body": {
-							"mode": "raw",
-							"raw": "{\r\n    \"email\": \"fabiana@gmail.com\",\r\n    \"oldPassword\": \"67890\",\r\n    \"newPassword\": \"12345\"\r\n}"
-						},
-						"url": {
-							"raw": "http://localhost:8082/api/changepasswordnotoken",
-							"protocol": "http",
-							"host": [
-								"localhost"
-							],
-							"port": "8082",
-							"path": [
-								"api",
-								"changepasswordnotoken"
-							]
-						}
-					},
-					"response": []
-				},
-				{
-					"name": "Encrypt email",
-					"request": {
-						"method": "POST",
-						"header": [
-							{
-								"key": "Content-Type",
-								"value": "application/json",
-								"type": "text"
-							}
-						],
-						"body": {
-							"mode": "raw",
-							"raw": "{\r\n    \"clave\": \"Clave\",\r\n    \"mensaje\": \"justpoteito@gmail.com\"\r\n}"
-						},
-						"url": {
-							"raw": "{{API_URI}}/encryptemail",
-							"host": [
-								"{{API_URI}}"
-							],
-							"path": [
-								"encryptemail"
-							]
-						}
-					},
-					"response": []
-				},
-				{
-					"name": "Encrypt password",
-					"request": {
-						"method": "POST",
-						"header": [
-							{
-								"key": "Content-Type",
-								"value": "application/json",
-								"type": "text"
-							}
-						],
-						"body": {
-							"mode": "raw",
-							"raw": "{\r\n    \"clave\": \"Clave\",\r\n    \"mensaje\": \"hpcswvbxfifqsvhs\"\r\n}"
-						},
-						"url": {
-							"raw": "{{API_URI}}/encryptpassword",
-							"host": [
-								"{{API_URI}}"
-							],
-							"path": [
-								"encryptpassword"
-							]
-						}
-					},
-					"response": []
 				}
 			]
 		},
@@ -659,170 +329,145 @@
 			"name": "Cook",
 			"item": [
 				{
-					"name": "Token",
-					"item": [
-						{
-							"name": "GetCooks",
-							"request": {
-								"auth": {
-									"type": "bearer",
-									"bearer": [
-										{
-											"key": "token",
-											"value": "eyJhbGciOiJIUzUxMiJ9.eyJzdWIiOiJkYXZpZEBnZW1haWwuY29tIiwiaXNzIjoiQURUREFNIiwiaWF0IjoxNjc1NDUzNTQ2LCJleHAiOjE2NzU1Mzk5NDYsInVzZXJJZCI6NCwicm9sZXMiOlt7ImlkIjoyLCJuYW1lIjoiVVNFUiJ9XX0.FG4Ol8RC-kNz2spVQelpHD0whwv585Xy9Cmy_bNSMa_Tmfg53yPX2HoBb16JZO4I58QkripbrO54PEAbsNCgsg",
-											"type": "string"
-										}
-									]
-								},
-								"method": "GET",
-								"header": [
-									{
-										"key": "Authorization",
-										"value": "Bearer eyJhbGciOiJIUzUxMiJ9.eyJzdWIiOiJkYXZpZEBkYXZpZG9mZmYuY29tIiwiaXNzIjoiQURUREFNIiwiaWF0IjoxNjczMjc1NTQ4LCJleHAiOjE2NzMzNjE5NDgsInVzZXJJZCI6MSwicm9sZXMiOlt7ImlkIjoxLCJuYW1lIjoiQURNSU4ifV19.BxQ40lOpu96KqJKWFNCaWE8lK_-V9i2IzeZ_nccwtGvc9B7imNLEtW6pczZEm0jvYc6ChEmxm40pWCRC70pr6Q",
-										"type": "text"
-									}
-								],
-								"url": {
-									"raw": "{{API_URI}}/cooks",
-									"host": [
-										"{{API_URI}}"
-									],
-									"path": [
-										"cooks"
-									]
-								}
-							},
-							"response": []
-						},
-						{
-							"name": "GetCookById",
-							"request": {
-								"method": "GET",
-								"header": [
-									{
-										"key": "Authorization",
-										"value": "Bearer eyJhbGciOiJIUzUxMiJ9.eyJzdWIiOiJkYXZpZEBkYXZpZG9mZmYuY29tIiwiaXNzIjoiQURUREFNIiwiaWF0IjoxNjczMjc1NTQ4LCJleHAiOjE2NzMzNjE5NDgsInVzZXJJZCI6MSwicm9sZXMiOlt7ImlkIjoxLCJuYW1lIjoiQURNSU4ifV19.BxQ40lOpu96KqJKWFNCaWE8lK_-V9i2IzeZ_nccwtGvc9B7imNLEtW6pczZEm0jvYc6ChEmxm40pWCRC70pr6Q",
-										"type": "text"
-									}
-								],
-								"url": {
-									"raw": "{{API_URI}}/cooks/1",
-									"host": [
-										"{{API_URI}}"
-									],
-									"path": [
-										"cooks",
-										"1"
-									]
-								}
-							},
-							"response": []
-						},
-						{
-							"name": "CreateCook",
-							"request": {
-								"method": "POST",
-								"header": [
-									{
-										"key": "Authorization",
-										"value": "Bearer eyJhbGciOiJIUzUxMiJ9.eyJzdWIiOiJkYXZpZEBkYXZpZG9mZmYuY29tIiwiaXNzIjoiQURUREFNIiwiaWF0IjoxNjczMjc1NTQ4LCJleHAiOjE2NzMzNjE5NDgsInVzZXJJZCI6MSwicm9sZXMiOlt7ImlkIjoxLCJuYW1lIjoiQURNSU4ifV19.BxQ40lOpu96KqJKWFNCaWE8lK_-V9i2IzeZ_nccwtGvc9B7imNLEtW6pczZEm0jvYc6ChEmxm40pWCRC70pr6Q",
-										"type": "text"
-									},
-									{
-										"key": "Content-Type",
-										"value": "application/json",
-										"type": "text"
-									}
-								],
-								"body": {
-									"mode": "raw",
-									"raw": "{\r\n    \"name\": \"Pablo\",\r\n    \"last_names\": \"Escobar\",\r\n    \"nationality\": \"Colombia\",\r\n    \"born_date\": \"1990-04-12\",\r\n    \"michelin_stars\": 0\r\n}",
-									"options": {
-										"raw": {
-											"language": "json"
-										}
-									}
-								},
-								"url": {
-									"raw": "{{API_URI}}/cooks",
-									"host": [
-										"{{API_URI}}"
-									],
-									"path": [
-										"cooks"
-									]
-								}
-							},
-							"response": []
-						},
-						{
-							"name": "UpdateCook",
-							"request": {
-								"method": "PUT",
-								"header": [
-									{
-										"key": "Content-Type",
-										"value": "application/json",
-										"type": "text"
-									},
-									{
-										"key": "Authorization",
-										"value": "Bearer eyJhbGciOiJIUzUxMiJ9.eyJzdWIiOiJkYXZpZEBkYXZpZG9mZmYuY29tIiwiaXNzIjoiQURUREFNIiwiaWF0IjoxNjczMjc1NTQ4LCJleHAiOjE2NzMzNjE5NDgsInVzZXJJZCI6MSwicm9sZXMiOlt7ImlkIjoxLCJuYW1lIjoiQURNSU4ifV19.BxQ40lOpu96KqJKWFNCaWE8lK_-V9i2IzeZ_nccwtGvc9B7imNLEtW6pczZEm0jvYc6ChEmxm40pWCRC70pr6Q",
-										"type": "text"
-									}
-								],
-								"body": {
-									"mode": "raw",
-									"raw": "{\r\n    \"name\": \"David\",\r\n    \"last_names\": \"Perez\",\r\n    \"nationality\": \"Bilbaíno\",\r\n    \"born_date\": \"2000-01-02\",\r\n    \"michelin_stars\": 17\r\n}"
-								},
-								"url": {
-									"raw": "{{API_URI}}/cooks/8",
-									"host": [
-										"{{API_URI}}"
-									],
-									"path": [
-										"cooks",
-										"8"
-									]
-								}
-							},
-							"response": []
-						},
-						{
-							"name": "DeleteCook",
-							"request": {
-								"auth": {
-									"type": "bearer",
-									"bearer": [
-										{
-											"key": "token",
-											"value": "eyJhbGciOiJIUzUxMiJ9.eyJzdWIiOiJkYXZpZEBnZW1haWwuY29tIiwiaXNzIjoiQURUREFNIiwiaWF0IjoxNjc1NDUzNTQ2LCJleHAiOjE2NzU1Mzk5NDYsInVzZXJJZCI6NCwicm9sZXMiOlt7ImlkIjoyLCJuYW1lIjoiVVNFUiJ9XX0.FG4Ol8RC-kNz2spVQelpHD0whwv585Xy9Cmy_bNSMa_Tmfg53yPX2HoBb16JZO4I58QkripbrO54PEAbsNCgsg",
-											"type": "string"
-										}
-									]
-								},
-								"method": "DELETE",
-								"header": [
-									{
-										"key": "Authorization",
-										"value": "Bearer eyJhbGciOiJIUzUxMiJ9.eyJzdWIiOiJkYXZpZEBkYXZpZG9mZmYuY29tIiwiaXNzIjoiQURUREFNIiwiaWF0IjoxNjczMjc1NTQ4LCJleHAiOjE2NzMzNjE5NDgsInVzZXJJZCI6MSwicm9sZXMiOlt7ImlkIjoxLCJuYW1lIjoiQURNSU4ifV19.BxQ40lOpu96KqJKWFNCaWE8lK_-V9i2IzeZ_nccwtGvc9B7imNLEtW6pczZEm0jvYc6ChEmxm40pWCRC70pr6Q",
-										"type": "text"
-									}
-								],
-								"url": {
-									"raw": "{{API_URI}}/cooks/4",
-									"host": [
-										"{{API_URI}}"
-									],
-									"path": [
-										"cooks",
-										"4"
-									]
-								}
-							},
-							"response": []
+					"name": "GetAll",
+					"request": {
+						"method": "GET",
+						"header": [
+							{
+								"key": "Authorization",
+								"value": "Bearer eyJhbGciOiJIUzUxMiJ9.eyJzdWIiOiJkYXZpZEBkYXZpZG9mZmYuY29tIiwiaXNzIjoiQURUREFNIiwiaWF0IjoxNjczMjc1NTQ4LCJleHAiOjE2NzMzNjE5NDgsInVzZXJJZCI6MSwicm9sZXMiOlt7ImlkIjoxLCJuYW1lIjoiQURNSU4ifV19.BxQ40lOpu96KqJKWFNCaWE8lK_-V9i2IzeZ_nccwtGvc9B7imNLEtW6pczZEm0jvYc6ChEmxm40pWCRC70pr6Q",
+								"type": "text"
+							}
+						],
+						"url": {
+							"raw": "{{API_URI}}/cooks",
+							"host": [
+								"{{API_URI}}"
+							],
+							"path": [
+								"cooks"
+							]
 						}
-					]
+					},
+					"response": []
+				},
+				{
+					"name": "GetCookById",
+					"request": {
+						"method": "GET",
+						"header": [
+							{
+								"key": "Authorization",
+								"value": "Bearer eyJhbGciOiJIUzUxMiJ9.eyJzdWIiOiJkYXZpZEBkYXZpZG9mZmYuY29tIiwiaXNzIjoiQURUREFNIiwiaWF0IjoxNjczMjc1NTQ4LCJleHAiOjE2NzMzNjE5NDgsInVzZXJJZCI6MSwicm9sZXMiOlt7ImlkIjoxLCJuYW1lIjoiQURNSU4ifV19.BxQ40lOpu96KqJKWFNCaWE8lK_-V9i2IzeZ_nccwtGvc9B7imNLEtW6pczZEm0jvYc6ChEmxm40pWCRC70pr6Q",
+								"type": "text"
+							}
+						],
+						"url": {
+							"raw": "{{API_URI}}/cooks/3",
+							"host": [
+								"{{API_URI}}"
+							],
+							"path": [
+								"cooks",
+								"3"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "CreateCook",
+					"request": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "Authorization",
+								"value": "Bearer eyJhbGciOiJIUzUxMiJ9.eyJzdWIiOiJkYXZpZEBkYXZpZG9mZmYuY29tIiwiaXNzIjoiQURUREFNIiwiaWF0IjoxNjczMjc1NTQ4LCJleHAiOjE2NzMzNjE5NDgsInVzZXJJZCI6MSwicm9sZXMiOlt7ImlkIjoxLCJuYW1lIjoiQURNSU4ifV19.BxQ40lOpu96KqJKWFNCaWE8lK_-V9i2IzeZ_nccwtGvc9B7imNLEtW6pczZEm0jvYc6ChEmxm40pWCRC70pr6Q",
+								"type": "text"
+							},
+							{
+								"key": "Content-Type",
+								"value": "application/json",
+								"type": "text"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"name\": \"Pablo\",\r\n    \"last_names\": \"Escobar\",\r\n    \"nationality\": \"Colombia\",\r\n    \"born_date\": \"1990-04-12\",\r\n    \"michelin_stars\": 0\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{API_URI}}/cooks",
+							"host": [
+								"{{API_URI}}"
+							],
+							"path": [
+								"cooks"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "UpdateCook",
+					"request": {
+						"method": "PUT",
+						"header": [
+							{
+								"key": "Content-Type",
+								"value": "application/json",
+								"type": "text"
+							},
+							{
+								"key": "Authorization",
+								"value": "Bearer eyJhbGciOiJIUzUxMiJ9.eyJzdWIiOiJkYXZpZEBkYXZpZG9mZmYuY29tIiwiaXNzIjoiQURUREFNIiwiaWF0IjoxNjczMjc1NTQ4LCJleHAiOjE2NzMzNjE5NDgsInVzZXJJZCI6MSwicm9sZXMiOlt7ImlkIjoxLCJuYW1lIjoiQURNSU4ifV19.BxQ40lOpu96KqJKWFNCaWE8lK_-V9i2IzeZ_nccwtGvc9B7imNLEtW6pczZEm0jvYc6ChEmxm40pWCRC70pr6Q",
+								"type": "text"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"name\": \"David\",\r\n    \"last_names\": \"Perez\",\r\n    \"nationality\": \"Bilbaíno\",\r\n    \"born_date\": \"2000-01-02\",\r\n    \"michelin_stars\": 17\r\n}"
+						},
+						"url": {
+							"raw": "{{API_URI}}/cooks/8",
+							"host": [
+								"{{API_URI}}"
+							],
+							"path": [
+								"cooks",
+								"8"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "DeleteCook",
+					"request": {
+						"method": "DELETE",
+						"header": [
+							{
+								"key": "Authorization",
+								"value": "Bearer eyJhbGciOiJIUzUxMiJ9.eyJzdWIiOiJkYXZpZEBkYXZpZG9mZmYuY29tIiwiaXNzIjoiQURUREFNIiwiaWF0IjoxNjczMjc1NTQ4LCJleHAiOjE2NzMzNjE5NDgsInVzZXJJZCI6MSwicm9sZXMiOlt7ImlkIjoxLCJuYW1lIjoiQURNSU4ifV19.BxQ40lOpu96KqJKWFNCaWE8lK_-V9i2IzeZ_nccwtGvc9B7imNLEtW6pczZEm0jvYc6ChEmxm40pWCRC70pr6Q",
+								"type": "text"
+							}
+						],
+						"url": {
+							"raw": "{{API_URI}}/cooks/5",
+							"host": [
+								"{{API_URI}}"
+							],
+							"path": [
+								"cooks",
+								"5"
+							]
+						}
+					},
+					"response": []
 				}
 			]
 		},
@@ -830,201 +475,141 @@
 			"name": "Ingredient",
 			"item": [
 				{
-					"name": "Token",
-					"item": [
-						{
-							"name": "GetAll",
-							"request": {
-								"method": "GET",
-								"header": [
-									{
-										"key": "Authorization",
-										"value": "Bearer eyJhbGciOiJIUzUxMiJ9.eyJzdWIiOiJkYXZpZEBkYXZpZG9mZmYuY29tIiwiaXNzIjoiQURUREFNIiwiaWF0IjoxNjczMjc3MjkxLCJleHAiOjE2NzMzNjM2OTEsInVzZXJJZCI6MSwicm9sZXMiOlt7ImlkIjoxLCJuYW1lIjoiQURNSU4ifV19.0tKJdgKiNq5KMpgKZPX3oYIHlf-X2wNjM5MgOZrjbZDyTLtbJI_qlKGOB4JWiKeq77ni7wAuuyta44C73eZ0DA",
-										"type": "text"
-									}
-								],
-								"url": {
-									"raw": "{{API_URI}}/ingredients",
-									"host": [
-										"{{API_URI}}"
-									],
-									"path": [
-										"ingredients"
-									]
-								}
-							},
-							"response": []
-						},
-						{
-							"name": "GetIngredientById",
-							"request": {
-								"method": "GET",
-								"header": [
-									{
-										"key": "Authorization",
-										"value": "Bearer eyJhbGciOiJIUzUxMiJ9.eyJzdWIiOiJkYXZpZEBkYXZpZG9mZmYuY29tIiwiaXNzIjoiQURUREFNIiwiaWF0IjoxNjczMjc1NTQ4LCJleHAiOjE2NzMzNjE5NDgsInVzZXJJZCI6MSwicm9sZXMiOlt7ImlkIjoxLCJuYW1lIjoiQURNSU4ifV19.BxQ40lOpu96KqJKWFNCaWE8lK_-V9i2IzeZ_nccwtGvc9B7imNLEtW6pczZEm0jvYc6ChEmxm40pWCRC70pr6Q",
-										"type": "text"
-									}
-								],
-								"url": {
-									"raw": "{{API_URI}}/ingredients/1",
-									"host": [
-										"{{API_URI}}"
-									],
-									"path": [
-										"ingredients",
-										"1"
-									]
-								}
-							},
-							"response": []
-						},
-						{
-							"name": "CreateIngredient",
-							"request": {
-								"method": "POST",
-								"header": [
-									{
-										"key": "Authorization",
-										"value": "Bearer eyJhbGciOiJIUzUxMiJ9.eyJzdWIiOiJkYXZpZEBkYXZpZG9mZmYuY29tIiwiaXNzIjoiQURUREFNIiwiaWF0IjoxNjczMjc3MjkxLCJleHAiOjE2NzMzNjM2OTEsInVzZXJJZCI6MSwicm9sZXMiOlt7ImlkIjoxLCJuYW1lIjoiQURNSU4ifV19.0tKJdgKiNq5KMpgKZPX3oYIHlf-X2wNjM5MgOZrjbZDyTLtbJI_qlKGOB4JWiKeq77ni7wAuuyta44C73eZ0DA",
-										"type": "text"
-									},
-									{
-										"key": "Content-Type",
-										"value": "application/json",
-										"type": "text"
-									}
-								],
-								"body": {
-									"mode": "raw",
-									"raw": "{\r\n    \"name\": \"Beans\",\r\n    \"type\": \"Legume\"\r\n}",
-									"options": {
-										"raw": {
-											"language": "json"
-										}
-									}
-								},
-								"url": {
-									"raw": "{{API_URI}}/ingredients",
-									"host": [
-										"{{API_URI}}"
-									],
-									"path": [
-										"ingredients"
-									]
-								}
-							},
-							"response": []
-						},
-						{
-							"name": "UpdateIngredient",
-							"request": {
-								"method": "PUT",
-								"header": [
-									{
-										"key": "Content-Type",
-										"value": "application/json",
-										"type": "text"
-									},
-									{
-										"key": "Authorization",
-										"value": "Bearer eyJhbGciOiJIUzUxMiJ9.eyJzdWIiOiJkYXZpZEBkYXZpZG9mZmYuY29tIiwiaXNzIjoiQURUREFNIiwiaWF0IjoxNjczMjc3MjkxLCJleHAiOjE2NzMzNjM2OTEsInVzZXJJZCI6MSwicm9sZXMiOlt7ImlkIjoxLCJuYW1lIjoiQURNSU4ifV19.0tKJdgKiNq5KMpgKZPX3oYIHlf-X2wNjM5MgOZrjbZDyTLtbJI_qlKGOB4JWiKeq77ni7wAuuyta44C73eZ0DA",
-										"type": "text"
-									}
-								],
-								"body": {
-									"mode": "raw",
-									"raw": "{\r\n    \"name\": \"Lentils\",\r\n    \"type\": \"Legume\"\r\n}"
-								},
-								"url": {
-									"raw": "{{API_URI}}/ingredients/3",
-									"host": [
-										"{{API_URI}}"
-									],
-									"path": [
-										"ingredients",
-										"3"
-									]
-								}
-							},
-							"response": []
-						},
-						{
-							"name": "DeleteIngredient",
-							"request": {
-								"method": "DELETE",
-								"header": [
-									{
-										"key": "Authorization",
-										"value": "Bearer eyJhbGciOiJIUzUxMiJ9.eyJzdWIiOiJkYXZpZEBkYXZpZG9mZmYuY29tIiwiaXNzIjoiQURUREFNIiwiaWF0IjoxNjczMjc3MjkxLCJleHAiOjE2NzMzNjM2OTEsInVzZXJJZCI6MSwicm9sZXMiOlt7ImlkIjoxLCJuYW1lIjoiQURNSU4ifV19.0tKJdgKiNq5KMpgKZPX3oYIHlf-X2wNjM5MgOZrjbZDyTLtbJI_qlKGOB4JWiKeq77ni7wAuuyta44C73eZ0DA",
-										"type": "text"
-									}
-								],
-								"url": {
-									"raw": "{{API_URI}}/ingredients/5",
-									"host": [
-										"{{API_URI}}"
-									],
-									"path": [
-										"ingredients",
-										"5"
-									]
-								}
-							},
-							"response": []
-						}
-					]
-				}
-			]
-		},
-		{
-			"name": "Ingredient_dish",
-			"item": [
-				{
-					"name": "GetAllIngredients_dish",
+					"name": "GetAll",
 					"request": {
 						"method": "GET",
 						"header": [
 							{
 								"key": "Authorization",
 								"value": "Bearer eyJhbGciOiJIUzUxMiJ9.eyJzdWIiOiJkYXZpZEBkYXZpZG9mZmYuY29tIiwiaXNzIjoiQURUREFNIiwiaWF0IjoxNjczMjc3MjkxLCJleHAiOjE2NzMzNjM2OTEsInVzZXJJZCI6MSwicm9sZXMiOlt7ImlkIjoxLCJuYW1lIjoiQURNSU4ifV19.0tKJdgKiNq5KMpgKZPX3oYIHlf-X2wNjM5MgOZrjbZDyTLtbJI_qlKGOB4JWiKeq77ni7wAuuyta44C73eZ0DA",
-								"type": "text",
-								"disabled": true
+								"type": "text"
 							}
 						],
 						"url": {
-							"raw": "{{API_URI}}/notoken/ingredients_dishes",
+							"raw": "{{API_URI}}/ingredients",
 							"host": [
 								"{{API_URI}}"
 							],
 							"path": [
-								"notoken",
-								"ingredients_dishes"
+								"ingredients"
 							]
 						}
 					},
 					"response": []
 				},
 				{
-					"name": "GetAll by ingredient",
+					"name": "GetIngredientById",
 					"request": {
 						"method": "GET",
 						"header": [
 							{
 								"key": "Authorization",
-								"value": "Bearer eyJhbGciOiJIUzUxMiJ9.eyJzdWIiOiJkYXZpZEBkYXZpZG9mZmYuY29tIiwiaXNzIjoiQURUREFNIiwiaWF0IjoxNjczMjc3MjkxLCJleHAiOjE2NzMzNjM2OTEsInVzZXJJZCI6MSwicm9sZXMiOlt7ImlkIjoxLCJuYW1lIjoiQURNSU4ifV19.0tKJdgKiNq5KMpgKZPX3oYIHlf-X2wNjM5MgOZrjbZDyTLtbJI_qlKGOB4JWiKeq77ni7wAuuyta44C73eZ0DA",
-								"type": "text",
-								"disabled": true
+								"value": "Bearer eyJhbGciOiJIUzUxMiJ9.eyJzdWIiOiJkYXZpZEBkYXZpZG9mZmYuY29tIiwiaXNzIjoiQURUREFNIiwiaWF0IjoxNjczMjc1NTQ4LCJleHAiOjE2NzMzNjE5NDgsInVzZXJJZCI6MSwicm9sZXMiOlt7ImlkIjoxLCJuYW1lIjoiQURNSU4ifV19.BxQ40lOpu96KqJKWFNCaWE8lK_-V9i2IzeZ_nccwtGvc9B7imNLEtW6pczZEm0jvYc6ChEmxm40pWCRC70pr6Q",
+								"type": "text"
 							}
 						],
 						"url": {
-							"raw": "{{API_URI}}/notoken/getAllDishesByIngredient",
+							"raw": "{{API_URI}}/ingredients/3",
 							"host": [
 								"{{API_URI}}"
 							],
 							"path": [
-								"notoken",
-								"getAllDishesByIngredient"
+								"ingredients",
+								"3"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "CreateIngredient",
+					"request": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "Authorization",
+								"value": "Bearer eyJhbGciOiJIUzUxMiJ9.eyJzdWIiOiJkYXZpZEBkYXZpZG9mZmYuY29tIiwiaXNzIjoiQURUREFNIiwiaWF0IjoxNjczMjc3MjkxLCJleHAiOjE2NzMzNjM2OTEsInVzZXJJZCI6MSwicm9sZXMiOlt7ImlkIjoxLCJuYW1lIjoiQURNSU4ifV19.0tKJdgKiNq5KMpgKZPX3oYIHlf-X2wNjM5MgOZrjbZDyTLtbJI_qlKGOB4JWiKeq77ni7wAuuyta44C73eZ0DA",
+								"type": "text"
+							},
+							{
+								"key": "Content-Type",
+								"value": "application/json",
+								"type": "text"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"name\": \"Beans\",\r\n    \"type\": \"Legume\"\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{API_URI}}/ingredients",
+							"host": [
+								"{{API_URI}}"
+							],
+							"path": [
+								"ingredients"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "UpdateIngredient",
+					"request": {
+						"method": "PUT",
+						"header": [
+							{
+								"key": "Content-Type",
+								"value": "application/json",
+								"type": "text"
+							},
+							{
+								"key": "Authorization",
+								"value": "Bearer eyJhbGciOiJIUzUxMiJ9.eyJzdWIiOiJkYXZpZEBkYXZpZG9mZmYuY29tIiwiaXNzIjoiQURUREFNIiwiaWF0IjoxNjczMjc3MjkxLCJleHAiOjE2NzMzNjM2OTEsInVzZXJJZCI6MSwicm9sZXMiOlt7ImlkIjoxLCJuYW1lIjoiQURNSU4ifV19.0tKJdgKiNq5KMpgKZPX3oYIHlf-X2wNjM5MgOZrjbZDyTLtbJI_qlKGOB4JWiKeq77ni7wAuuyta44C73eZ0DA",
+								"type": "text"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"name\": \"Lentils\",\r\n    \"type\": \"Legume\"\r\n}"
+						},
+						"url": {
+							"raw": "{{API_URI}}/ingredients/3",
+							"host": [
+								"{{API_URI}}"
+							],
+							"path": [
+								"ingredients",
+								"3"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "DeleteIngredient",
+					"request": {
+						"method": "DELETE",
+						"header": [
+							{
+								"key": "Authorization",
+								"value": "Bearer eyJhbGciOiJIUzUxMiJ9.eyJzdWIiOiJkYXZpZEBkYXZpZG9mZmYuY29tIiwiaXNzIjoiQURUREFNIiwiaWF0IjoxNjczMjc3MjkxLCJleHAiOjE2NzMzNjM2OTEsInVzZXJJZCI6MSwicm9sZXMiOlt7ImlkIjoxLCJuYW1lIjoiQURNSU4ifV19.0tKJdgKiNq5KMpgKZPX3oYIHlf-X2wNjM5MgOZrjbZDyTLtbJI_qlKGOB4JWiKeq77ni7wAuuyta44C73eZ0DA",
+								"type": "text"
+							}
+						],
+						"url": {
+							"raw": "{{API_URI}}/ingredients/5",
+							"host": [
+								"{{API_URI}}"
+							],
+							"path": [
+								"ingredients",
+								"5"
 							]
 						}
 					},

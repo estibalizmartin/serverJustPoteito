@@ -222,7 +222,6 @@ public class AuthController {
         }
 
     }
-
     @GetMapping("/user/image")
     public ResponseEntity<UserServiceModel> getUserImage(@PathVariable("id") Integer id) {
         return new ResponseEntity<>(userService.getUserImage(id), HttpStatus.OK);

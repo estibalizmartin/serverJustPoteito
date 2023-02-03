@@ -21,11 +21,6 @@ public class CookController {
         return new ResponseEntity<>(cookService.getCooks(), HttpStatus.OK);
     }
 
-    @GetMapping("/cooks/{id}")
-    public ResponseEntity<CookServiceModel> getCookById(@PathVariable("id") Integer id) {
-        return new ResponseEntity<>(cookService.getCookById(id), HttpStatus.OK);
-    }
-
     @PostMapping("/cooks")
     public ResponseEntity<CookServiceModel> createCook(@RequestBody CookPostRequest cookPostRequest) {
         return new ResponseEntity<>(cookService.createCook(cookPostRequest), HttpStatus.CREATED);
@@ -55,7 +50,7 @@ public class CookController {
     }
 
     @GetMapping("/cooksNoToken/{id}")
-    public ResponseEntity<CookServiceModel> getCookByIdNoToken(@PathVariable("id") Integer id) {
+    public ResponseEntity<CookServiceModel> getCookById(@PathVariable("id") Integer id) {
         return new ResponseEntity<>(cookService.getCookById(id), HttpStatus.OK);
     }
 }
