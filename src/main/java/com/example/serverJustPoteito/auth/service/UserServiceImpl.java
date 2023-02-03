@@ -25,6 +25,7 @@ import org.springframework.stereotype.Service;
 import org.springframework.web.server.ResponseStatusException;
 
 import java.io.*;
+import java.sql.SQLIntegrityConstraintViolationException;
 import java.util.*;
 
 @Service("userDetailsService")
@@ -362,9 +363,41 @@ public class UserServiceImpl implements UserService, UserDetailsService {
                 .orElseThrow(
                         () -> new UsernameNotFoundException("User " + username + " not found."));
     }
+    
     public void base64decoder(String base64String, int id){
         System.out.println("DDDDDDDDDDDDD "+base64String);
         //String[] strings = base64String.split(",");
+
+    @Override
+    public UserServiceModel updateUserImage(UserPostRequest userPostRequest) {
+        User user = new User(
+                userPostRequest.getId(),
+                "./src/main/resources/images/users/" + userPostRequest.getId() + ".png"
+        );
+
+        //user = userRepository.save(user);
+
+        UserServiceModel response = new UserServiceModel(
+                user.getId(),
+                user.getName(),
+                user.getSurnames(),
+                user.getUserName(),
+                user.getEmail(),
+                user.getPassword(),
+                user.isEnabled(),
+                user.getRoles()
+        );
+
+        base64decoder(userPostRequest.getImage(), userPostRequest.getId());
+        return response;
+    }
+
+    @Override
+    public UserServiceModel getUserImage(Integer id) {
+        return null;
+    }
+
+    public void base64decoder(String base64String, int id){
         String extCode = base64String.substring(0, 1);
         String extension;
         switch (extCode) {//check image's extension
@@ -395,6 +428,7 @@ public class UserServiceImpl implements UserService, UserDetailsService {
             e.printStackTrace();
         }
     }
+
     @Override
     public UserServiceModel getUserImage(Integer id) {
         User user = userRepository.findById(id).orElseThrow(
