@@ -88,6 +88,7 @@ public class WebSecurityConfig {
 								.requestMatchers("/api/changepasswordnotoken").permitAll()
 								.requestMatchers("/api/encryptemail").permitAll()
 								.requestMatchers("/api/encryptpassword").permitAll()
+								.requestMatchers("/api/user/image").permitAll()
 								.anyRequest().authenticated()
 		);
 		http.exceptionHandling().accessDeniedHandler(new CustomAccesDeniedHandler());

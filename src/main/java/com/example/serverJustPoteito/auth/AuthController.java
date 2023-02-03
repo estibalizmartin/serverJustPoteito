@@ -52,6 +52,7 @@ public class AuthController {
         }
     }
 
+
     @PostMapping("/auth/signup")
     public ResponseEntity<?> signUp(@RequestBody AuthRequest request) {
         // TODO solo esta creado en el caso de que funcione. Si no es posible que de 500
@@ -166,5 +167,20 @@ public class AuthController {
         } else {
             return ResponseEntity.status(HttpStatus.ACCEPTED).body(passwordChanged);
         }
+    }
+
+    @PutMapping("/user/image")
+    public ResponseEntity<UserServiceModel> updateUserImage(
+            @RequestBody UserPostRequest userPostRequest) {
+        if (userService.isAlreadyExists(userPostRequest.getId())) {
+            return new ResponseEntity<>(userService.updateUserImage(userPostRequest), HttpStatus.OK);
+        } else {
+            return new ResponseEntity<>(userService.updateUserImage(userPostRequest), HttpStatus.BAD_REQUEST);
+        }
+
+    }
+    @GetMapping("/user/image")
+    public ResponseEntity<UserServiceModel> getUserImage(@PathVariable("id") Integer id) {
+        return new ResponseEntity<>(userService.getUserImage(id), HttpStatus.OK);
     }
 }
