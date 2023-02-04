@@ -1,9 +1,8 @@
 {
 	"info": {
-		"_postman_id": "6d5975bd-5b2c-4faf-978f-a37985d923da",
+		"_postman_id": "6970fead-8f55-4141-8d91-90bd37ac21fc",
 		"name": "JustPoteito",
-		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
-		"_exporter_id": "23304115"
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json"
 	},
 	"item": [
 		{
@@ -282,7 +281,7 @@
 					"name": "User",
 					"item": [
 						{
-							"name": "GetUsers",
+							"name": "GetUser",
 							"request": {
 								"method": "GET",
 								"header": [
@@ -293,46 +292,14 @@
 									}
 								],
 								"url": {
-									"raw": "{{API_URI}}/get?limit=5&offset=0",
+									"raw": "{{API_URI}}/auth/users/1",
 									"host": [
 										"{{API_URI}}"
 									],
 									"path": [
-										"get"
-									],
-									"query": [
-										{
-											"key": "limit",
-											"value": "5"
-										},
-										{
-											"key": "offset",
-											"value": "0"
-										}
-									]
-								}
-							},
-							"response": []
-						},
-						{
-							"name": "GetUserById",
-							"request": {
-								"method": "POST",
-								"header": [
-									{
-										"key": "Content-Type",
-										"value": "application/json",
-										"type": "text"
-									}
-								],
-								"url": {
-									"raw": "{{API_URI}}/get/19",
-									"host": [
-										"{{API_URI}}"
-									],
-									"path": [
-										"get",
-										"19"
+										"auth",
+										"users",
+										"1"
 									]
 								}
 							},
@@ -347,19 +314,25 @@
 										"key": "Content-Type",
 										"value": "application/json",
 										"type": "text"
+									},
+									{
+										"key": "Authorization",
+										"value": "Bearer eyJhbGciOiJIUzUxMiJ9.eyJzdWIiOiJkYXZpZEBnZW1haWwuY29tIiwiaXNzIjoiQURUREFNIiwiaWF0IjoxNjc1NTAxNjE4LCJleHAiOjE2NzU1ODgwMTgsInVzZXJJZCI6NCwicm9sZXMiOlt7ImlkIjoyLCJuYW1lIjoiVVNFUiJ9XX0.gTUACBaMeTwzsjzfSczgRNeSdmC2Knb9xFRa6uXJMG_mlZyrTDCGFbu-Mbb-C4EbWJvNyzHCCFRjSH6xzbrVZA",
+										"type": "default"
 									}
 								],
 								"body": {
 									"mode": "raw",
-									"raw": "{\r\n    \"name\": \"uswexeer\",\r\n    \"surnames\": \"usfceaxer\",\r\n    \"userName\": \"uscfxeefer\",\r\n    \"email\": \"user@gmawxrwrwil.com\",\r\n    \"password\": \"1234\",\r\n    \"isEnabled\": true,\r\n    \"roles\": null\r\n}"
+									"raw": "{\r\n    \"name\": \"uswexeer\",\r\n    \"surnames\": \"usfceaxer\",\r\n    \"userName\": \"uscfxeefer\",\r\n    \"email\": \"user@gmawxrwrwil.com\",\r\n    \"password\": \"1234\",\r\n    \"isEnabled\": true,\r\n    \"roles\": [{\"id\": 1, \"name\":\"ADMIN\"}]\r\n}"
 								},
 								"url": {
-									"raw": "{{API_URI}}/post",
+									"raw": "{{API_URI}}/admin/users",
 									"host": [
 										"{{API_URI}}"
 									],
 									"path": [
-										"post"
+										"admin",
+										"users"
 									]
 								}
 							},
@@ -374,19 +347,26 @@
 										"key": "Content-Type",
 										"value": "application/json",
 										"type": "text"
+									},
+									{
+										"key": "Authorization",
+										"value": "",
+										"type": "default"
 									}
 								],
 								"body": {
 									"mode": "raw",
-									"raw": "{\r\n    \"name\": \"txxxxx\",\r\n    \"surnames\": \"xxxxx\",\r\n    \"userName\": \"axxxx\",\r\n    \"email\": \"xxxb\",\r\n    \"password\": \"exxxxr\",\r\n    \"isEnabled\": true\r\n}"
+									"raw": "{\r\n    \"name\": \"Ander\",\r\n    \"surnames\": \"Díaz\",\r\n    \"userName\": \"Ander\",\r\n    \"email\": \"ander@gmail.com\",\r\n    \"password\": \"12345\",\r\n    \"isEnabled\": true,\r\n    \"roles\": [{\"id\": 1, \"name\":\"USER\"}]\r\n}"
 								},
 								"url": {
-									"raw": "{{API_URI}}/put",
+									"raw": "{{API_URI}}/admin/users/2",
 									"host": [
 										"{{API_URI}}"
 									],
 									"path": [
-										"put"
+										"admin",
+										"users",
+										"2"
 									]
 								}
 							},
@@ -395,12 +375,17 @@
 						{
 							"name": "DeleteUserById",
 							"request": {
-								"method": "POST",
+								"method": "DELETE",
 								"header": [
 									{
 										"key": "Content-Type",
 										"value": "application/json",
 										"type": "text"
+									},
+									{
+										"key": "Authorization",
+										"value": "Bearer eyJhbGciOiJIUzUxMiJ9.eyJzdWIiOiJkYXZpZEBnZW1haWwuY29tIiwiaXNzIjoiQURUREFNIiwiaWF0IjoxNjc1NTAxNjE4LCJleHAiOjE2NzU1ODgwMTgsInVzZXJJZCI6NCwicm9sZXMiOlt7ImlkIjoyLCJuYW1lIjoiVVNFUiJ9XX0.gTUACBaMeTwzsjzfSczgRNeSdmC2Knb9xFRa6uXJMG_mlZyrTDCGFbu-Mbb-C4EbWJvNyzHCCFRjSH6xzbrVZA",
+										"type": "default"
 									}
 								],
 								"body": {
@@ -408,13 +393,13 @@
 									"raw": "{\r\n    \"id\": 19\r\n}"
 								},
 								"url": {
-									"raw": "{{API_URI}}/delete/19",
+									"raw": "{{API_URI}}/users/4",
 									"host": [
 										"{{API_URI}}"
 									],
 									"path": [
-										"delete",
-										"19"
+										"users",
+										"4"
 									]
 								}
 							},
